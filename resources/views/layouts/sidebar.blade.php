@@ -11,8 +11,8 @@
           >
             <div class="app-sidebar-primary">
               <div class="app-sidebar-logo d-none d-md-flex flex-center pt-10 pb-2" id="kt_app_sidebar_logo">
-                <a href="index.html">
-                  <img alt="Logo" src="assets/media/logos/logo.png" class="h-40px" />
+                <a href="home">
+                  <img alt="Logo" src="{{ url('assets/media/logos/logo.png') }}" class="h-40px" />
                 </a>
               </div>
 

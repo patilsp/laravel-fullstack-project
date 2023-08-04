@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Laravel\Socialite\Facades\Socialite;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +29,14 @@ Route::resource('roles', 'RoleController');
 Route::get('roles.getall', 'RoleController@getall')->name('roles.getall');
 Route::get('roles.getdata', 'RoleController@getdata')->name('roles.getdata');
 Route::get('roles.delete', 'RoleController@destroy')->name('roles.delete');
+
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+});
+ 
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('github')->user();
+ 
+    // $user->token
+});

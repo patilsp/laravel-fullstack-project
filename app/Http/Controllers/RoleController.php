@@ -7,7 +7,7 @@ use App\Role;
 use Datatables;
 use DB;
 use Validator;
-use App\ProcessType;
+use DateTime;
 
 class RoleController extends Controller
 {
@@ -117,6 +117,7 @@ class RoleController extends Controller
     public function getall(Request $request) {
        $id = $request->input('id');
        $data = Role::get();
+
         return Datatables::of($data)->addColumn('action', function ($data) {
             return '<a href="#" class="btn btn-info edit" id="' . $data->id . '"><i class="bi bi-pencil"></i></a>&nbsp;&nbsp;<a href="#" class="btn btn-danger delete" id="' . $data->id . '"><i class="bi bi-trash"></i></a>';
         })->make(true);

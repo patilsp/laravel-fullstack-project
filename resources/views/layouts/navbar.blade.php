@@ -14,7 +14,7 @@
               </button>
 
               <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-1">
-                <a href="index.html">
+                <a href="/home">
                   <img alt="Logo" src="assets/media/logos/logo.png" class="h-30px mt-lg-5 me-3" />
                 </a>
               </div>
@@ -31,7 +31,7 @@
                   class="breadcrumb breadcrumb-separatorless fs-base <br /> <b>Warning</b>: Undefined variable $direction in <b>/var/www/preview.keenthemes.com/kt-products/metronic/releases/2023-03-24-032718/themes/metronic/html/demo50/dist/view/layout/partials/header/_page-title.php</b> on line <b>16</b><br />"
                 >
                   <li class="breadcrumb-item text-gray-500">
-                    <a href="#" class="text-gray-500 text-hover-primary"> Home </a>
+                    <a href="/" class="text-gray-500 text-hover-primary"> Home </a>
                   </li>
 
                   <li class="breadcrumb-item">
