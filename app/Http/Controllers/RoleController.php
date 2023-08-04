@@ -42,10 +42,8 @@ class RoleController extends Controller
     public function store(Request $request)
     {
 
-        $validation = Validator::make($request->all(), [
-            
+        $validation = Validator::make($request->all(), [            
             'name' => 'required',
-
         ]);
 
         $error_array = array();
@@ -53,19 +51,18 @@ class RoleController extends Controller
         if ($validation->fails()) {
             foreach ($validation->messages()->getMessages() as $field_name => $messages) {
                 $error_array[] = $messages;
-                //$error_array[] = $field_name;
             }
         } else {
             if ($request->get('button_action') == 'insert') {
                 $input = $request->all();
-                $countysource = Role::create($input);
+                $roles = Role::create($input);
                 $success_output = '<div class="alert alert-success">Data Inserted</div>';
             }
 
             if ($request->get('button_action') == 'update') {
                 $input = $request->all();
-                $cuntysource = Role::find($request->get('Role_id'));
-                $cuntysource->update($input);
+                $roles = Role::find($request->get('role_id'));
+                $roles->update($input);
                 $success_output = '<div class="alert alert-success">Data Updated</div>';
 
             }
@@ -121,24 +118,9 @@ class RoleController extends Controller
        $id = $request->input('id');
        $data = Role::get();
         return Datatables::of($data)->addColumn('action', function ($data) {
-            return '<a href="#" class="btn-md edit" id="' . $data->id . '"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;&nbsp;<a href="#" class="btn-md delete" id="' . $data->id . '"><i class="glyphicon glyphicon-remove"></i></a>';
+            return '<a href="#" class="btn btn-info edit" id="' . $data->id . '"><i class="bi bi-pencil"></i></a>&nbsp;&nbsp;<a href="#" class="btn btn-danger delete" id="' . $data->id . '"><i class="bi bi-trash"></i></a>';
         })->make(true);
     }
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function getdata(Request $request) {
         $id = $request->input('id');
