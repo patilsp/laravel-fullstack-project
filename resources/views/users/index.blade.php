@@ -21,14 +21,12 @@
                   <i class="bi bi-search fs-1 position-absolute ms-6"></i> <input type="text"  class="form-control form-control-solid w-250px ps-15" placeholder="Search Users" />
               </div>
               <div class="user_User w-px-200 pb-3 pb-sm-0 me-2">
-              <select id="UserUser" class="form-select text-capitalize">
-                  <option value=""> Select Role </option>
-                  <option value="Admin" class="text-capitalize">Admin</option>
-                  <option value="Author" class="text-capitalize">Author</option>
-                  <option value="Editor" class="text-capitalize">Editor</option>
-                  <option value="Maintainer" class="text-capitalize">Maintainer</option>
-                  <option value="Subscriber" class="text-capitalize">Subscriber</option>
-              </select>
+                <select id="UserUser" class="form-select text-capitalize">
+                    <option value=""> Select Role </option>
+                        @foreach ($roles as $role)
+                        <option class="text-capitalize" value="{{ $role->id }}">{{ $role->name }}</option>
+                        @endforeach
+                </select>
           </div>
           <div class="d-flex ms-3">
                 <a href="#" class=" btn bg-body btn-color-gray-600 btn-active-info" tooltip="Add New User" id="add_data">
@@ -194,45 +192,26 @@
                         <div class="mb-5">
                             <label class="required fs-6 mb-5">Role</label>
 
+
+                            @foreach ($roles as $role)                 
                             <div class="d-flex fv-row">
                                 <div class="form-check form-check-custom form-check-solid">
-                                    <input class="form-check-input me-3" name="user_role" type="radio" value="1" id="user_role" checked="checked" />
+                                    <input class="form-check-input me-3" name="user_role" type="radio" id="user_role" checked="" />
 
                                     <label class="form-check-label" for="user_role">
-                                        <div class=" text-gray-800">Administrator</div>
-                                        <div class="text-gray-600">Best for business owners and company administrators</div>
+                                        <div class=" text-gray-800">{{ $role->name }}</div>
+                                        <div class="text-gray-600">{{ $role->description }}</div>
                                     </label>
                                 </div>
                             </div>
-
+                           
                             <div class="separator separator-dashed my-5"></div>
-                            <div class="d-flex fv-row">
-                                <div class="form-check form-check-custom form-check-solid">
-                                    <input class="form-check-input me-3" name="user_role" type="radio" value="2" id="user_role" />
-
-                                    <label class="form-check-label" for="user_role">
-                                        <div class=" text-gray-800">Developer</div>
-                                        <div class="text-gray-600">Best for developers or people primarily using the API</div>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="separator separator-dashed my-5"></div>
-                            <div class="d-flex fv-row">
-                                <div class="form-check form-check-custom form-check-solid">
-                                    <input class="form-check-input me-3" name="user_role" type="radio" value="3" id="user_role" />
-
-                                    <label class="form-check-label" for="user_role">
-                                        <div class=" text-gray-800">Trial</div>
-                                        <div class="text-gray-600">Best for people who need to preview content data, but don't need to make any updates</div>
-                                    </label>
-                                </div>
-                            </div>
+                            @endforeach
                             <div class="separator separator-dashed my-5 mt-2"></div>
                             <div class="d-flex fv-row">
                                 <div class="form-check form-check-custom form-check-solid">
                                     
-                                    <input class="form-check-input me-3" name="two_step_login" id="two_step_login" type="checkbox" value="1">
+                                    <input class="form-check-input me-3" name="two_step_login" id="two_step_login" type="checkbox" checked="">
                                    
                                     <label class="form-check-label" for="enabled_login">
                                         <div class="text-gray-800 mt-2">Enabled Two Step Login</div>
@@ -439,8 +418,8 @@ $(document).on("click", ".edit", function () {
             });
             $("#user_id").val(id);
             $('#name').val(data.name);
-            $('#name').val(data.user_role);
-            $('#name').val(data.two_step_login);
+            $('#user_role').val(data.user_role);
+            $('#two_step_login').val(data.two_step_login);
             $("#modal_user").modal("show");
             $("#action").val("Save");
             $(".modal-title").text("Update User");

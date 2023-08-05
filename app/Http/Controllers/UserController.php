@@ -9,6 +9,8 @@ use Datatables;
 use DB;
 use Validator;
 use DateTime;
+use Carbon\Carbon;
+
 
 class UserController extends Controller
 {
@@ -122,6 +124,8 @@ class UserController extends Controller
        $data = User::get();
        $roles = Role::get();
 
+       $data = User::select('id','name', 'user_profile','user_role', DB::raw('(CASE WHEN two_step_login = 1  THEN "Enabled" ELSE "Notenabled" END) AS two_step_login'))
+       ->get();
 
         $formattedData = $data->map(function ($data) {
             $dateCreated = new DateTime($data->created_at);
@@ -132,7 +136,7 @@ class UserController extends Controller
             $data->formatted_updated_at = $formattedUpdatedDate;            
             return $data;
         });
- 
+
         return Datatables::of($data)->addColumn('action', function ($data) {
             return '<a href="#" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto edit" id="' . $data->id . '"><i class="bi bi-pencil"></i></a>&nbsp;&nbsp;<a href="#" class="btn btn-icon btn-active-light-danger w-30px h-30px ms-auto delete" id="' . $data->id . '"><i class="bi bi-trash"></i></a>';
         })->make(true);

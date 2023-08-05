@@ -24,16 +24,14 @@
               <div class="user_role w-px-200 pb-3 pb-sm-0 me-2">
               <select id="UserRole" class="form-select text-capitalize">
                   <option value=""> Select Role </option>
-                  <option value="Admin" class="text-capitalize">Admin</option>
-                  <option value="Author" class="text-capitalize">Author</option>
-                  <option value="Editor" class="text-capitalize">Editor</option>
-                  <option value="Maintainer" class="text-capitalize">Maintainer</option>
-                  <option value="Subscriber" class="text-capitalize">Subscriber</option>
+                  @foreach($roles as $role)
+                  <option value="{{ $role->id }}" class="text-capitalize">{{ $role->name }}</option>
+                  @endforeach
               </select>
           </div>
           <div class="d-flex ms-3">
                 <a href="#" class=" btn bg-body btn-color-gray-600 btn-active-info" tooltip="Add New Role" id="add_data">
-                    Add Role
+                <i class="bi bi-plus-lg me-2"></i>  Add Role
                 </a>
             </div>
 
@@ -46,10 +44,11 @@
                 <div class="table-responsive">
                     <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0 no-footer" id="roles_table">
                         <thead>
-                            <tr class="text-start text-muted  fs-7 text-uppercase gs-0">
+                            <tr class="text-start text-muted fs-semibold fs-6 text-uppercase gs-0">
                                 
                                 <th class="min-w-50px sorting">ID</th>
                                 <th class="min-w-150px sorting">Role Name</th>
+                                <th class="min-w-150px sorting">DESCRIPTION</th>
                                 <th class="min-w-125px sorting">Joined Date</th>
                                 <th class="text-end min-w-100px sorting_disabled"> Action</th>
                             </tr>
@@ -287,7 +286,7 @@
             ajax: {
                 url: "{{ route('roles.getall') }}",
             },
-            columns: [{ data: "id" }, { data: "name" }, { data: "formatted_created_at" }, { data: "action", orderable: true, searchable: true }],
+            columns: [{ data: "id" }, { data: "name" }, { data: "description" }, { data: "formatted_created_at" }, { data: "action", orderable: true, searchable: true }],
             columnDefs: [
                 {
                     targets: "_all",
@@ -433,7 +432,7 @@ $(document).on("click", ".delete", function () {
         cancelButtonText: "No, cancel",
         buttonsStyling: false,
         customClass: {
-            confirmButton: "btn btn-danger me-3",
+            confirmButton: "btn btn-primary me-3",
             cancelButton: "btn btn-light",
         },
     }).then(function (result) {

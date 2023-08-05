@@ -5,8 +5,6 @@
       <script src="assets/js/scripts.bundle.js"></script>
       <script src="assets/js/main.js"></script>
       <script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
-
-
       </div>
   </body>
 </html>
