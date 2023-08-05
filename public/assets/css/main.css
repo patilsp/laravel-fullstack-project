@@ -374,3 +374,15 @@
   background-color: rgba(255, 64, 129, 0.22);
 }
 
+
+#kt_app_content{
+  background-color: var(--bs-body-bg-content);
+}
+.close-btn{
+  cursor: pointer;
+  user-select: none;
+}
+
+.close-btn:hover{
+  transform: translateY(3px);
+}

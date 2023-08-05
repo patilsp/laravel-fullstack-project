@@ -118,8 +118,16 @@ class PermissionController extends Controller
        $id = $request->input('id');
        $data = Permission::get();
 
+        $formattedData = $data->map(function ($data) {
+            $dateObject = new DateTime($data->created_at);
+            $formattedDate = $dateObject->format('d M Y, h:i a');
+            $data->formatted_created_at = $formattedDate;
+            return $data;
+        });
+
+
         return Datatables::of($data)->addColumn('action', function ($data) {
-            return '<a href="#" class="btn btn-info edit" id="' . $data->id . '"><i class="bi bi-pencil"></i></a>&nbsp;&nbsp;<a href="#" class="btn btn-danger delete" id="' . $data->id . '"><i class="bi bi-trash"></i></a>';
+            return '<a href="#" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto me-5 edit" id="' . $data->id . '"><i class="bi bi-pencil"></i></a>&nbsp;&nbsp;<a href="#" class="btn btn-icon btn-active-light-danger w-30px h-30px ms-auto me-5 delete" id="' . $data->id . '"><i class="bi bi-trash"></i></a>';
         })->make(true);
     }
 

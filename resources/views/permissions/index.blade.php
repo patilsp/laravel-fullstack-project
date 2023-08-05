@@ -20,16 +20,11 @@
               <div class="d-flex align-items-center position-relative me-4">
                   <i class="bi bi-search fs-1 position-absolute ms-6"></i> <input type="text"  class="form-control form-control-solid w-250px ps-15" placeholder="Search Permissions" />
               </div>
-              <div class="user_role w-px-200 pb-3 pb-sm-0 me-2">
-              <select id="UserRole" class="form-select text-capitalize">
-                  <option value=""> Select Permissions </option>
-                  <option value="Admin" class="text-capitalize">Admin</option>
-                  <option value="Author" class="text-capitalize">Author</option>
-                  <option value="Editor" class="text-capitalize">Editor</option>
-                  <option value="Maintainer" class="text-capitalize">Maintainer</option>
-                  <option value="Subscriber" class="text-capitalize">Subscriber</option>
-              </select>
-          </div>
+              <div class="d-flex ms-3">
+                <a href="#" class=" btn bg-body btn-color-gray-600 btn-active-info" tooltip="Add New Role" id="add_data">
+                    Add Permission
+                </a>
+            </div>
 
           </div>
       </div>
@@ -44,8 +39,8 @@
                                 
                                 <th class="min-w-50px sorting">ID</th>
                                 <th class="min-w-150px sorting">Permission Name</th>
-                                <th class="min-w-125px sorting">Joined Date</th>
-                                <th class="text-end min-w-100px sorting_disabled"> <button type="button" name="add" id="add_data"  data-func="dt-add" class="btn btn-sm dt-add" ><span class="bi bi-plus" aria-hidden="true"></span></button></th>
+                                <th class="min-w-125px sorting">Created Date</th>
+                                <th class="text-end min-w-100px sorting_disabled"> Action</th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600"></tbody>
@@ -57,48 +52,58 @@
     </div>
 </div>
 
- 
 
-  <div id="permissionsEditModal" class="modal fade" role="dialog">
-
-    <div class="modal-dialog">
+<div class="modal fade" id="permissionsEditModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-750px">
         <div class="modal-content">
-            <form method="post" id="permissions_edit_form">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                  <h4 class="modal-title">Permissions - Add</h4>
+            <div class="modal-header">
+                <h2 class="fs-1=2">Add Permissions</h2>
+
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg"><span class="path1"></span><span class="path2"></span></i>
                 </div>
-                <div class="modal-body">
+            </div>
+
+            <div class="modal-body scroll-y mx-lg-5 my-7">
+                <form method="post" id="permissions_edit_form" class="form">
+
                     {{csrf_field()}}
                     <span id="form_output"></span>
-                    <div class="row">
+                    <div
+                        class="d-flex flex-column scroll-y me-n7 pe-7"
+                        id="kt_modal_add_role_scroll"
+                        data-kt-scroll="true"
+                        data-kt-scroll-activate="{default: false, lg: true}"
+                        data-kt-scroll-max-height="auto"
+                        data-kt-scroll-dependencies="#kt_modal_add_role_header"
+                        data-kt-scroll-wrappers="#kt_modal_add_role_scroll"
+                        data-kt-scroll-offset="300px"
+                    >
+                        <div class="fv-row mb-10">
+                            <label class="fs-5  form-label mb-2">
+                                <span class="required">Permissions Name</span>
+                            </label>
 
-                        <div class="col-sm-12">
-
-                            <div class="form-group">
-
-                                <label class="control-label" for="name">Permissions Name</label>
-                                <input type="text" name="name"  id="name" class="form-control" placeholder="">
-                            </div>
+                            <input class="form-control form-control-solid" placeholder="Enter a permissions name" name="name" />
                         </div>
-
-
                     </div>
-                </div>
-                <div class="modal-footer">
 
+                    <div class="text-center pt-15">
+                        <input type="hidden" name="role_id" id="role_id" value="" />
+                        <input type="hidden" name="button_action" id="button_action" value="insert" />
+                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">
+                            Discard
+                        </button>
 
-                    <input type="hidden" name="permissions_id" id="permissions_id" value="" />
-                    <input type="hidden" name="button_action" id="button_action" value="insert" />
-                    <input type="submit" name="submit" id="action" value="Add" class="btn btn-info" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-
-
-
-                </div>
-
-            </form>
+                        <button type="submit" class="btn btn-primary" name="submit" id="action" value="Add">
+                            <span class="indicator-label">
+                                Submit
+                            </span>
+                            <span class="indicator-progress"> Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span> </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -126,7 +131,7 @@
         ajax: {
             url: "{{ route('permissions.getall') }}",
         },
-        columns: [{ data: "id" }, { data: "name" }, { data: "created_at" }, { data: "action", orderable: true, searchable: true }],
+        columns: [{ data: "id" }, { data: "name" }, { data: "formatted_created_at" }, { data: "action", orderable: true, searchable: true }],
         columnDefs: [
             {
                 targets: "_all",
