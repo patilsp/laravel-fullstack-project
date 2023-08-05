@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Role;
 use Datatables;
 use DB;
 use Validator;
 use DateTime;
 
-class RoleController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +20,9 @@ class RoleController extends Controller
     public function index()
     {
 
+        $users = User::all();
         $roles = Role::all();
-        return view('roles.index', compact('roles'));
+        return view('users.index', compact('users','roles'));
     }
 
     /**
@@ -55,14 +57,14 @@ class RoleController extends Controller
         } else {
             if ($request->get('button_action') == 'insert') {
                 $input = $request->all();
-                $roles = Role::create($input);
+                $users = User::create($input);
                 $success_output = '<div class="alert alert-success">Data Inserted</div>';
             }
 
             if ($request->get('button_action') == 'update') {
                 $input = $request->all();
-                $roles = Role::find($request->get('role_id'));
-                $roles->update($input);
+                $users = User::find($request->get('user_id'));
+                $users->update($input);
                 $success_output = '<div class="alert alert-success">Data Updated</div>';
 
             }
@@ -115,17 +117,22 @@ class RoleController extends Controller
 
 
     public function getall(Request $request) {
+
        $id = $request->input('id');
-       $data = Role::get();
+       $data = User::get();
+       $roles = Role::get();
 
 
-       $formattedData = $data->map(function ($data) {
-            $dateObject = new DateTime($data->created_at);
-            $formattedDate = $dateObject->format('d M Y, h:i a');
+        $formattedData = $data->map(function ($data) {
+            $dateCreated = new DateTime($data->created_at);
+            $dateUpdated = new DateTime($data->updated_at);
+            $formattedDate = $dateCreated->format('d M Y, h:i a');
+            $formattedUpdatedDate = $dateUpdated->format('d M Y, h:i a');
             $data->formatted_created_at = $formattedDate;
+            $data->formatted_updated_at = $formattedUpdatedDate;            
             return $data;
         });
-
+ 
         return Datatables::of($data)->addColumn('action', function ($data) {
             return '<a href="#" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto edit" id="' . $data->id . '"><i class="bi bi-pencil"></i></a>&nbsp;&nbsp;<a href="#" class="btn btn-icon btn-active-light-danger w-30px h-30px ms-auto delete" id="' . $data->id . '"><i class="bi bi-trash"></i></a>';
         })->make(true);
@@ -133,7 +140,7 @@ class RoleController extends Controller
 
     public function getdata(Request $request) {
         $id = $request->input('id');
-        $output = Role::find($id);
+        $output = User::find($id);
         echo json_encode($output);
     }
 
@@ -147,7 +154,7 @@ class RoleController extends Controller
      */
     public function destroy(Request $request) {
         $id = $request->input('id');
-        Role::find($id)->delete();
+        User::find($id)->delete();
         echo 'Data Deleted';
     }
 }

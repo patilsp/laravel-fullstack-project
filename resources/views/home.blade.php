@@ -408,7 +408,7 @@
                     <div class="pb-5">
                       <div class="d-flex flex-stack border rounded p-4 mb-5">
                         <div class="d-flex align-items-center me-2">
-                          <img alt="" class="w-30px me-3" src="assets/media/svg/files/doc.svg">
+                          <img alt="image" class="w-30px me-3" src="assets/media/svg/files/doc.svg">
         
                           <div class="d-flex flex-stack">
                             <div class="d-flex flex-column me-2">
@@ -424,7 +424,7 @@
         
                       <div class="d-flex flex-stack border rounded p-4">
                         <div class="d-flex align-items-center me-2">
-                          <img alt="" class="w-30px me-3" src="assets/media/svg/files/pdf.svg">
+                          <img alt="image" class="w-30px me-3" src="assets/media/svg/files/pdf.svg">
         
                           <div class="d-flex flex-stack">
                             <div class="d-flex flex-column me-2">
@@ -1559,7 +1559,7 @@
                       </div>
 
                       <div class="text-center px-4">
-                        <img src="assets/media/illustrations/sigma-1/9.png" alt="" class="mww-100 mh-350px" />
+                        <img src="assets/media/illustrations/sigma-1/9.png" alt="image" class="mww-100 mh-350px" />
                       </div>
                     </div>
                   </div>
@@ -1571,465 +1571,469 @@
       </div>
     </div>
 
-    <div class="modal fade" id="kt_modal_create_account" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-fullscreen p-9">
+    <div class="modal fade" id="kt_modal_create_account" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog mw-1000px">
         <div class="modal-content">
-          <div class="modal-header header-bg">
-            <h2 class="text-white">
-              Create Account
-              <small class="ms-2  fw-normal text-white opacity-50">Become a member and start earning</small>
-            </h2>
+            <div class="modal-header">
+                <h2>Create Business Account</h2>
 
-            <div class="btn btn-sm btn-icon btn-color-white btn-active-color-primary" data-bs-dismiss="modal">
-              <i class="bi bi-x-circle-fill fs-2"><span class="path1"></span><span class="path2"></span></i>
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg"><span class="path1"></span><span class="path2"></span></i>
+                </div>
             </div>
-          </div>
 
-          <div class="modal-body scroll-y m-5">
-            <div class="stepper stepper-links d-flex flex-column" id="kt_create_account_stepper">
-              <div class="stepper-nav py-5">
-                <div class="stepper-item current" data-kt-stepper-element="nav">
-                  <h3 class="stepper-title">
-                    Account Type
-                  </h3>
-                </div>
-
-                <div class="stepper-item" data-kt-stepper-element="nav">
-                  <h3 class="stepper-title">
-                    Account Info
-                  </h3>
-                </div>
-
-                <div class="stepper-item" data-kt-stepper-element="nav">
-                  <h3 class="stepper-title">
-                    Business Details
-                  </h3>
-                </div>
-
-                <div class="stepper-item" data-kt-stepper-element="nav">
-                  <h3 class="stepper-title">
-                    Billing Details
-                  </h3>
-                </div>
-
-                <div class="stepper-item" data-kt-stepper-element="nav">
-                  <h3 class="stepper-title">
-                    Completed
-                  </h3>
-                </div>
-              </div>
-
-              <form class="mx-auto mw-600px w-100 py-10" novalidate="novalidate" id="kt_create_account_form">
-                <div class="current" data-kt-stepper-element="content">
-                  <div class="w-100">
-                    <div class="pb-10 pb-lg-15">
-                      <h2 class="d-flex align-items-center text-dark">
-                        Choose Account Type
-
-                        <span class="ms-1" data-bs-toggle="tooltip" title="Billing is issued based on your selected account typ">
-                          <i class="bi bi-information-5 text-gray-500 "><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                        </span>
-                      </h2>
-
-                      <div class=" ">
-                        If you need more info, please check out
-                        <a href="#" class="link-primary">Help Page</a>.
-                      </div>
-                    </div>
-
-                    <div class="fv-row">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <input type="radio" class="btn-check" name="account_type" value="personal" checked="checked" id="kt_create_account_form_account_type_personal" />
-                          <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-10" for="kt_create_account_form_account_type_personal">
-                            <i class="bi bi-badge fs-3x me-5"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
-
-                            <span class="d-block text-start">
-                              <span class="text-dark d-block fs-4 mb-2">
-                                Personal Account
-                              </span>
-                              <span class=" ">If you need more info, please check it out</span>
-                            </span>
-                          </label>
+            <div class="modal-body scroll-y m-5">
+                <div class="stepper stepper-links d-flex flex-column" id="kt_create_account_stepper">
+                    <div class="stepper-nav py-5">
+                        <div class="stepper-item current" data-kt-stepper-element="nav">
+                            <h3 class="stepper-title">
+                                Account Type
+                            </h3>
                         </div>
 
-                        <div class="col-lg-6">
-                          <input type="radio" class="btn-check" name="account_type" value="corporate" id="kt_create_account_form_account_type_corporate" />
-                          <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center" for="kt_create_account_form_account_type_corporate">
-                            <i class="bi bi-briefcase fs-3x me-5"><span class="path1"></span><span class="path2"></span></i>
-
-                            <span class="d-block text-start">
-                              <span class="text-dark d-block fs-4 mb-2">Corporate Account</span>
-                              <span class=" ">Create corporate account to mane users</span>
-                            </span>
-                          </label>
+                        <div class="stepper-item" data-kt-stepper-element="nav">
+                            <h3 class="stepper-title">
+                                Account Info
+                            </h3>
                         </div>
-                      </div>
+
+                        <div class="stepper-item" data-kt-stepper-element="nav">
+                            <h3 class="stepper-title">
+                                Business Details
+                            </h3>
+                        </div>
+
+                        <div class="stepper-item" data-kt-stepper-element="nav">
+                            <h3 class="stepper-title">
+                                Billing Details
+                            </h3>
+                        </div>
+
+                        <div class="stepper-item" data-kt-stepper-element="nav">
+                            <h3 class="stepper-title">
+                                Completed
+                            </h3>
+                        </div>
                     </div>
-                  </div>
+
+                    <form class="mx-auto mw-600px w-100 py-10" novalidate="novalidate" id="kt_create_account_form">
+                        <div class="current" data-kt-stepper-element="content">
+                            <div class="w-100">
+                                <div class="pb-10 pb-lg-15">
+                                    <h2 class=" d-flex align-items-center text-dark">
+                                        Choose Account Type
+
+                                        <span class="ms-1" data-bs-toggle="tooltip" title="Billing is issued based on your selected account typ">
+                                            <i class="bi bi-information-5 text-gray-500 fs-6"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                        </span>
+                                    </h2>
+
+                                    <div class="text-muted fw-semibold fs-6">
+                                        If you need more info, please check out
+                                        <a href="#" class="link-primary ">Help Page</a>.
+                                    </div>
+                                </div>
+
+                                <div class="fv-row">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="radio" class="btn-check" name="account_type" value="personal" checked="checked" id="kt_create_account_form_account_type_personal" />
+                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-10" for="kt_create_account_form_account_type_personal">
+                                                <i class="bi bi-badge fs-3x me-5"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
+
+                                                <span class="d-block fw-semibold text-start">
+                                                    <span class="text-dark  d-block fs-4 mb-2">
+                                                        Personal Account
+                                                    </span>
+                                                    <span class="text-muted fw-semibold fs-6">If you need more info, please check it out</span>
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <input type="radio" class="btn-check" name="account_type" value="corporate" id="kt_create_account_form_account_type_corporate" />
+                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center" for="kt_create_account_form_account_type_corporate">
+                                                <i class="bi bi-briefcase fs-3x me-5"><span class="path1"></span><span class="path2"></span></i>
+
+                                                <span class="d-block fw-semibold text-start">
+                                                    <span class="text-dark  d-block fs-4 mb-2">Corporate Account</span>
+                                                    <span class="text-muted fw-semibold fs-6">Create corporate account to mane users</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-kt-stepper-element="content">
+                            <div class="w-100">
+                                <div class="pb-10 pb-lg-15">
+                                    <h2 class=" text-dark">Account Info</h2>
+
+                                    <div class="text-muted fw-semibold fs-6">
+                                        If you need more info, please check out
+                                        <a href="#" class="link-primary ">Help Page</a>.
+                                    </div>
+                                </div>
+
+                                <div class="mb-10 fv-row">
+                                    <label class="d-flex align-items-center form-label mb-3">
+                                        Specify Team Size
+
+                                        <span class="ms-1" data-bs-toggle="tooltip" title="Provide your team size to help us setup your billing">
+                                            <i class="bi bi-information-5 text-gray-500 fs-6"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                        </span>
+                                    </label>
+
+                                    <div class="row mb-2" data-kt-buttons="true">
+                                        <div class="col">
+                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
+                                                <input type="radio" class="btn-check" name="account_team_size" value="1-1" />
+                                                <span class=" fs-3">1-1</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col">
+                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 active">
+                                                <input type="radio" class="btn-check" name="account_team_size" checked value="2-10" />
+                                                <span class=" fs-3">2-10</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col">
+                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
+                                                <input type="radio" class="btn-check" name="account_team_size" value="10-50" />
+                                                <span class=" fs-3">10-50</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col">
+                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
+                                                <input type="radio" class="btn-check" name="account_team_size" value="50+" />
+                                                <span class=" fs-3">50+</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-text">
+                                        Customers will see this shortened version of your statement descriptor
+                                    </div>
+                                </div>
+
+                                <div class="mb-10 fv-row">
+                                    <label class="form-label mb-3">Team Account Name</label>
+
+                                    <input type="text" class="form-control form-control-lg form-control-solid" name="account_name" placeholder="" value="" />
+                                </div>
+
+                                <div class="mb-0 fv-row">
+                                    <label class="d-flex align-items-center form-label mb-5">
+                                        Select Account Plan
+
+                                        <span class="ms-1" data-bs-toggle="tooltip" title="Monthly billing will be based on your account plan">
+                                            <i class="bi bi-information-5 text-gray-500 fs-6"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                        </span>
+                                    </label>
+
+                                    <div class="mb-0">
+                                        <label class="d-flex flex-stack mb-5 cursor-pointer">
+                                            <span class="d-flex align-items-center me-2">
+                                                <span class="symbol symbol-50px me-6">
+                                                    <span class="symbol-label">
+                                                        <i class="bi bi-bank fs-1 text-gray-600"><span class="path1"></span><span class="path2"></span></i>
+                                                    </span>
+                                                </span>
+
+                                                <span class="d-flex flex-column">
+                                                    <span class=" text-gray-800 text-hover-primary fs-5">Company Account</span>
+                                                    <span class="fs-6 fw-semibold text-muted">Use images to enhance your post flow</span>
+                                                </span>
+                                            </span>
+
+                                            <span class="form-check form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="radio" name="account_plan" value="1" />
+                                            </span>
+                                        </label>
+
+                                        <label class="d-flex flex-stack mb-5 cursor-pointer">
+                                            <span class="d-flex align-items-center me-2">
+                                                <span class="symbol symbol-50px me-6">
+                                                    <span class="symbol-label">
+                                                        <i class="bi bi-bar-chart-fill fs-1 text-gray-600"><span class="path1"></span><span class="path2"></span></i>
+                                                    </span>
+                                                </span>
+
+                                                <span class="d-flex flex-column">
+                                                    <span class=" text-gray-800 text-hover-primary fs-5">Developer Account</span>
+                                                    <span class="fs-6 fw-semibold text-muted">Use images to your post time</span>
+                                                </span>
+                                            </span>
+
+                                            <span class="form-check form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="radio" checked name="account_plan" value="2" />
+                                            </span>
+                                        </label>
+
+                                        <label class="d-flex flex-stack mb-0 cursor-pointer">
+                                            <span class="d-flex align-items-center me-2">
+                                                <span class="symbol symbol-50px me-6">
+                                                    <span class="symbol-label">
+                                                        <i class="bi bi-pie-chart-fill fs-1 text-gray-600"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                                    </span>
+                                                </span>
+
+                                                <span class="d-flex flex-column">
+                                                    <span class=" text-gray-800 text-hover-primary fs-5">Testing Account</span>
+                                                    <span class="fs-6 fw-semibold text-muted">Use images to enhance time travel rivers</span>
+                                                </span>
+                                            </span>
+
+                                            <span class="form-check form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="radio" name="account_plan" value="3" />
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-kt-stepper-element="content">
+                            <div class="w-100">
+                                <div class="pb-10 pb-lg-12">
+                                    <h2 class=" text-dark">Business Details</h2>
+
+                                    <div class="text-muted fw-semibold fs-6">
+                                        If you need more info, please check out
+                                        <a href="#" class="link-primary ">Help Page</a>.
+                                    </div>
+                                </div>
+
+                                <div class="fv-row mb-10">
+                                    <label class="form-label required">Business Name</label>
+
+                                    <input name="business_name" class="form-control form-control-lg form-control-solid" value="Keenthemes Inc." />
+                                </div>
+
+                                <div class="fv-row mb-10">
+                                    <label class="d-flex align-items-center form-label">
+                                        <span class="required">Shortened Descriptor</span>
+                                            <i class="bi bi-information-5 text-gray-500 fs-6"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                        </span>
+                                    </label>
+
+                                    <input name="business_descriptor" class="form-control form-control-lg form-control-solid" value="KEENTHEMES" />
+
+                                    <div class="form-text">
+                                        Customers will see this shortened version of your statement descriptor
+                                    </div>
+                                </div>
+
+                                <div class="fv-row mb-10">
+                                    <label class="form-label required">Corporation Type</label>
+
+                                    <select name="business_type" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
+                                        <option></option>
+                                        <option value="1">S Corporation</option>
+                                        <option value="1">C Corporation</option>
+                                        <option value="2">Sole Proprietorship</option>
+                                        <option value="3">Non-profit</option>
+                                        <option value="4">Limited Liability</option>
+                                        <option value="5">General Partnership</option>
+                                    </select>
+                                </div>
+
+                                <div class="fv-row mb-10">
+                                    <label class="form-label">Business Description</label>
+
+                                    <textarea name="business_description" class="form-control form-control-lg form-control-solid" rows="3"></textarea>
+                                </div>
+
+                                <div class="fv-row mb-0">
+                                    <label class="fs-6 fw-semibold form-label required">Contact Email</label>
+
+                                    <input name="business_email" class="form-control form-control-lg form-control-solid" value="corp@support.com" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-kt-stepper-element="content">
+                            <div class="w-100">
+                                <div class="pb-10 pb-lg-15">
+                                    <h2 class=" text-dark">Billing Details</h2>
+
+                                    <div class="text-muted fw-semibold fs-6">
+                                        If you need more info, please check out
+                                        <a href="#" class="text-primary ">Help Page</a>.
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                        <span class="required">Name On Card</span>
+
+                                        <span class="ms-1" data-bs-toggle="tooltip" title="Specify a card holder's name">
+                                            <i class="bi bi-information-5 text-gray-500 fs-6"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                        </span>
+                                    </label>
+
+                                    <input type="text" class="form-control form-control-solid" placeholder="" name="card_name" value="Max Doe" />
+                                </div>
+
+                                <div class="d-flex flex-column mb-7 fv-row">
+                                    <label class="required fs-6 fw-semibold form-label mb-2">Card Number</label>
+
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control form-control-solid" placeholder="Enter card number" name="card_number" value="4111 1111 1111 1111" />
+
+                                        <div class="position-absolute translate-middle-y top-50 end-0 me-5">
+                                            <img src="assets/media/svg/card-logos/visa.svg" alt="image" class="h-25px" />
+                                            <img src="assets/media/svg/card-logos/mastercard.svg" alt="image" class="h-25px" />
+                                            <img src="assets/media/svg/card-logos/american-express.svg" alt="image" class="h-25px" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-10">
+                                    <div class="col-md-8 fv-row">
+                                        <label class="required fs-6 fw-semibold form-label mb-2">Expiration Date</label>
+
+                                        <div class="row fv-row">
+                                            <div class="col-6">
+                                                <select name="card_expiry_month" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Month">
+                                                    <option></option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <select name="card_expiry_year" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Year">
+                                                    <option></option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                    <option value="2031">2031</option>
+                                                    <option value="2032">2032</option>
+                                                    <option value="2033">2033</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 fv-row">
+                                        <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                            <span class="required">CVV</span>
+
+                                            <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
+                                                <i class="bi bi-information-5 text-gray-500 fs-6"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                            </span>
+                                        </label>
+
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control form-control-solid" minlength="3" maxlength="4" placeholder="CVV" name="card_cvv" />
+
+                                            <div class="position-absolute translate-middle-y top-50 end-0 me-3">
+                                                <i class="bi bi-credit-cart fs-2hx"><span class="path1"></span><span class="path2"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-stack">
+                                    <div class="me-5">
+                                        <label class="fs-6 fw-semibold form-label">Save Card for further billing?</label>
+                                        <div class="fs-7 fw-semibold text-muted">If you need more info, please check budget planning</div>
+                                    </div>
+
+                                    <label class="form-check form-switch form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" checked="checked" />
+                                        <span class="form-check-label fw-semibold text-muted">
+                                            Save Card
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-kt-stepper-element="content">
+                            <div class="w-100">
+                                <div class="pb-8 pb-lg-10">
+                                    <h2 class=" text-dark">Your Are Done!</h2>
+
+                                    <div class="text-muted fw-semibold fs-6">
+                                        If you need more info, please
+                                        <a href="?page=" class="link-primary ">
+                                            Sign In
+                                        </a>
+                                        .
+                                    </div>
+                                </div>
+
+                                <div class="mb-0">
+                                    <div class="fs-6 text-gray-600 mb-5">
+                                        Writing headlines for blog posts is as much an art as it is a science and probably warrants its own post, but for all advise is with what works for your great & amazing audience.
+                                    </div>
+
+                                    <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
+                                        <i class="bi bi-information fs-2tx text-warning me-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+
+                                        <div class="d-flex flex-stack flex-grow-1">
+                                            <div class="fw-semibold">
+                                                <h4 class="text-gray-900 ">We need your attention!</h4>
+
+                                                <div class="fs-6 text-gray-700">To start using great tools, please, <a href="?page=utilities/wizards/vertical" class="">Create Team Platform</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-stack pt-15">
+                            <div class="mr-2">
+                                <button type="button" class="btn btn-lg btn-light-primary me-3" data-kt-stepper-action="previous">
+                                    <i class="bi bi-arrow-left fs-4 me-1"><span class="path1"></span><span class="path2"></span></i> Back
+                                </button>
+                            </div>
+
+                            <div>
+                                <button type="button" class="btn btn-lg btn-primary me-3" data-kt-stepper-action="submit">
+                                    <span class="indicator-label">
+                                        Submit
+                                        <i class="bi bi-arrow-right fs-3 ms-2 me-0"><span class="path1"></span><span class="path2"></span></i>
+                                    </span>
+                                    <span class="indicator-progress"> Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span> </span>
+                                </button>
+
+                                <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
+                                    Continue
+                                    <i class="bi bi-arrow-right fs-4 ms-1 me-0"><span class="path1"></span><span class="path2"></span></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
-                <div data-kt-stepper-element="content">
-                  <div class="w-100">
-                    <div class="pb-10 pb-lg-15">
-                      <h2 class="text-dark">Account Info</h2>
-
-                      <div class=" ">
-                        If you need more info, please check out
-                        <a href="#" class="link-primary">Help Page</a>.
-                      </div>
-                    </div>
-
-                    <div class="mb-10 fv-row">
-                      <label class="d-flex align-items-center form-label mb-3">
-                        Specify Team Size
-
-                        <span class="ms-1" data-bs-toggle="tooltip" title="Provide your team size to help us setup your billing">
-                          <i class="bi bi-information-5 text-gray-500 "><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                        </span>
-                      </label>
-
-                      <div class="row mb-2" data-kt-buttons="true">
-                        <div class="col">
-                          <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                            <input type="radio" class="btn-check" name="account_team_size" value="1-1" />
-                            <span class="fs-3">1-1</span>
-                          </label>
-                        </div>
-
-                        <div class="col">
-                          <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 active">
-                            <input type="radio" class="btn-check" name="account_team_size" checked value="2-10" />
-                            <span class="fs-3">2-10</span>
-                          </label>
-                        </div>
-
-                        <div class="col">
-                          <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                            <input type="radio" class="btn-check" name="account_team_size" value="10-50" />
-                            <span class="fs-3">10-50</span>
-                          </label>
-                        </div>
-
-                        <div class="col">
-                          <label class="btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4">
-                            <input type="radio" class="btn-check" name="account_team_size" value="50+" />
-                            <span class="fs-3">50+</span>
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="form-text">
-                        Customers will see this shortened version of your statement descriptor
-                      </div>
-                    </div>
-
-                    <div class="mb-10 fv-row">
-                      <label class="form-label mb-3">Team Account Name</label>
-
-                      <input type="text" class="form-control form-control-lg form-control-solid" name="account_name" placeholder="" value="" />
-                    </div>
-
-                    <div class="mb-0 fv-row">
-                      <label class="d-flex align-items-center form-label mb-5">
-                        Select Account Plan
-
-                        <span class="ms-1" data-bs-toggle="tooltip" title="Monthly billing will be based on your account plan">
-                          <i class="bi bi-information-5 text-gray-500 "><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                        </span>
-                      </label>
-
-                      <div class="mb-0">
-                        <label class="d-flex flex-stack mb-5 cursor-pointer">
-                          <span class="d-flex align-items-center me-2">
-                            <span class="symbol symbol-50px me-6">
-                              <span class="symbol-label">
-                                <i class="bi bi-bank fs-1 text-gray-600"><span class="path1"></span><span class="path2"></span></i>
-                              </span>
-                            </span>
-
-                            <span class="d-flex flex-column">
-                              <span class="text-gray-800 text-hover-primary ">Company Account</span>
-                              <span class=" ">Use images to enhance your post flow</span>
-                            </span>
-                          </span>
-
-                          <span class="form-check form-check-custom form-check-solid">
-                            <input class="form-check-input" type="radio" name="account_plan" value="1" />
-                          </span>
-                        </label>
-
-                        <label class="d-flex flex-stack mb-5 cursor-pointer">
-                          <span class="d-flex align-items-center me-2">
-                            <span class="symbol symbol-50px me-6">
-                              <span class="symbol-label">
-                                <i class="bi bi-chart fs-1 text-gray-600"><span class="path1"></span><span class="path2"></span></i>
-                              </span>
-                            </span>
-
-                            <span class="d-flex flex-column">
-                              <span class="text-gray-800 text-hover-primary ">Developer Account</span>
-                              <span class=" ">Use images to your post time</span>
-                            </span>
-                          </span>
-
-                          <span class="form-check form-check-custom form-check-solid">
-                            <input class="form-check-input" type="radio" checked name="account_plan" value="2" />
-                          </span>
-                        </label>
-
-                        <label class="d-flex flex-stack mb-0 cursor-pointer">
-                          <span class="d-flex align-items-center me-2">
-                            <span class="symbol symbol-50px me-6">
-                              <span class="symbol-label">
-                                <i class="bi bi-chart-pie-4 fs-1 text-gray-600"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                              </span>
-                            </span>
-
-                            <span class="d-flex flex-column">
-                              <span class="text-gray-800 text-hover-primary ">Testing Account</span>
-                              <span class=" ">Use images to enhance time travel rivers</span>
-                            </span>
-                          </span>
-
-                          <span class="form-check form-check-custom form-check-solid">
-                            <input class="form-check-input" type="radio" name="account_plan" value="3" />
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div data-kt-stepper-element="content">
-                  <div class="w-100">
-                    <div class="pb-10 pb-lg-12">
-                      <h2 class="text-dark">Business Details</h2>
-
-                      <div class=" ">
-                        If you need more info, please check out
-                        <a href="#" class="link-primary">Help Page</a>.
-                      </div>
-                    </div>
-
-                    <div class="fv-row mb-10">
-                      <label class="form-label required">Business Name</label>
-
-                      <input name="business_name" class="form-control form-control-lg form-control-solid" value="Keenthemes Inc." />
-                    </div>
-
-                    <div class="fv-row mb-10">
-                      <input name="business_descriptor" class="form-control form-control-lg form-control-solid" value="KEENTHEMES" />
-
-                      <div class="form-text">
-                        Customers will see this shortened version of your statement descriptor
-                      </div>
-                    </div>
-
-                    <div class="fv-row mb-10">
-                      <label class="form-label required">Corporation Type</label>
-
-                      <select name="business_type" class="form-select form-select-lg form-select-solid" data-control="select2" data-placeholder="Select..." data-allow-clear="true" data-hide-search="true">
-                        <option></option>
-                        <option value="1">S Corporation</option>
-                        <option value="1">C Corporation</option>
-                        <option value="2">Sole Proprietorship</option>
-                        <option value="3">Non-profit</option>
-                        <option value="4">Limited Liability</option>
-                        <option value="5">General Partnership</option>
-                      </select>
-                    </div>
-
-                    <div class="fv-row mb-10">
-                      <label class="form-label">Business Description</label>
-
-                      <textarea name="business_description" class="form-control form-control-lg form-control-solid" rows="3"></textarea>
-                    </div>
-
-                    <div class="fv-row mb-0">
-                      <label class=" form-label required">Contact Email</label>
-
-                      <input name="business_email" class="form-control form-control-lg form-control-solid" value="corp@support.com" />
-                    </div>
-                  </div>
-                </div>
-
-                <div data-kt-stepper-element="content">
-                  <div class="w-100">
-                    <div class="pb-10 pb-lg-15">
-                      <h2 class="text-dark">Billing Details</h2>
-
-                      <div class=" ">
-                        If you need more info, please check out
-                        <a href="#" class="text-primary">Help Page</a>.
-                      </div>
-                    </div>
-
-                    <div class="d-flex flex-column mb-7 fv-row">
-                      <label class="d-flex align-items-center  form-label mb-2">
-                        <span class="required">Name On Card</span>
-
-                        <span class="ms-1" data-bs-toggle="tooltip" title="Specify a card holder's name">
-                          <i class="bi bi-information-5 text-gray-500 "><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                        </span>
-                      </label>
-
-                      <input type="text" class="form-control form-control-solid" placeholder="" name="card_name" value="Max Doe" />
-                    </div>
-
-                    <div class="d-flex flex-column mb-7 fv-row">
-                      <label class="required  form-label mb-2">Card Number</label>
-
-                      <div class="position-relative">
-                        <input type="text" class="form-control form-control-solid" placeholder="Enter card number" name="card_number" value="4111 1111 1111 1111" />
-
-                        <div class="position-absolute translate-middle-y top-50 end-0 me-5">
-                          <img src="assets/media/svg/card-logos/visa.svg" alt="" class="h-25px" />
-                          <img src="assets/media/svg/card-logos/mastercard.svg" alt="" class="h-25px" />
-                          <img src="assets/media/svg/card-logos/american-express.svg" alt="" class="h-25px" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row mb-10">
-                      <div class="col-md-8 fv-row">
-                        <label class="required  form-label mb-2">Expiration Date</label>
-
-                        <div class="row fv-row">
-                          <div class="col-6">
-                            <select name="card_expiry_month" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Month">
-                              <option></option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
-                              <option value="10">10</option>
-                              <option value="11">11</option>
-                              <option value="12">12</option>
-                            </select>
-                          </div>
-
-                          <div class="col-6">
-                            <select name="card_expiry_year" class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Year">
-                              <option></option>
-                              <option value="2023">2023</option>
-                              <option value="2024">2024</option>
-                              <option value="2025">2025</option>
-                              <option value="2026">2026</option>
-                              <option value="2027">2027</option>
-                              <option value="2028">2028</option>
-                              <option value="2029">2029</option>
-                              <option value="2030">2030</option>
-                              <option value="2031">2031</option>
-                              <option value="2032">2032</option>
-                              <option value="2033">2033</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4 fv-row">
-                        <label class="d-flex align-items-center  form-label mb-2">
-                          <span class="required">CVV</span>
-
-                          <span class="ms-1" data-bs-toggle="tooltip" title="Enter a card CVV code">
-                            <i class="bi bi-information-5 text-gray-500 "><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                          </span>
-                        </label>
-
-                        <div class="position-relative">
-                          <input type="text" class="form-control form-control-solid" minlength="3" maxlength="4" placeholder="CVV" name="card_cvv" />
-
-                          <div class="position-absolute translate-middle-y top-50 end-0 me-3">
-                            <i class="bi bi-credit-cart fs-2hx"><span class="path1"></span><span class="path2"></span></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="d-flex flex-stack">
-                      <div class="me-5">
-                        <label class=" form-label">Save Card for further billing?</label>
-                        <div class=" ">If you need more info, please check budget planning</div>
-                      </div>
-
-                      <label class="form-check form-switch form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value="1" checked="checked" />
-                        <span class="form-check-label ">
-                          Save Card
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div data-kt-stepper-element="content">
-                  <div class="w-100">
-                    <div class="pb-8 pb-lg-10">
-                      <h2 class="text-dark">Your Are Done!</h2>
-
-                      <div class=" ">
-                        If you need more info, please
-                        <a href="/metronic8/demo10/../demo10/.html" class="link-primary">
-                          Sign In
-                        </a>
-                        .
-                      </div>
-                    </div>
-
-                    <div class="mb-0">
-                      <div class=" text-gray-600 mb-5">
-                        Writing headlines for blog posts is as much an art as it is a science and probably warrants its own post, but for all advise is with what works for your great & amazing audience.
-                      </div>
-
-                      <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
-                        <i class="bi bi-information fs-2tx text-warning me-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-
-                        <div class="d-flex flex-stack flex-grow-1">
-                          <div class="">
-                            <h4 class="text-gray-900">We need your attention!</h4>
-
-                            <div class=" text-gray-700">To start using great tools, please, <a href="/metronic8/demo10/../demo10/utilities/wizards/vertical.html" class="">Create Team Platform</a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="d-flex flex-stack pt-15">
-                  <div class="mr-2">
-                    <button type="button" class="btn btn-lg btn-light-primary me-3" data-kt-stepper-action="previous">
-                      <i class="bi bi-arrow-left fs-4 me-1"><span class="path1"></span><span class="path2"></span></i> Back
-                    </button>
-                  </div>
-
-                  <div>
-                    <button type="button" class="btn btn-lg btn-primary me-3" data-kt-stepper-action="submit">
-                      <span class="indicator-label">
-                        Submit
-                        <i class="bi bi-arrow-right fs-2 ms-2 me-0"><span class="path1"></span><span class="path2"></span></i>
-                      </span>
-                      <span class="indicator-progress"> Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span> </span>
-                    </button>
-
-                    <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
-                      Continue
-                      <i class="bi bi-arrow-right fs-4 ms-1 me-0"><span class="path1"></span><span class="path2"></span></i>
-                    </button>
-                  </div>
-                </div>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
     </div>
+</div>
+
 
     <div class="area">
       <ul class="circles">

@@ -35,3 +35,8 @@ Route::resource('permissions', 'PermissionController');
 Route::get('permissions.getall', 'PermissionController@getall')->name('permissions.getall');
 Route::get('permissions.getdata', 'PermissionController@getdata')->name('permissions.getdata');
 Route::get('permissions.delete', 'PermissionController@destroy')->name('permissions.delete');
+
+Route::resource('users', 'UserController');
+Route::get('users.getall', 'UserController@getall')->name('users.getall');
+Route::get('users.getdata', 'UserController@getdata')->name('users.getdata');
+Route::get('users.delete', 'UserController@destroy')->name('users.delete');
