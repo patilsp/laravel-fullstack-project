@@ -31,12 +31,7 @@ Route::get('roles.getdata', 'RoleController@getdata')->name('roles.getdata');
 Route::get('roles.delete', 'RoleController@destroy')->name('roles.delete');
 
 
-Route::get('/auth/redirect', function () {
-    return Socialite::driver('github')->redirect();
-});
- 
-Route::get('/auth/callback', function () {
-    $user = Socialite::driver('github')->user();
- 
-    // $user->token
-});
+Route::resource('permissions', 'PermissionController');
+Route::get('permissions.getall', 'PermissionController@getall')->name('permissions.getall');
+Route::get('permissions.getdata', 'PermissionController@getdata')->name('permissions.getdata');
+Route::get('permissions.delete', 'PermissionController@destroy')->name('permissions.delete');
