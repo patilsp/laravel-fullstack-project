@@ -63,7 +63,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="kt_modal_update_role" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="modal_role" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered mw-750px">
         <div class="modal-content">
             <div class="modal-header">
@@ -75,8 +75,7 @@
             </div>
 
             <div class="modal-body scroll-y mx-lg-5 my-7">
-                <!-- <form method="post" id="kt_modal_update_role_form" class="form"> -->
-                <form id="kt_modal_update_role_form" class="needs-validation" novalidate>
+                <form id="modal_role_form" class="form" novalidate>
                     {{csrf_field()}}
                     <span id="form_output"></span>
                     <div
@@ -299,7 +298,7 @@
     });
 
 $(document).on("click", "#add_data", function () {
-    $("#kt_modal_update_role").modal("show");
+    $("#modal_role").modal("show");
     $("#form_output").html("");
     $("#button_action").val("insert");
     $("#action").val("Add");
@@ -331,7 +330,7 @@ $(document).ready(function () {
         });
     }
 
-    const form = document.getElementById("kt_modal_update_role_form");
+    const form = document.getElementById("modal_role_form");
     setupFormValidation(form);
     $("#action").on("click", function (event) {
         event.preventDefault();
@@ -369,9 +368,9 @@ $(document).ready(function () {
                                     },
                                 }).then(function (result) {
                                     if (result.isConfirmed) {
-                                        $("#kt_modal_update_role_form")[0].reset();
+                                        $("#modal_role_form")[0].reset();
                                         $("#roles_table").DataTable().ajax.reload();
-                                        $("#kt_modal_update_role").modal("hide");
+                                        $("#modal_role").modal("hide");
                                     }
                                 });
                             }, 2000);                               
@@ -415,7 +414,7 @@ $(document).on("click", ".edit", function () {
             });
             $("#role_id").val(id);
             $('#name').val(data.name);
-            $("#kt_modal_update_role").modal("show");
+            $("#modal_role").modal("show");
             $("#action").val("Save");
             $(".modal-title").text("Update Role");
             $("#button_action").val("update");
@@ -520,7 +519,7 @@ $(document).ready(function () {
         }).then(function (result) {
             if (result.value) {
                 // Hide modal
-                $('#kt_modal_update_role').modal('hide');
+                $('#modal_role').modal('hide');
             }
         });
     });
