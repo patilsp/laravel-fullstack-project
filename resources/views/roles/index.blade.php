@@ -113,8 +113,8 @@
                                             </td>
                                             <td>
                                                 <label class="form-check form-check-custom form-check-solid me-9">
-                                                    <input class="form-check-input" type="checkbox" value="" id="kt_roles_select_all" />
-                                                    <span class="form-check-label" for="kt_roles_select_all">
+                                                    <input class="form-check-input" type="checkbox" value="" id="roles_select_all" />
+                                                    <span class="form-check-label" for="roles_select_all">
                                                         Select all
                                                     </span>
                                                 </label>
@@ -122,7 +122,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td class="text-gray-800">User Management</td>
+                                            <td class="text-gray-800">Admin Management</td>
 
                                             <td>
                                                 <div class="d-flex">
@@ -151,7 +151,7 @@
                                         
 
                                         <tr>
-                                            <td class="text-gray-800">Reporting</td>
+                                            <td class="text-gray-800">Reports</td>
 
                                             <td>
                                                 <div class="d-flex">
@@ -239,63 +239,6 @@
                                             </td>
                                         </tr>
 
-                                        <tr>
-                                            <td class="text-gray-800">Database Management</td>
-
-                                            <td>
-                                                <div class="d-flex">
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input class="form-check-input" type="checkbox" value="" name="database_management_read" />
-                                                        <span class="form-check-label">
-                                                            Read
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input class="form-check-input" type="checkbox" value="" name="database_management_write" />
-                                                        <span class="form-check-label">
-                                                            Write
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                                        <input class="form-check-input" type="checkbox" value="" name="database_management_create" />
-                                                        <span class="form-check-label">
-                                                            Create
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-gray-800">Repository Management</td>
-
-                                            <td>
-                                                <div class="d-flex">
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input class="form-check-input" type="checkbox" value="" name="repository_management_read" />
-                                                        <span class="form-check-label">
-                                                            Read
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input class="form-check-input" type="checkbox" value="" name="repository_management_write" />
-                                                        <span class="form-check-label">
-                                                            Write
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                                        <input class="form-check-input" type="checkbox" value="" name="repository_management_create" />
-                                                        <span class="form-check-label">
-                                                            Create
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -305,7 +248,7 @@
                     <div class="text-center pt-15">
                         <input type="hidden" name="role_id" id="role_id" value="" />
                         <input type="hidden" name="button_action" id="button_action" value="insert" />
-                        <button type="reset" class="btn btn-light me-3" data-kt-roles-modal-action="close">
+                        <button type="reset" class="btn btn-light me-3" modal-close="close">
                             Discard
                         </button>
 
@@ -360,7 +303,7 @@ $(document).on("click", "#add_data", function () {
     $("#form_output").html("");
     $("#button_action").val("insert");
     $("#action").val("Add");
-    $(".modal-title").text("Role - Add");
+    $(".modal-title").text("Add a Role");
 });
 
 
@@ -474,7 +417,7 @@ $(document).on("click", ".edit", function () {
             $('#name').val(data.name);
             $("#kt_modal_update_role").modal("show");
             $("#action").val("Save");
-            $(".modal-title").text("Role - Edit");
+            $(".modal-title").text("Update Role");
             $("#button_action").val("update");
         },
     });
@@ -517,7 +460,7 @@ function deleteRole(id) {
                 buttonsStyling: false,
                 confirmButtonText: "Ok, got it!",
                 customClass: {
-                    confirmButton: "btn btn-primary",
+                    confirmButton: "btn btn-danger",
                 },
             });
             $("#roles_table").DataTable().ajax.reload();
@@ -547,6 +490,41 @@ function hideDeleteIndicator() {
     deleteButton.removeAttribute("data-kt-indicator");
     deleteButton.disabled = false;
 }
+
+
+$(document).ready(function () {
+    // Handle check state
+    $('#roles_select_all').on('change', function () {
+        const isChecked = $(this).prop('checked');
+        $('[type="checkbox"]').prop('checked', isChecked);
+    });
+});
+
+
+$(document).ready(function () {
+    const closeButton = $('[modal-close="close"]');
+    closeButton.on('click', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            text: "Are you sure you would like to close?",
+            icon: "warning",
+            showCancelButton: true,
+            buttonsStyling: false,
+            confirmButtonText: "Yes, close it!",
+            cancelButtonText: "No, return",
+            customClass: {
+                confirmButton: "btn btn-primary",
+                cancelButton: "btn btn-active-light"
+            }
+        }).then(function (result) {
+            if (result.value) {
+                // Hide modal
+                $('#kt_modal_update_role').modal('hide');
+            }
+        });
+    });
+});
 
 
 </script>
