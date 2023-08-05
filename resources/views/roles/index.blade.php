@@ -5,6 +5,7 @@
 <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+<script src="assets/js/custom.js"></script>
 @endsection
 
 @section('content')
@@ -62,11 +63,11 @@
     </div>
 </div>
 
-<div class="modal fade" id="roleEditModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="kt_modal_update_role" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered mw-750px">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="">Add a Role</h2>
+                <h2 class="modal-title">Add a Role</h2>
 
                 <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
                     <i class="bi bi-x-lg"><span class="path1"></span><span class="path2"></span></i>
@@ -74,8 +75,8 @@
             </div>
 
             <div class="modal-body scroll-y mx-lg-5 my-7">
-                <form method="post" id="roles_edit_form" class="form">
-
+                <!-- <form method="post" id="kt_modal_update_role_form" class="form"> -->
+                <form id="kt_modal_update_role_form" class="needs-validation" novalidate>
                     {{csrf_field()}}
                     <span id="form_output"></span>
                     <div
@@ -93,7 +94,7 @@
                                 <span class="required">Role name</span>
                             </label>
 
-                            <input class="form-control form-control-solid" placeholder="Enter a role name" name="name" />
+                            <input class="form-control form-control-solid" placeholder="Enter a role name" name="name" id="name"/>
                         </div>
 
                         <div class="fv-row">
@@ -147,63 +148,7 @@
                                             </td>
                                         </tr>
 
-                                        <tr>
-                                            <td class="text-gray-800">Content Management</td>
-
-                                            <td>
-                                                <div class="d-flex">
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input class="form-check-input" type="checkbox" value="" name="content_management_read" />
-                                                        <span class="form-check-label">
-                                                            Read
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input class="form-check-input" type="checkbox" value="" name="content_management_write" />
-                                                        <span class="form-check-label">
-                                                            Write
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                                        <input class="form-check-input" type="checkbox" value="" name="content_management_create" />
-                                                        <span class="form-check-label">
-                                                            Create
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-gray-800">Financial Management</td>
-
-                                            <td>
-                                                <div class="d-flex">
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input class="form-check-input" type="checkbox" value="" name="financial_management_read" />
-                                                        <span class="form-check-label">
-                                                            Read
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input class="form-check-input" type="checkbox" value="" name="financial_management_write" />
-                                                        <span class="form-check-label">
-                                                            Write
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                                        <input class="form-check-input" type="checkbox" value="" name="financial_management_create" />
-                                                        <span class="form-check-label">
-                                                            Create
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        
 
                                         <tr>
                                             <td class="text-gray-800">Reporting</td>
@@ -263,34 +208,7 @@
                                             </td>
                                         </tr>
 
-                                        <tr>
-                                            <td class="text-gray-800">Disputes Management</td>
-
-                                            <td>
-                                                <div class="d-flex">
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input class="form-check-input" type="checkbox" value="" name="disputes_management_read" />
-                                                        <span class="form-check-label">
-                                                            Read
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                        <input class="form-check-input" type="checkbox" value="" name="disputes_management_write" />
-                                                        <span class="form-check-label">
-                                                            Write
-                                                        </span>
-                                                    </label>
-
-                                                    <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                                        <input class="form-check-input" type="checkbox" value="" name="disputes_management_create" />
-                                                        <span class="form-check-label">
-                                                            Create
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                       
 
                                         <tr>
                                             <td class="text-gray-800">API Controls</td>
@@ -387,11 +305,11 @@
                     <div class="text-center pt-15">
                         <input type="hidden" name="role_id" id="role_id" value="" />
                         <input type="hidden" name="button_action" id="button_action" value="insert" />
-                        <button type="reset" class="btn btn-light me-3" data-kt-roles-modal-action="cancel">
+                        <button type="reset" class="btn btn-light me-3" data-kt-roles-modal-action="close">
                             Discard
                         </button>
 
-                        <button type="submit" class="btn btn-primary" name="submit" id="action" value="Add">
+                        <button type="submit" class="btn btn-primary" name="submit" id="action">
                             <span class="indicator-label">
                                 Submit
                             </span>
@@ -413,65 +331,126 @@
   <script src="assets/plugins/global/plugins.bundle.js"></script>
   <script src="assets/js/scripts.bundle.js"></script>
   <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+  
+
 
   <script type="text/javascript">
   $(document).ready(function () {
+        $("#roles_table").DataTable({
+            processing: true,
+            searching: true,
+            paging: true,
+            pageLength: 10,
 
-
-    $("#roles_table").DataTable({
-        processing: true,
-        searching: true,
-        paging: true,
-        pageLength: 10,
-
-        ajax: {
-            url: "{{ route('roles.getall') }}",
-        },
-        columns: [{ data: "id" }, { data: "name" }, { data: "formatted_created_at" }, { data: "action", orderable: true, searchable: true }],
-        columnDefs: [
-            {
-                targets: "_all",
-                className: "text-center",
+            ajax: {
+                url: "{{ route('roles.getall') }}",
             },
-        ],
+            columns: [{ data: "id" }, { data: "name" }, { data: "formatted_created_at" }, { data: "action", orderable: true, searchable: true }],
+            columnDefs: [
+                {
+                    targets: "_all",
+                    className: "text-center",
+                },
+            ],
+        });
     });
-});
 
 $(document).on("click", "#add_data", function () {
-    $("#roleEditModal").modal("show");
-    $("#roles_edit_form")[0].reset();
+    $("#kt_modal_update_role").modal("show");
     $("#form_output").html("");
     $("#button_action").val("insert");
     $("#action").val("Add");
     $(".modal-title").text("Role - Add");
 });
 
-$("#roles_edit_form").on("submit", function (event) {
-    event.preventDefault();
-    var form_data = $(this).serialize();
-    $.ajax({
-        url: "{{ route('roles.store') }}",
-        type: "POST",
-        data: form_data,
-        dataType: "json",
-        success: function (data) {
-            if (data.error.length > 0) {
-                var error_html = "";
-                for (var count = 0; count < data.error.length; count++) {
-                    error_html += '<div class="alert alert-danger">' + data.error[count] + "</div>";
-                }
-                $("#form_output").html(error_html);
+
+$(document).ready(function () {
+    let formValidator;
+    function setupFormValidation(form) {
+        formValidator = FormValidation.formValidation(form, {
+            fields: {
+                name: {
+                    validators: {
+                        notEmpty: {
+                            message: "Role name is required",
+                        },
+                    },
+                },
+            },
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger(),
+                bootstrap: new FormValidation.plugins.Bootstrap5({
+                    rowSelector: ".fv-row",
+                    eleInvalidClass: "",
+                    eleValidClass: "",
+                }),
+            },
+        });
+    }
+
+    const form = document.getElementById("kt_modal_update_role_form");
+    setupFormValidation(form);
+    $("#action").on("click", function (event) {
+        event.preventDefault();
+        formValidator.validate().then(function (status) {
+            if (status === "Valid") {
+                const form_data = new FormData(form);
+                $.ajax({
+                    url: "{{ route('roles.store') }}", 
+                    type: "POST",
+                    data: form_data,
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data.error.length > 0) {
+                            var error_html = "";
+                            for (var count = 0; count < data.error.length; count++) {
+                                error_html += '<div class="alert alert-danger">' + data.error[count] + "</div>";
+                            }
+                            $("#form_output").html(error_html);
+                        } else {
+                            const submitButton = document.getElementById("action");
+                            submitButton.setAttribute("data-kt-indicator", "on");
+                            submitButton.disabled = true;
+                            setTimeout(function () {
+                                submitButton.removeAttribute("data-kt-indicator");
+                                submitButton.disabled = false;
+                                Swal.fire({
+                                    text: "Role has been successfully created!",
+                                    icon: "success",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok, got it!",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary",
+                                    },
+                                }).then(function (result) {
+                                    if (result.isConfirmed) {
+                                        $("#kt_modal_update_role_form")[0].reset();
+                                        $("#roles_table").DataTable().ajax.reload();
+                                        $("#kt_modal_update_role").modal("hide");
+                                    }
+                                });
+                            }, 2000);                               
+                        }
+                    },
+                    error: function () {
+                        
+                        console.log("AJAX error occurred");
+                    },
+                });
             } else {
-                $("#form_output").html(data.success);
-                $("#roles_edit_form")[0].reset();
-                $("#action").val("Add");
-                $(".modal-title").text("Role - Add");
-                $("#button_action").val("insert");
-                $("#roles_table").DataTable().ajax.reload();
-                $("#roleEditModal").modal("hide");
-                alert("Updated Successfully");
+                Swal.fire({
+                    text: "Sorry, looks like there are some errors detected, please try again.",
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                });
             }
-        },
+        });
     });
 });
 
@@ -492,7 +471,8 @@ $(document).on("click", ".edit", function () {
                 }
             });
             $("#role_id").val(id);
-            $("#roleEditModal").modal("show");
+            $('#name').val(data.name);
+            $("#kt_modal_update_role").modal("show");
             $("#action").val("Save");
             $(".modal-title").text("Role - Edit");
             $("#button_action").val("update");
@@ -500,18 +480,73 @@ $(document).on("click", ".edit", function () {
     });
 });
 
+
 $(document).on("click", ".delete", function () {
     var id = $(this).attr("id");
-
-    $.ajax({
-        url: "{{route('roles.delete')}}",
-        method: "get",
-        data: { id: id },
-        success: function (data) {
-            alert("Deleted Successfully");
-            $("#roles_table").DataTable().ajax.reload();
+    Swal.fire({
+        text: "Are you sure you want to delete this role?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel",
+        buttonsStyling: false,
+        customClass: {
+            confirmButton: "btn btn-danger me-3",
+            cancelButton: "btn btn-light",
         },
+    }).then(function (result) {
+        if (result.isConfirmed) {
+            deleteRole(id);
+        }
     });
 });
+
+function deleteRole(id) {
+    $.ajax({
+        url: "{{ route('roles.delete') }}",
+        method: "get",
+        data: { id: id },
+        beforeSend: function () {
+            showDeleteIndicator();
+        },
+        success: function (data) {
+            hideDeleteIndicator();
+            Swal.fire({
+                text: "Role has been deleted successfully!",
+                icon: "success",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                    confirmButton: "btn btn-primary",
+                },
+            });
+            $("#roles_table").DataTable().ajax.reload();
+        },
+        error: function () {
+            hideDeleteIndicator();
+            Swal.fire({
+                text: "An error occurred while deleting the role.",
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                    confirmButton: "btn btn-primary",
+                },
+            });
+        },
+    });
+}
+
+function showDeleteIndicator() {
+    const deleteButton = document.querySelector(".delete");
+    deleteButton.setAttribute("data-kt-indicator", "on");
+    deleteButton.disabled = true;
+}
+function hideDeleteIndicator() {
+    const deleteButton = document.querySelector(".delete");
+    deleteButton.removeAttribute("data-kt-indicator");
+    deleteButton.disabled = false;
+}
+
 
 </script>
