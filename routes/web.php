@@ -45,3 +45,8 @@ Route::resource('customers', 'CustomerController');
 Route::get('customers.getall', 'CustomerController@getall')->name('customers.getall');
 Route::get('customers.getdata', 'CustomerController@getdata')->name('customers.getdata');
 Route::get('customers.delete', 'CustomerController@destroy')->name('customers.delete');
+
+Route::resource('userdashboard', 'UserDashboardController');
+// Route::get('customers.getall', 'UserDashboardController@getall')->name('customers.getall');
+// Route::get('customers.getdata', 'UserDashboardController@getdata')->name('customers.getdata');
+// Route::get('customers.delete', 'UserDashboardController@destroy')->name('customers.delete');
