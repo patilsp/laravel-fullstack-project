@@ -40,3 +40,8 @@ Route::resource('users', 'UserController');
 Route::get('users.getall', 'UserController@getall')->name('users.getall');
 Route::get('users.getdata', 'UserController@getdata')->name('users.getdata');
 Route::get('users.delete', 'UserController@destroy')->name('users.delete');
+
+Route::resource('customers', 'CustomerController');
+Route::get('customers.getall', 'CustomerController@getall')->name('customers.getall');
+Route::get('customers.getdata', 'CustomerController@getdata')->name('customers.getdata');
+Route::get('customers.delete', 'CustomerController@destroy')->name('customers.delete');

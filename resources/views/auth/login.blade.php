@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="m-0">
-                          <h3 class="text-center text-uppercase fs-2">Welcome to Task Sprint</h3>
+                          <h3 class="text-center fs-bold text-uppercase fs-2">Welcome to Task Sprint</h3>
 
                         </div>
                     </div>
@@ -65,11 +65,11 @@
                             @csrf   
                             <div class="card-body">
                                 <div class="text-start mb-10">
-                                    <h1 class="text-dark mb-3 fs-3x" data-kt-translate="sign-in-title">
+                                    <h1 class="text-dark mb-3 fs-3x">
                                         Sign In
                                     </h1>
 
-                                    <div class="text-gray-400  fs-6" data-kt-translate="general-desc">
+                                    <div class="text-gray-400  fs-6">
                                         Working with experienced teams makes work easier & gets you closer to your goals.
                                     </div>
                                 </div>
@@ -92,7 +92,16 @@
                                         @endif
                                     </div>
 
-                                    <input id="password" type="password" class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                    <div class="mb-1">
+                                        <div class="position-relative mb-3">
+                                            <input id="password" type="password" class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                            <span id="togglePassword" class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+                                                <i class="bi bi-eye-slash fs-2"></i>
+                                                <i class="bi bi-eye fs-2 d-none"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
 
                                    
                                     @error('password')
@@ -157,6 +166,27 @@
 
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script src="assets/js/scripts.bundle.js"></script>
-</body>
+    <script src="assets/js/signin.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#togglePassword').on('click', function() {
+                var passwordInput = $('#password');
+                var icon = $(this).find('i');
 
+                if (passwordInput.attr('type') === 'password') {
+                    passwordInput.attr('type', 'text');
+                    icon.removeClass('bi-eye-slash');
+                    icon.addClass('bi-eye');
+                } else {
+                    passwordInput.attr('type', 'password');
+                    icon.removeClass('bi-eye');
+                    icon.addClass('bi-eye-slash');
+                }
+            });
+        });
+
+
+
+    </script>
+</body>
 </html>
