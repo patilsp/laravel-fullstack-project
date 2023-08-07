@@ -25,6 +25,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::resource('userdashboard', 'UserDashboardController');
+
 Route::resource('roles', 'RoleController');
 Route::get('roles.getall', 'RoleController@getall')->name('roles.getall');
 Route::get('roles.getdata', 'RoleController@getdata')->name('roles.getdata');
@@ -46,7 +48,7 @@ Route::get('customers.getall', 'CustomerController@getall')->name('customers.get
 Route::get('customers.getdata', 'CustomerController@getdata')->name('customers.getdata');
 Route::get('customers.delete', 'CustomerController@destroy')->name('customers.delete');
 
-Route::resource('userdashboard', 'UserDashboardController');
-// Route::get('customers.getall', 'UserDashboardController@getall')->name('customers.getall');
-// Route::get('customers.getdata', 'UserDashboardController@getdata')->name('customers.getdata');
-// Route::get('customers.delete', 'UserDashboardController@destroy')->name('customers.delete');
+Route::resource('tickets', 'TicketController');
+Route::get('tickets.getall', 'TicketController@getall')->name('tickets.getall');
+Route::get('tickets.getdata', 'TicketController@getdata')->name('tickets.getdata');
+Route::get('tickets.delete', 'TicketController@destroy')->name('tickets.delete');

@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="m-0">
-                        <span class="text-gray-400  fs-5 me-2">
+                        <span class="text-gray-600  fs-5 me-2">
                             Already a member ?
                         </span>
 
@@ -74,7 +74,7 @@
                                         Create an Account
                                     </h1>
 
-                                    <div class="text-gray-400  fs-6" data-kt-translate="general-desc">
+                                    <div class="text-gray-600  fs-6" data-kt-translate="general-desc">
                                         Join the Sprint: Sign Up and Get Started.
                                     </div>
                                 </div>
@@ -136,6 +136,14 @@
                                     @enderror
                                 </div>
                            
+                                <div class="fv-row mb-10 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
+                                    <label class="form-check form-check-custom form-check-solid form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="toc" value="1">
+                                        <span class="form-check-label fw-semibold text-gray-700 fs-6">
+                                            I Agree <a href="#" class="ms-1 link-primary">Terms and conditions</a>.
+                                        </span>
+                                    </label>
+                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                 
                                 <div class="d-flex flex-stack">
                                     <button id="kt_sign_in_submit" class="btn btn-primary me-2 flex-shrink-0">

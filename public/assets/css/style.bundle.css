@@ -42173,7 +42173,7 @@ code:not([class*=language-]) {
 
 .form-control.form-control-solid {
     background-color: var(--bs-gray-200);
-    border-color: var(--bs-gray-100);
+    /* border-color: var(--bs-gray-300); */
     color: var(--bs-gray-700);
     transition: color .2s ease
 }
@@ -42189,7 +42189,7 @@ code:not([class*=language-]) {
 
 .dropdown.show>.form-control.form-control-solid,.form-control.form-control-solid.active,.form-control.form-control-solid.focus,.form-control.form-control-solid:active,.form-control.form-control-solid:focus {
     background-color: var(--bs-gray-200);
-    border-color: var(--bs-gray-200);
+    /* border-color: var(--bs-gray-200); */
     color: var(--bs-gray-700);
     transition: color .2s ease
 }

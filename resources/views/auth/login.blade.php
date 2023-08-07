@@ -74,15 +74,15 @@
                                     </div>
                                 </div>
 
-                                <div class="fv-row mb-10 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
-                                   
+                                <div class="fv-row mb-5 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
+                                    <label class="form-label  text-dark fs-6 mb-0">Email Id</label>
                                     <input id="email" type="email" class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
 
                                     @error('email')
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback" role="alert">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="fv-row mb-10 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
+                                <div class="fv-row mb-5 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
                                     <div class="d-flex flex-stack mb-2">
                                         <label class="form-label  text-dark fs-6 mb-0">Password</label>
                                         @if (Route::has('password.request'))
