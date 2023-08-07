@@ -52,3 +52,23 @@ Route::resource('tickets', 'TicketController');
 Route::get('tickets.getall', 'TicketController@getall')->name('tickets.getall');
 Route::get('tickets.getdata', 'TicketController@getdata')->name('tickets.getdata');
 Route::get('tickets.delete', 'TicketController@destroy')->name('tickets.delete');
+
+Route::resource('task', 'TaskController');
+Route::get('task.gettasks', 'TaskController@gettasks')->name('task.gettasks');
+Route::get('task.gettaskdetails', 'TaskController@gettaskdetails')->name('task.gettaskdetails');
+
+
+Route::get('tickets/{status}/{id?}', 'TicketController@index')->name('tickets');
+Route::resource('tickets', 'TicketController');
+Route::get('tickets.getnotifications', 'TicketController@getnotifications')->name('tickets.getnotifications')->middleware('setconnection');
+Route::get('tickets.getall', 'TicketController@getall')->name('tickets.getall');
+Route::get('tickets.getticketdetails', 'TicketController@getticketdetails')->name('tickets.getticketdetails');
+Route::get('tickets.ticketstypes', 'TicketController@ticketstypes')->name('tickets.ticketstypes');
+Route::get('tickets.getprojects', 'TicketController@getProjects')->name('tickets.getprojects');
+Route::get('pushnotification', 'HomeController@pushNotifications')->name('pushnotification');
+Route::get('tickets.getteammembers', 'TicketController@getTeamMembers')->name('tickets.getteammembers');
+Route::post('tickets.assignprojects', 'TicketController@assignProjects')->name('tickets.assignprojects');
+Route::get('tickets.ganttchart', 'TicketController@ganttChart');
+Route::get('tickets.getusers', 'TicketController@getUsers')->name('tickets.getusers');
+Route::get('tickets.getCount', 'TicketController@getCount')->name('tickets.getCount')->middleware('setconnection');
+Route::get('tickets.getimpactedoptions', 'TicketController@getimpactedoptions')->name('tickets.getimpactedoptions');
