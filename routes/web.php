@@ -48,6 +48,11 @@ Route::get('customers.getall', 'CustomerController@getall')->name('customers.get
 Route::get('customers.getdata', 'CustomerController@getdata')->name('customers.getdata');
 Route::get('customers.delete', 'CustomerController@destroy')->name('customers.delete');
 
+Route::resource('projects', 'ProjectController');
+Route::get('projects.getall', 'ProjectController@getall')->name('projects.getall');
+Route::get('projects.getdata', 'ProjectController@getdata')->name('projects.getdata');
+Route::get('projects.delete', 'ProjectController@destroy')->name('projects.delete');
+
 Route::resource('tickets', 'TicketController');
 Route::get('tickets.getall', 'TicketController@getall')->name('tickets.getall');
 Route::get('tickets.getdata', 'TicketController@getdata')->name('tickets.getdata');
