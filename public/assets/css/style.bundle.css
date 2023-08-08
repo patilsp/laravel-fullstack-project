@@ -76,9 +76,9 @@
     --bs-body-line-height: 1.5;
     --bs-body-color: #181C32;
     --bs-body-color-rgb: 24,28,50;
-    --bs-body-bg: #ffffff;
+    --bs-body-bg: #FFFFFF;
     --bs-body-bg-rgb: 255,255,255;
-    --bs-body-bg-content: #e8e8e8;
+    --bs-body-bg-content: #fbfaf8;
     --bs-emphasis-color: #000000;
     --bs-emphasis-color-rgb: 0,0,0;
     --bs-secondary-color: rgba(24, 28, 50, 0.75);
@@ -122,8 +122,10 @@
     --bs-form-invalid-border-color: #ef6b3f;
 
     --bs-modal-header-bg : #eff0f3;
-
-
+    --bs-app-sidebar-secondary-base-bg-color: #eceff7;
+    --bs-menu-link-bg: #f8f9fb;
+    --bs-menu-link-shadow: 0 0.25rem 0.5rem #fff;
+    --bs-body-bg1: linear-gradient(-45deg, #e9ecf7, #dbdde4, #f2f1f6, #fdf3f7, #fdf3f7);
   }
 
   /* Dark Theme */
@@ -35216,11 +35218,15 @@ textarea.form-control-lg {
     align-items: center;
     padding: 0;
     flex: 0 0 100%;
-    padding: .65rem 1rem;
-    transition: none;
-    outline: 0!important
+    padding: 1rem 1rem;
+    color: #5d5c61;    
 }
-
+.menu-item .menu-link:hover {
+    background-color: var(--bs-menu-link-bg) !important;
+}
+.menu-bullet:hover {
+    color: #6d41ee;
+}
 .menu-item .menu-link .menu-icon {
     flex-shrink: 0;
     display: flex;
@@ -56000,7 +56006,8 @@ router-outlet {
     transition: width .3s ease,margin .3s ease;
     position: relative;
     flex-shrink: 0;
-    background-color: var(--bs-app-sidebar-secondary-base-bg-color);
+    background: var(--bs-app-sidebar-secondary-base-bg-color);
+    /* background: linear-gradient(-45deg, #f2f1f6, #dbdde4, #e4e3e4, #fdf3f7, #fdf3f7); */
     box-shadow: var(--bs-app-sidebar-secondary-base-box-shadow);
     border-left: var(--bs-app-sidebar-secondary-base-border-start);
     border-right: var(--bs-app-sidebar-secondary-base-border-end)

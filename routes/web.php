@@ -53,14 +53,19 @@ Route::get('projects.getall', 'ProjectController@getall')->name('projects.getall
 Route::get('projects.getdata', 'ProjectController@getdata')->name('projects.getdata');
 Route::get('projects.delete', 'ProjectController@destroy')->name('projects.delete');
 
+
+Route::resource('tasks', 'TaskController');
+Route::get('tasks.getall', 'TaskController@getall')->name('tasks.getall');
+Route::get('tasks.getdata', 'TaskController@getdata')->name('tasks.getdata');
+Route::get('tasks.delete', 'TaskController@destroy')->name('tasks.delete');
+
+Route::get('task.gettasks', 'TaskController@gettasks')->name('task.gettasks');
+Route::get('task.gettaskdetails', 'TaskController@gettaskdetails')->name('task.gettaskdetails');
+
 Route::resource('tickets', 'TicketController');
 Route::get('tickets.getall', 'TicketController@getall')->name('tickets.getall');
 Route::get('tickets.getdata', 'TicketController@getdata')->name('tickets.getdata');
 Route::get('tickets.delete', 'TicketController@destroy')->name('tickets.delete');
-
-Route::resource('task', 'TaskController');
-Route::get('task.gettasks', 'TaskController@gettasks')->name('task.gettasks');
-Route::get('task.gettaskdetails', 'TaskController@gettaskdetails')->name('task.gettaskdetails');
 
 
 Route::get('tickets/{status}/{id?}', 'TicketController@index')->name('tickets');
