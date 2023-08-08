@@ -355,9 +355,7 @@
                     }
                 });
                 $("#task_id").val(id);
-                $("#name").val(data.name);
-                $("#task_role").val(data.task_role);
-                $("#two_step_login").val(data.two_step_login);
+                $("#task_name").val(task_name);
                 $("#modal_task").modal("show");
                 $("#action").val("Save");
                 $(".modal-title").text("Update task");
