@@ -28,7 +28,7 @@ class TicketController extends Controller
         $roles = Role::all();
         $customers = Customer::all();
         $tickets = Ticket::all();
-        return view('tickets.index', compact('tickets','customers','users','roles'));
+        return view('tasks.index', compact('tasks','customers','users','roles'));
     }
 
     /**

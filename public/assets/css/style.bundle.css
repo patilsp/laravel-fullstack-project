@@ -100,7 +100,7 @@
     --bs-highlight-bg: #fff3cd;
     --bs-border-width: 1px;
     --bs-border-style: solid;
-    --bs-border-color: #dcdcdc;
+    --bs-border-color: #dcdfe4;
     --bs-border-color-translucent: rgba(0, 0, 0, 0.175);
     --bs-border-radius: 0.65rem;
     --bs-border-radius-sm: 0.425rem;
@@ -120,6 +120,10 @@
     --bs-form-valid-border-color: #63b44e;
     --bs-form-invalid-color: #ef6b3f;
     --bs-form-invalid-border-color: #ef6b3f;
+
+    --bs-modal-header-bg : #eff0f3;
+
+
   }
 
   /* Dark Theme */
@@ -249,7 +253,9 @@
 *,::after,::before {
     box-sizing: border-box
 }
-
+html {
+    font-size: 90%;
+}
 body {
     margin: 0;
     font-family: var(--bs-body-font-family);
@@ -6200,10 +6206,15 @@ textarea.form-control-lg {
     flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
+    background-color: var(--bs-modal-header-bg);
     padding: var(--bs-modal-header-padding);
     border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
     border-top-left-radius: var(--bs-modal-inner-border-radius);
-    border-top-right-radius: var(--bs-modal-inner-border-radius)
+    border-top-right-radius: var(--bs-modal-inner-border-radius);
+    height: 50px;
+    min-height: 50px;
+    align-items: center;
+    border-radius: 12px 12px 0 0 !important;
 }
 
 .modal-header .btn-close {
@@ -40119,8 +40130,10 @@ textarea.form-control-lg {
 
 .btn.btn-primary {
     color: #fff;
-    border-color: #00B78A;
-    background: transparent linear-gradient(90deg, #14EB8F 0%, #00B78A 100%) 0% 0% no-repeat padding-box;
+    border-color: #d3cdf9 !important;
+    background-color: #7b68ee;
+    box-shadow: 0 10px 25px #7b68ee80 !important;
+    transition: background-color .2s cubic-bezier(.785,.135,.15,.86) 0s;
 }
 
 .btn.btn-primary .svg-icon,.btn.btn-primary i {
@@ -40132,9 +40145,9 @@ textarea.form-control-lg {
 }
 
 .btn-check:active+.btn.btn-primary,.btn-check:checked+.btn.btn-primary,.btn.btn-primary.active,.btn.btn-primary.show,.btn.btn-primary:active:not(.btn-active),.btn.btn-primary:focus:not(.btn-active),.btn.btn-primary:hover:not(.btn-active),.show>.btn.btn-primary {
-    color: var(--bs-primary-inverse);
-    border-color: var(--bs-primary-active);
-    background-color: var(--bs-primary-active)!important
+    color: #fff;
+    border-color: #d3cdf9;
+    background-color: #5f48ea !important;
 }
 
 .btn-check:active+.btn.btn-primary .svg-icon,.btn-check:active+.btn.btn-primary i,.btn-check:checked+.btn.btn-primary .svg-icon,.btn-check:checked+.btn.btn-primary i,.btn.btn-primary.active .svg-icon,.btn.btn-primary.active i,.btn.btn-primary.show .svg-icon,.btn.btn-primary.show i,.btn.btn-primary:active:not(.btn-active) .svg-icon,.btn.btn-primary:active:not(.btn-active) i,.btn.btn-primary:focus:not(.btn-active) .svg-icon,.btn.btn-primary:focus:not(.btn-active) i,.btn.btn-primary:hover:not(.btn-active) .svg-icon,.btn.btn-primary:hover:not(.btn-active) i,.show>.btn.btn-primary .svg-icon,.show>.btn.btn-primary i {

@@ -30,4 +30,11 @@ function changeThemeMode(mode) {
     setTimeout(function() {
       $('body').addClass('loaded');
     }, 100);
+
+
   });
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    document.body.classList.add("zoom-90");
+});

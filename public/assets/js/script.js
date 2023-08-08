@@ -13,6 +13,7 @@ var KTComponents = {
         KTPasswordMeter.init()
     }
 };
+
 "loading" === document.readyState ? document.addEventListener("DOMContentLoaded", (function() {
     KTComponents.init()
 }

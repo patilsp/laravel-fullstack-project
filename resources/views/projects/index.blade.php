@@ -3,52 +3,1807 @@
 <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 @endsection @section('content')
-<div id="kt_app_content_container" class="app-container container-xxl mt-4">
-    <div class="card card-flush mb-6 mb-xl-9">
-        <div class="card-header pt-5">
-            <div class="card-title">
-                <h2 class="d-flex align-items-center">projects<span class="text-gray-600 fs-6 ms-1"></span></h2>
-            </div>
 
-            <div class="card-toolbar">
-                <div class="d-flex align-items-center position-relative me-4">
-                    <i class="bi bi-search fs-1 position-absolute ms-6"></i> <input type="text" class="form-control form-control-solid w-250px ps-15" placeholder="Search projects" />
+<div id="kt_app_content_container" class="app-container container-xxl">
+    <div class="card card-flush mt-lg-5 mb-lg-10">
+        <div class="card-body pt-9 pb-0">
+            <div class="d-flex flex-wrap flex-sm-nowrap mb-6">
+                <div class="d-flex flex-center flex-shrink-0 bg-light rounded w-100px h-100px w-lg-150px h-lg-150px me-7 mb-4">
+                    <img class="mw-50px mw-lg-75px" src="assets/media/svg/brand-logos/volicity-9.svg" alt="image" />
                 </div>
 
-                <div class="d-flex ms-3">
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center mb-1">
+                                <a href="#" class="text-gray-800 text-hover-primary fs-2  me-3">Project Dashboard</a>
+                                <span class="badge badge-light-success me-auto">In Progress</span>
+                            </div>
+
+                            <div class="d-flex flex-wrap  mb-4 fs-5 text-gray-400">
+                                #1 Tool to get started with Web Apps any Kind &amp; size
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-4">
+                            <a href="#" class="btn btn-sm btn-bg-light btn-active-color-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_users_search">Add User</a>
+
+                            <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Add Target</a>
+
+                            <div class="me-0">
+                                <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                    <i class="bi-solid bi-dots-horizontal fs-2x"></i>
+                                </button>
+
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary  w-200px py-3" data-kt-menu="true">
+                                    <div class="menu-item px-3">
+                                        <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                            Payments
+                                        </div>
+                                    </div>
+
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3">
+                                            Create Invoice
+                                        </a>
+                                    </div>
+
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link flex-stack px-3">
+                                            Create Payment
+
+                                            <span
+                                                class="ms-2"
+                                                data-bs-toggle="tooltip"
+                                                aria-label="Specify a target name for future usage and reference"
+                                                data-bs-original-title="Specify a target name for future usage and reference"
+                                                data-kt-initialized="1"
+                                            >
+                                                <i class="bi bi-information fs-6"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3">
+                                            Generate Bill
+                                        </a>
+                                    </div>
+
+                                    <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                        <a href="#" class="menu-link px-3">
+                                            <span class="menu-title">Subscription</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+
+                                        <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">
+                                                    Plans
+                                                </a>
+                                            </div>
+
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">
+                                                    Billing
+                                                </a>
+                                            </div>
+
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">
+                                                    Statements
+                                                </a>
+                                            </div>
+
+                                            <div class="separator my-2"></div>
+
+                                            <div class="menu-item px-3">
+                                                <div class="menu-content px-3">
+                                                    <label class="form-check form-switch form-check-custom form-check-solid">
+                                                        <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+
+                                                        <span class="form-check-label text-muted fs-6">
+                                                            Recuring
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="menu-item px-3 my-1">
+                                        <a href="#" class="menu-link px-3">
+                                            Settings
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap justify-content-start">
+                        <div class="d-flex flex-wrap">
+                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-4 ">29 Jan, 2023</div>
+                                </div>
+
+                                <div class=" fs-6 text-gray-400">Due Date</div>
+                            </div>
+
+                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-arrow-down fs-3 text-danger me-2"></i>
+                                    <div class="fs-4  counted" data-kt-countup="true" data-kt-countup-value="75" data-kt-initialized="1">75</div>
+                                </div>
+
+                                <div class=" fs-6 text-gray-400">Open Tasks</div>
+                            </div>
+
+                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-arrow-up fs-3 text-success me-2"></i>
+                                    <div class="fs-4  counted" data-kt-countup="true" data-kt-countup-value="15000" data-kt-countup-prefix="$" data-kt-initialized="1">$15,000</div>
+                                </div>
+
+                                <div class=" fs-6 text-gray-400">Budget Spent</div>
+                            </div>
+                        </div>
+
+                        <div class="symbol-group symbol-hover mb-3">
+                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Alan Warden" data-kt-initialized="1">
+                                <span class="symbol-label bg-warning text-inverse-warning ">A</span>
+                            </div>
+
+                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Michael Eberon" data-bs-original-title="Michael Eberon" data-kt-initialized="1">
+                                <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                            </div>
+
+                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Michelle Swanston" data-bs-original-title="Michelle Swanston" data-kt-initialized="1">
+                                <img alt="Pic" src="assets/media/avatars/3.jpg" />
+                            </div>
+
+                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Francis Mitcham" data-bs-original-title="Francis Mitcham" data-kt-initialized="1">
+                                <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                            </div>
+
+                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Susan Redwood" data-kt-initialized="1">
+                                <span class="symbol-label bg-primary text-inverse-primary ">S</span>
+                            </div>
+
+                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Melody Macy" data-bs-original-title="Melody Macy" data-kt-initialized="1">
+                                <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                            </div>
+
+                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Perry Matthew" data-kt-initialized="1">
+                                <span class="symbol-label bg-info text-inverse-info ">P</span>
+                            </div>
+
+                            <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Barry Walter" data-bs-original-title="Barry Walter" data-kt-initialized="1">
+                                <img alt="Pic" src="assets/media/avatars/2.jpg" />
+                            </div>
+
+                            <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">
+                                <span class="symbol-label bg-dark text-inverse-dark fs-8 " data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-original-title="View more users" data-kt-initialized="1">+42</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 ">
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6" href="project.html"> Overview </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6 active" href="targets.html"> Targets </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6" href="budget.html"> Budget </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6" href="users.html"> Users </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6" href="files.html"> Files </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6" href="activity.html"> Activity </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary py-5 me-6" href="settings.html"> Settings </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap flex-stack pt-10 pb-8" data-select2-id="select2-data-124-6tzc">
+        <h3 class=" my-2">
+            Project Targets
+            <span class="fs-6 text-gray-400  ms-1">by Recent Updates ↓</span>
+        </h3>
+        <div class="d-flex align-items-center position-relative me-4">
+                    <i class="bi bi-search fs-1 position-absolute ms-6"></i> <input type="text" class="form-control form-control-solid w-250px ps-15" placeholder="Search projects" />
+                </div>
+        <div class="d-flex flex-wrap my-1" data-select2-id="select2-data-123-3lco">
+            <ul class="nav nav-pills me-5" role="tablist">
+                <li class="nav-item m-0" role="presentation">
+                    <a class="btn btn-sm btn-icon btn-light btn-color-muted btn-active-primary me-3 active" data-bs-toggle="tab" href="#kt_project_targets_card_pane" aria-selected="true" role="tab">
+                        <i class="bi bi-plus fs-1"></i>
+                    </a>
+                </li>
+
+                <li class="nav-item m-0" role="presentation">
+                    <a class="btn btn-sm btn-icon btn-light btn-color-muted btn-active-primary" data-bs-toggle="tab" href="#kt_project_targets_table_pane" aria-selected="false" role="tab" tabindex="-1">
+                        <i class="bi bi-bar-chart fs-2"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="my-0" data-select2-id="select2-data-122-82eh">
+                <select
+                    name="status"
+                    data-control="select2"
+                    data-hide-search="true"
+                    class="form-select form-select-sm form-select-solid w-150px select2-hidden-accessible"
+                    data-select2-id="select2-data-7-bq6v"
+                    tabindex="-1"
+                    aria-hidden="true"
+                    data-kt-initialized="1"
+                >
+                    <option value="1" selected="" data-select2-id="select2-data-9-4z9d">Recently Updated</option>
+                    <option value="2" data-select2-id="select2-data-126-49aq">Last Month</option>
+                    <option value="3" data-select2-id="select2-data-127-bify">Last Quarter</option>
+                    <option value="4" data-select2-id="select2-data-128-kzgg">Last Year</option>
+                </select>
+
+            </div>
+            <div class="d-flex ms-3">
                     <button type="button" class="btn btn-sm btn-flex btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_projects_export_modal"><i class="bi bi-exit-up fs-2"></i>Export</button>
 
                     <a href="#" class="btn btn-sm btn-flex btn-light-primary" tooltip="Add New project" id="add_data"> <i class="bi bi-plus-lg me-2"></i> Add project </a>
                 </div>
+        </div>
+    </div>
+
+    <div class="tab-content">
+        <div id="kt_project_targets_card_pane" class="tab-pane fade active show" role="tabpanel">
+            <div class="row g-9">
+                <div class="col-md-4 col-lg-12 col-xl-4">
+                    <div class="mb-9">
+                        <div class="d-flex flex-stack">
+                            <div class=" fs-4">
+                                Yet to start
+                                <span class="fs-6 text-gray-400 ms-2">2</span>
+                            </div>
+
+                            <div>
+                                <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                    <i class="bi bi-plus fs-2"></i>
+                                </button>
+
+                                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64d131c79061c">
+                                    <div class="px-7 py-5">
+                                        <div class="fs-5 text-dark ">Filter Options</div>
+                                    </div>
+
+                                    <div class="separator border-gray-200"></div>
+
+                                    <div class="px-7 py-5">
+                                        <div class="mb-10">
+                                            <label class="form-label ">Status:</label>
+
+                                            <div>
+                                                <select
+                                                    class="form-select form-select-solid select2-hidden-accessible"
+                                                    multiple=""
+                                                    data-kt-select2="true"
+                                                    data-close-on-select="false"
+                                                    data-placeholder="Select option"
+                                                    data-dropdown-parent="#kt_menu_64d131c79061c"
+                                                    data-allow-clear="true"
+                                                    data-select2-id="select2-data-10-0d2p"
+                                                    tabindex="-1"
+                                                    aria-hidden="true"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <option></option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="2">Pending</option>
+                                                    <option value="2">In Process</option>
+                                                    <option value="2">Rejected</option>
+                                                </select>
+                                                <span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-11-aahp" style="width: 100%;">
+                                                    <span class="selection">
+                                                        <span
+                                                            class="select2-selection select2-selection--multiple form-select form-select-solid"
+                                                            role="combobox"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                            tabindex="-1"
+                                                            aria-disabled="false"
+                                                        >
+                                                            <ul class="select2-selection__rendered" id="select2-97lh-container"></ul>
+                                                            <span class="select2-search select2-search--inline">
+                                                                <textarea
+                                                                    class="select2-search__field"
+                                                                    type="search"
+                                                                    tabindex="0"
+                                                                    autocorrect="off"
+                                                                    autocapitalize="none"
+                                                                    spellcheck="false"
+                                                                    role="searchbox"
+                                                                    aria-autocomplete="list"
+                                                                    autocomplete="off"
+                                                                    aria-label="Search"
+                                                                    aria-describedby="select2-97lh-container"
+                                                                    placeholder="Select option"
+                                                                    style="width: 100%;"
+                                                                ></textarea>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                    <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-10">
+                                            <label class="form-label ">Member Type:</label>
+
+                                            <div class="d-flex">
+                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                                                    <input class="form-check-input" type="checkbox" value="1" />
+                                                    <span class="form-check-label">
+                                                        Author
+                                                    </span>
+                                                </label>
+
+                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                    <input class="form-check-input" type="checkbox" value="2" checked="checked" />
+                                                    <span class="form-check-label">
+                                                        Customer
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-10">
+                                            <label class="form-label ">Notifications:</label>
+
+                                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="checkbox" value="" name="notifications" checked="" />
+                                                <label class="form-check-label">
+                                                    Enabled
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end">
+                                            <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
+
+                                            <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="h-3px w-100 bg-warning"></div>
+                    </div>
+
+                    <div class="card mb-6 mb-xl-9">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack mb-3">
+                                <div class="badge badge-light">UI Design</div>
+
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="bi bi-plus fs-2"></i>
+                                    </button>
+
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary  w-200px py-3" data-kt-menu="true">
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                Payments
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Create Invoice
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link flex-stack px-3">
+                                                Create Payment
+
+                                                <span
+                                                    class="ms-2"
+                                                    data-bs-toggle="tooltip"
+                                                    aria-label="Specify a target name for future usage and reference"
+                                                    data-bs-original-title="Specify a target name for future usage and reference"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <i class="bi bi-information fs-6"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Generate Bill
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Subscription</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Plans
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Billing
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Statements
+                                                    </a>
+                                                </div>
+
+                                                <div class="separator my-2"></div>
+
+                                                <div class="menu-item px-3">
+                                                    <div class="menu-content px-3">
+                                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+
+                                                            <span class="form-check-label text-muted fs-6">
+                                                                Recuring
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3 my-1">
+                                            <a href="#" class="menu-link px-3">
+                                                Settings
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <a href="#" class="fs-4  mb-1 text-gray-900 text-hover-primary">Meeting with customer</a>
+                            </div>
+
+                            <div class="fs-6  text-gray-600 mb-5">First, a disclaimer – the entire process writing a blog post often takes a couple of hours if you can type</div>
+
+                            <div class="d-flex flex-stack flex-wrapr">
+                                <div class="symbol-group symbol-hover my-1">
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Melody Macy" data-bs-original-title="Melody Macy" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Harry Mcpherson" data-bs-original-title="Harry Mcpherson" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/2.jpg" />
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Susan Redwood" data-kt-initialized="1">
+                                        <span class="symbol-label bg-primary text-inverse-primary ">S</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex my-1">
+                                    <div class="border border-dashed border-gray-300 rounded d-flex align-items-center py-2 px-3"><i class="bi bi-paper-clip fs-3"></i> <span class="ms-1 fs-7  text-gray-600">7</span></div>
+
+                                    <div class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                        <i class="bi bi-message-text-2 fs-3"></i> <span class="ms-1 fs-7  text-gray-600">10</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-6 mb-xl-9">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack mb-3">
+                                <div class="badge badge-light">Phase 2.6 QA</div>
+
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="bi bi-plus fs-2"></i>
+                                    </button>
+
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary  w-200px py-3" data-kt-menu="true">
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                Payments
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Create Invoice
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link flex-stack px-3">
+                                                Create Payment
+
+                                                <span
+                                                    class="ms-2"
+                                                    data-bs-toggle="tooltip"
+                                                    aria-label="Specify a target name for future usage and reference"
+                                                    data-bs-original-title="Specify a target name for future usage and reference"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <i class="bi bi-information fs-6"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Generate Bill
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Subscription</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Plans
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Billing
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Statements
+                                                    </a>
+                                                </div>
+
+                                                <div class="separator my-2"></div>
+
+                                                <div class="menu-item px-3">
+                                                    <div class="menu-content px-3">
+                                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+
+                                                            <span class="form-check-label text-muted fs-6">
+                                                                Recuring
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3 my-1">
+                                            <a href="#" class="menu-link px-3">
+                                                Settings
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <a href="#" class="fs-4  mb-1 text-gray-900 text-hover-primary">User Module Testing</a>
+                            </div>
+
+                            <div class="fs-6  text-gray-600 mb-5">First, a disclaimer – the entire process writing a blog post often.</div>
+
+                            <div class="d-flex flex-stack flex-wrapr">
+                                <div class="symbol-group symbol-hover my-1">
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Alan Warden" data-kt-initialized="1">
+                                        <span class="symbol-label bg-warning text-inverse-warning ">A</span>
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Perry Matthew" data-kt-initialized="1">
+                                        <span class="symbol-label bg-success text-inverse-success ">R</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex my-1">
+                                    <div class="border border-dashed border-gray-300 rounded d-flex align-items-center py-2 px-3"><i class="bi bi-paper-clip fs-3"></i> <span class="ms-1 fs-7  text-gray-600">5</span></div>
+
+                                    <div class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                        <i class="bi bi-message-2 fs-3"></i> <span class="ms-1 fs-7  text-gray-600">6</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#" class="btn btn-primary er w-100 fs-6 px-8 py-4" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Create New Target</a>
+                </div>
+
+                <div class="col-md-4 col-lg-12 col-xl-4">
+                    <div class="mb-9">
+                        <div class="d-flex flex-stack">
+                            <div class=" fs-4">
+                                In Progress
+                                <span class="fs-6 text-gray-400 ms-2">4</span>
+                            </div>
+
+                            <div>
+                                <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                    <i class="bi bi-plus fs-2"></i>
+                                </button>
+
+                                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64d131c7907a4">
+                                    <div class="px-7 py-5">
+                                        <div class="fs-5 text-dark ">Filter Options</div>
+                                    </div>
+
+                                    <div class="separator border-gray-200"></div>
+
+                                    <div class="px-7 py-5">
+                                        <div class="mb-10">
+                                            <label class="form-label ">Status:</label>
+
+                                            <div>
+                                                <select
+                                                    class="form-select form-select-solid select2-hidden-accessible"
+                                                    multiple=""
+                                                    data-kt-select2="true"
+                                                    data-close-on-select="false"
+                                                    data-placeholder="Select option"
+                                                    data-dropdown-parent="#kt_menu_64d131c7907a4"
+                                                    data-allow-clear="true"
+                                                    data-select2-id="select2-data-12-khyf"
+                                                    tabindex="-1"
+                                                    aria-hidden="true"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <option></option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="2">Pending</option>
+                                                    <option value="2">In Process</option>
+                                                    <option value="2">Rejected</option>
+                                                </select>
+                                                <span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-13-ifjg" style="width: 100%;">
+                                                    <span class="selection">
+                                                        <span
+                                                            class="select2-selection select2-selection--multiple form-select form-select-solid"
+                                                            role="combobox"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                            tabindex="-1"
+                                                            aria-disabled="false"
+                                                        >
+                                                            <ul class="select2-selection__rendered" id="select2-vrl9-container"></ul>
+                                                            <span class="select2-search select2-search--inline">
+                                                                <textarea
+                                                                    class="select2-search__field"
+                                                                    type="search"
+                                                                    tabindex="0"
+                                                                    autocorrect="off"
+                                                                    autocapitalize="none"
+                                                                    spellcheck="false"
+                                                                    role="searchbox"
+                                                                    aria-autocomplete="list"
+                                                                    autocomplete="off"
+                                                                    aria-label="Search"
+                                                                    aria-describedby="select2-vrl9-container"
+                                                                    placeholder="Select option"
+                                                                    style="width: 100%;"
+                                                                ></textarea>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                    <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-10">
+                                            <label class="form-label ">Member Type:</label>
+
+                                            <div class="d-flex">
+                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                                                    <input class="form-check-input" type="checkbox" value="1" />
+                                                    <span class="form-check-label">
+                                                        Author
+                                                    </span>
+                                                </label>
+
+                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                    <input class="form-check-input" type="checkbox" value="2" checked="checked" />
+                                                    <span class="form-check-label">
+                                                        Customer
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-10">
+                                            <label class="form-label ">Notifications:</label>
+
+                                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="checkbox" value="" name="notifications" checked="" />
+                                                <label class="form-check-label">
+                                                    Enabled
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end">
+                                            <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
+
+                                            <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="h-3px w-100 bg-primary"></div>
+                    </div>
+
+                    <div class="card mb-6 mb-xl-9">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack mb-3">
+                                <div class="badge badge-light">Development</div>
+
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="bi bi-plus fs-2"></i>
+                                    </button>
+
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary  w-200px py-3" data-kt-menu="true">
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                Payments
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Create Invoice
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link flex-stack px-3">
+                                                Create Payment
+
+                                                <span
+                                                    class="ms-2"
+                                                    data-bs-toggle="tooltip"
+                                                    aria-label="Specify a target name for future usage and reference"
+                                                    data-bs-original-title="Specify a target name for future usage and reference"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <i class="bi bi-information fs-6"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Generate Bill
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Subscription</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Plans
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Billing
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Statements
+                                                    </a>
+                                                </div>
+
+                                                <div class="separator my-2"></div>
+
+                                                <div class="menu-item px-3">
+                                                    <div class="menu-content px-3">
+                                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+
+                                                            <span class="form-check-label text-muted fs-6">
+                                                                Recuring
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3 my-1">
+                                            <a href="#" class="menu-link px-3">
+                                                Settings
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <a href="#" class="fs-4  mb-1 text-gray-900 text-hover-primary">Sales report page</a>
+                            </div>
+
+                            <div class="fs-6  text-gray-600 mb-5">First, a disclaimer takes a couple hours</div>
+
+                            <div class="d-flex flex-stack flex-wrapr">
+                                <div class="symbol-group symbol-hover my-1">
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Alan Warden" data-kt-initialized="1">
+                                        <span class="symbol-label bg-warning text-inverse-warning ">A</span>
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Michelle Swanston" data-bs-original-title="Michelle Swanston" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/3.jpg" />
+                                    </div>
+                                </div>
+
+                                <div class="d-flex my-1">
+                                    <div class="border border-dashed border-gray-300 rounded d-flex align-items-center py-2 px-3"><i class="bi bi-paper-clip fs-3"></i> <span class="ms-1 fs-7  text-gray-600">8</span></div>
+
+                                    <div class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                        <i class="bi bi-message-text-2 fs-3"></i> <span class="ms-1 fs-7  text-gray-600">8</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-6 mb-xl-9">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack mb-3">
+                                <div class="badge badge-light">Testing</div>
+
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="bi bi-plus fs-2"></i>
+                                    </button>
+
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary  w-200px py-3" data-kt-menu="true">
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                Payments
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Create Invoice
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link flex-stack px-3">
+                                                Create Payment
+
+                                                <span
+                                                    class="ms-2"
+                                                    data-bs-toggle="tooltip"
+                                                    aria-label="Specify a target name for future usage and reference"
+                                                    data-bs-original-title="Specify a target name for future usage and reference"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <i class="bi bi-information fs-6"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Generate Bill
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Subscription</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Plans
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Billing
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Statements
+                                                    </a>
+                                                </div>
+
+                                                <div class="separator my-2"></div>
+
+                                                <div class="menu-item px-3">
+                                                    <div class="menu-content px-3">
+                                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+
+                                                            <span class="form-check-label text-muted fs-6">
+                                                                Recuring
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3 my-1">
+                                            <a href="#" class="menu-link px-3">
+                                                Settings
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <a href="#" class="fs-4  mb-1 text-gray-900 text-hover-primary">Meeting with customer</a>
+                            </div>
+
+                            <div class="fs-6  text-gray-600 mb-5">First, a disclaimer – the entire process writing a blog post often takes a couple of hours if you can type</div>
+
+                            <div class="d-flex flex-stack flex-wrapr">
+                                <div class="symbol-group symbol-hover my-1">
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Francis Mitcham" data-bs-original-title="Francis Mitcham" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Harry Mcpherson" data-bs-original-title="Harry Mcpherson" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/2.jpg" />
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Susan Redwood" data-kt-initialized="1">
+                                        <span class="symbol-label bg-primary text-inverse-primary ">S</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex my-1">
+                                    <div class="border border-dashed border-gray-300 rounded d-flex align-items-center py-2 px-3"><i class="bi bi-paper-clip fs-3"></i> <span class="ms-1 fs-7  text-gray-600">4</span></div>
+
+                                    <div class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                        <i class="bi bi-message-text-2 fs-3"></i> <span class="ms-1 fs-7  text-gray-600">4</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-6 mb-xl-9">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack mb-3">
+                                <div class="badge badge-light">UI Design</div>
+
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="bi bi-plus fs-2"></i>
+                                    </button>
+
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary  w-200px py-3" data-kt-menu="true">
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                Payments
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Create Invoice
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link flex-stack px-3">
+                                                Create Payment
+
+                                                <span
+                                                    class="ms-2"
+                                                    data-bs-toggle="tooltip"
+                                                    aria-label="Specify a target name for future usage and reference"
+                                                    data-bs-original-title="Specify a target name for future usage and reference"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <i class="bi bi-information fs-6"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Generate Bill
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Subscription</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Plans
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Billing
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Statements
+                                                    </a>
+                                                </div>
+
+                                                <div class="separator my-2"></div>
+
+                                                <div class="menu-item px-3">
+                                                    <div class="menu-content px-3">
+                                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+
+                                                            <span class="form-check-label text-muted fs-6">
+                                                                Recuring
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3 my-1">
+                                            <a href="#" class="menu-link px-3">
+                                                Settings
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <a href="#" class="fs-4  mb-1 text-gray-900 text-hover-primary">Design main Dashboard</a>
+                            </div>
+
+                            <div class="fs-6  text-gray-600 mb-5">First, a disclaimer takes a couple hours</div>
+
+                            <div class="d-flex flex-stack flex-wrapr">
+                                <div class="symbol-group symbol-hover my-1">
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Francis Mitcham" data-bs-original-title="Francis Mitcham" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Michelle Swanston" data-bs-original-title="Michelle Swanston" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/3.jpg" />
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Susan Redwood" data-kt-initialized="1">
+                                        <span class="symbol-label bg-primary text-inverse-primary ">S</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex my-1">
+                                    <div class="border border-dashed border-gray-300 rounded d-flex align-items-center py-2 px-3"><i class="bi bi-paper-clip fs-3"></i> <span class="ms-1 fs-7  text-gray-600">5</span></div>
+
+                                    <div class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                        <i class="bi bi-message-text-2 fs-3"></i> <span class="ms-1 fs-7  text-gray-600">5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-6 mb-xl-9">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack mb-3">
+                                <div class="badge badge-light">Phase 2.6 QA</div>
+
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="bi bi-plus fs-2"></i>
+                                    </button>
+
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary  w-200px py-3" data-kt-menu="true">
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                Payments
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Create Invoice
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link flex-stack px-3">
+                                                Create Payment
+
+                                                <span
+                                                    class="ms-2"
+                                                    data-bs-toggle="tooltip"
+                                                    aria-label="Specify a target name for future usage and reference"
+                                                    data-bs-original-title="Specify a target name for future usage and reference"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <i class="bi bi-information fs-6"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Generate Bill
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Subscription</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Plans
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Billing
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Statements
+                                                    </a>
+                                                </div>
+
+                                                <div class="separator my-2"></div>
+
+                                                <div class="menu-item px-3">
+                                                    <div class="menu-content px-3">
+                                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+
+                                                            <span class="form-check-label text-muted fs-6">
+                                                                Recuring
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3 my-1">
+                                            <a href="#" class="menu-link px-3">
+                                                Settings
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <a href="#" class="fs-4  mb-1 text-gray-900 text-hover-primary">User Module Testing</a>
+                            </div>
+
+                            <div class="fs-6  text-gray-600 mb-5">First, a disclaimer – the entire process writing a blog post often.</div>
+
+                            <div class="d-flex flex-stack flex-wrapr">
+                                <div class="symbol-group symbol-hover my-1">
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Melody Macy" data-bs-original-title="Melody Macy" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Barry Walter" data-bs-original-title="Barry Walter" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/2.jpg" />
+                                    </div>
+                                </div>
+
+                                <div class="d-flex my-1">
+                                    <div class="border border-dashed border-gray-300 rounded d-flex align-items-center py-2 px-3"><i class="bi bi-paper-clip fs-3"></i> <span class="ms-1 fs-7  text-gray-600">1</span></div>
+
+                                    <div class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                        <i class="bi bi-message-text-2 fs-3"></i> <span class="ms-1 fs-7  text-gray-600">5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-lg-12 col-xl-4">
+                    <div class="mb-9">
+                        <div class="d-flex flex-stack">
+                            <div class=" fs-4">
+                                Completed
+                                <span class="fs-6 text-gray-400 ms-2">3</span>
+                            </div>
+
+                            <div>
+                                <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                    <i class="bi bi-plus fs-2"></i>
+                                </button>
+
+                                <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64d131c790a0e">
+                                    <div class="px-7 py-5">
+                                        <div class="fs-5 text-dark ">Filter Options</div>
+                                    </div>
+
+                                    <div class="separator border-gray-200"></div>
+
+                                    <div class="px-7 py-5">
+                                        <div class="mb-10">
+                                            <label class="form-label ">Status:</label>
+
+                                            <div>
+                                                <select
+                                                    class="form-select form-select-solid select2-hidden-accessible"
+                                                    multiple=""
+                                                    data-kt-select2="true"
+                                                    data-close-on-select="false"
+                                                    data-placeholder="Select option"
+                                                    data-dropdown-parent="#kt_menu_64d131c790a0e"
+                                                    data-allow-clear="true"
+                                                    data-select2-id="select2-data-14-v4go"
+                                                    tabindex="-1"
+                                                    aria-hidden="true"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <option></option>
+                                                    <option value="1">Approved</option>
+                                                    <option value="2">Pending</option>
+                                                    <option value="2">In Process</option>
+                                                    <option value="2">Rejected</option>
+                                                </select>
+                                                <span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-15-pb4c" style="width: 100%;">
+                                                    <span class="selection">
+                                                        <span
+                                                            class="select2-selection select2-selection--multiple form-select form-select-solid"
+                                                            role="combobox"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                            tabindex="-1"
+                                                            aria-disabled="false"
+                                                        >
+                                                            <ul class="select2-selection__rendered" id="select2-ay61-container"></ul>
+                                                            <span class="select2-search select2-search--inline">
+                                                                <textarea
+                                                                    class="select2-search__field"
+                                                                    type="search"
+                                                                    tabindex="0"
+                                                                    autocorrect="off"
+                                                                    autocapitalize="none"
+                                                                    spellcheck="false"
+                                                                    role="searchbox"
+                                                                    aria-autocomplete="list"
+                                                                    autocomplete="off"
+                                                                    aria-label="Search"
+                                                                    aria-describedby="select2-ay61-container"
+                                                                    placeholder="Select option"
+                                                                    style="width: 100%;"
+                                                                ></textarea>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                    <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-10">
+                                            <label class="form-label ">Member Type:</label>
+
+                                            <div class="d-flex">
+                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                                                    <input class="form-check-input" type="checkbox" value="1" />
+                                                    <span class="form-check-label">
+                                                        Author
+                                                    </span>
+                                                </label>
+
+                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                    <input class="form-check-input" type="checkbox" value="2" checked="checked" />
+                                                    <span class="form-check-label">
+                                                        Customer
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-10">
+                                            <label class="form-label ">Notifications:</label>
+
+                                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="checkbox" value="" name="notifications" checked="" />
+                                                <label class="form-check-label">
+                                                    Enabled
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end">
+                                            <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
+
+                                            <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="h-3px w-100 bg-success"></div>
+                    </div>
+
+                    <div class="card mb-6 mb-xl-9">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack mb-3">
+                                <div class="badge badge-light">UI Design</div>
+
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="bi bi-plus fs-2"></i>
+                                    </button>
+
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary  w-200px py-3" data-kt-menu="true">
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                Payments
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Create Invoice
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link flex-stack px-3">
+                                                Create Payment
+
+                                                <span
+                                                    class="ms-2"
+                                                    data-bs-toggle="tooltip"
+                                                    aria-label="Specify a target name for future usage and reference"
+                                                    data-bs-original-title="Specify a target name for future usage and reference"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <i class="bi bi-information fs-6"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Generate Bill
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Subscription</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Plans
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Billing
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Statements
+                                                    </a>
+                                                </div>
+
+                                                <div class="separator my-2"></div>
+
+                                                <div class="menu-item px-3">
+                                                    <div class="menu-content px-3">
+                                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+
+                                                            <span class="form-check-label text-muted fs-6">
+                                                                Recuring
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3 my-1">
+                                            <a href="#" class="menu-link px-3">
+                                                Settings
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <a href="#" class="fs-4  mb-1 text-gray-900 text-hover-primary">Branding Logo</a>
+                            </div>
+
+                            <div class="fs-6  text-gray-600 mb-5">First, a disclaimer – the entire process writing a blog post often takes a couple of hours if you can type</div>
+
+                            <div class="d-flex flex-stack flex-wrapr">
+                                <div class="symbol-group symbol-hover my-1">
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Perry Matthew" data-kt-initialized="1">
+                                        <span class="symbol-label bg-success text-inverse-success ">R</span>
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Barry Walter" data-bs-original-title="Barry Walter" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/2.jpg" />
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Susan Redwood" data-kt-initialized="1">
+                                        <span class="symbol-label bg-primary text-inverse-primary ">S</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex my-1">
+                                    <div class="border border-dashed border-gray-300 rounded d-flex align-items-center py-2 px-3"><i class="bi bi-paper-clip fs-3"></i> <span class="ms-1 fs-7  text-gray-600">2</span></div>
+
+                                    <div class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                        <i class="bi bi-message-text-2 fs-3"></i> <span class="ms-1 fs-7  text-gray-600">7</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-6 mb-xl-9">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack mb-3">
+                                <div class="badge badge-light">QA</div>
+
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="bi bi-plus fs-2"></i>
+                                    </button>
+
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary  w-200px py-3" data-kt-menu="true">
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                Payments
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Create Invoice
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link flex-stack px-3">
+                                                Create Payment
+
+                                                <span
+                                                    class="ms-2"
+                                                    data-bs-toggle="tooltip"
+                                                    aria-label="Specify a target name for future usage and reference"
+                                                    data-bs-original-title="Specify a target name for future usage and reference"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <i class="bi bi-information fs-6"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Generate Bill
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Subscription</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Plans
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Billing
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Statements
+                                                    </a>
+                                                </div>
+
+                                                <div class="separator my-2"></div>
+
+                                                <div class="menu-item px-3">
+                                                    <div class="menu-content px-3">
+                                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+
+                                                            <span class="form-check-label text-muted fs-6">
+                                                                Recuring
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3 my-1">
+                                            <a href="#" class="menu-link px-3">
+                                                Settings
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <a href="#" class="fs-4  mb-1 text-gray-900 text-hover-primary">To check User Management</a>
+                            </div>
+
+                            <div class="fs-6  text-gray-600 mb-5">First, a disclaimer takes a couple hours</div>
+
+                            <div class="d-flex flex-stack flex-wrapr">
+                                <div class="symbol-group symbol-hover my-1">
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Melody Macy" data-bs-original-title="Melody Macy" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Perry Matthew" data-kt-initialized="1">
+                                        <span class="symbol-label bg-info text-inverse-info ">P</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex my-1">
+                                    <div class="border border-dashed border-gray-300 rounded d-flex align-items-center py-2 px-3"><i class="bi bi-paper-clip fs-3"></i> <span class="ms-1 fs-7  text-gray-600">10</span></div>
+
+                                    <div class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                        <i class="bi bi-message-text-2 fs-3"></i> <span class="ms-1 fs-7  text-gray-600">7</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-6 mb-xl-9">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack mb-3">
+                                <div class="badge badge-light">Phase 2.6 QA</div>
+
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        <i class="bi bi-plus fs-2"></i>
+                                    </button>
+
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary  w-200px py-3" data-kt-menu="true">
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
+                                                Payments
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Create Invoice
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link flex-stack px-3">
+                                                Create Payment
+
+                                                <span
+                                                    class="ms-2"
+                                                    data-bs-toggle="tooltip"
+                                                    aria-label="Specify a target name for future usage and reference"
+                                                    data-bs-original-title="Specify a target name for future usage and reference"
+                                                    data-kt-initialized="1"
+                                                >
+                                                    <i class="bi bi-information fs-6"></i>
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3">
+                                                Generate Bill
+                                            </a>
+                                        </div>
+
+                                        <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
+                                            <a href="#" class="menu-link px-3">
+                                                <span class="menu-title">Subscription</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Plans
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Billing
+                                                    </a>
+                                                </div>
+
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3">
+                                                        Statements
+                                                    </a>
+                                                </div>
+
+                                                <div class="separator my-2"></div>
+
+                                                <div class="menu-item px-3">
+                                                    <div class="menu-content px-3">
+                                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
+
+                                                            <span class="form-check-label text-muted fs-6">
+                                                                Recuring
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-3 my-1">
+                                            <a href="#" class="menu-link px-3">
+                                                Settings
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <a href="#" class="fs-4  mb-1 text-gray-900 text-hover-primary">User Module Testing</a>
+                            </div>
+
+                            <div class="fs-6  text-gray-600 mb-5">First, a disclaimer – the entire process writing a blog post often.</div>
+
+                            <div class="d-flex flex-stack flex-wrapr">
+                                <div class="symbol-group symbol-hover my-1">
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Perry Matthew" data-kt-initialized="1">
+                                        <span class="symbol-label bg-success text-inverse-success ">R</span>
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" aria-label="Melody Macy" data-bs-original-title="Melody Macy" data-kt-initialized="1">
+                                        <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" data-bs-original-title="Susan Redwood" data-kt-initialized="1">
+                                        <span class="symbol-label bg-primary text-inverse-primary ">S</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex my-1">
+                                    <div class="border border-dashed border-gray-300 rounded d-flex align-items-center py-2 px-3"><i class="bi bi-paper-clip fs-3"></i> <span class="ms-1 fs-7  text-gray-600">6</span></div>
+
+                                    <div class="border border-dashed border-gray-300 d-flex align-items-center rounded py-2 px-3 ms-3">
+                                        <i class="bi bi-message-text-2 fs-3"></i> <span class="ms-1 fs-7  text-gray-600">1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="card-body pt-0">
-            <div class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <div class="table-responsive">
-                    <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0 no-footer" id="projects_table">
-                        <thead>
-                            <tr class="text-start text-muted fs-7 text-uppercase gs-0">
-                                <th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1">
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input header-checkbox" type="checkbox" id="selectAll" />
-                                    </div>
-                                </th>
-                                <th class="min-w-150px sorting">Project Name</th>
-                                <th class="min-w-150px sorting">Description</th>
-                                <th class="min-w-150px sorting">project Name</th>
-                                <th class="min-w-150px sorting">Due Date</th>
-                                <th class="min-w-125px sorting">status</th>
-                                <th class="text-end min-w-100px sorting_disabled">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-gray-600"></tbody>
-                    </table>
+        <div id="kt_project_targets_table_pane" class="tab-pane fade" role="tabpanel">
+            <div class="card card-flush">
+                <div class="card-body pt-3">
+                    <div id="kt_profile_overview_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="table-responsive">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0 no-footer" id="projects_table">
+                                <thead>
+                                    <tr class="text-start text-muted fs-7 text-uppercase gs-0">
+                                        <th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1">
+                                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                                <input class="form-check-input header-checkbox" type="checkbox" id="selectAll" />
+                                            </div>
+                                        </th>
+                                        <th class="min-w-150px sorting">Project Name</th>
+                                        <th class="min-w-150px sorting">Description</th>
+                                        <th class="min-w-150px sorting">project Name</th>
+                                        <th class="min-w-150px sorting">Due Date</th>
+                                        <th class="min-w-125px sorting">status</th>
+                                        <th class="text-end min-w-100px sorting_disabled">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-600"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"></div>
+                            <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <div class="modal fade" id="modal_project" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen p-8">
@@ -959,7 +2714,7 @@
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="fw-bold">Export projects</h2>
+                <h2 class="">Export projects</h2>
                 <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
                     <i class="bi bi-x-lg"><span class="path1"></span><span class="path2"></span></i>
                 </div>
@@ -1053,6 +2808,7 @@
 <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 
 <script type="text/javascript">
+    
     $(document).ready(function () {
         const datepicker = $("[name=due_date]");
 
