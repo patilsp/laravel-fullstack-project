@@ -5,6 +5,7 @@
 <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/main.css" rel="stylesheet" type="text/css" />
 <script src="assets/js/custom.js"></script>
 @endsection
 
@@ -66,10 +67,10 @@
     <div class="modal-dialog modal-dialog-centered mw-750px">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Add a Role</h2>
+                <h3 class="modal-title">Add a Role</h3>
 
-                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"><span class="path1"></span><span class="path2"></span></i>
+                <div class="btn btn-icon btn-sm btn-active-icon-danger" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg"></i>
                 </div>
             </div>
 

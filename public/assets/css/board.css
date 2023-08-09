@@ -25,9 +25,7 @@ button,
   background: #14213D;
   color:#fff;
 }
-.search{
-  display: flex;
-}
+
 .search input{
   padding: 8px;
   border:1px solid #eeee;
@@ -46,8 +44,8 @@ button,
 }
 .task-list {
   border: 1px solid #d9d9d9;
-  width: 25%;
-  flex: 0 0 345px;
+  width: 30%;
+  flex: 0 0 380px;
   margin: 0 15px;
   border-radius: 14px;
   height: 76vh;
@@ -81,13 +79,13 @@ background: #555;
   align-items: center;
   position: -webkit-sticky; /* Safari */
   background: #E5E5E5;
-  box-shadow: -1px 7px 20px 0px #d3d3d3;
+  /* box-shadow: -1px 7px 20px 0px #d3d3d3; */
 }
 .btn-board,
 .header {
   position: sticky;
   top: 0;
-  z-index: 100;
+
 }
 
 .list{
@@ -107,7 +105,7 @@ background: #555;
 
 .task-item{
   margin: 18px 15px;
-  background: #fff;
+  background: rgb(199 229 239);
   padding: 15px;
   border-radius: 4px;
   position: relative;
