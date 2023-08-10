@@ -387,12 +387,6 @@
 }
 
 
-
-:root {
-  --dur: 300ms;
-}
-
-
 .bi-x-lg {
   transition: transform 0.3s ease-in-out;
 }

@@ -8,5 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700" />
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />   
-
+    <link href="assets/css/global-style.css" rel="stylesheet" type="text/css" />   
+    <link href="assets/css/animation.css" rel="stylesheet" type="text/css" />   
+    
   </head>

@@ -2822,7 +2822,7 @@
                                 </select>
                               </div>
     
-                              <a href="#" class="btn btn-light btn-sm">View Projects</a>
+                              <!-- <a href="#" class="btn btn-light btn-sm">View Projects</a> -->
                             </div>
                           </div>
                         </div>

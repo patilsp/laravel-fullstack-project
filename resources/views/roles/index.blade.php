@@ -11,12 +11,210 @@
 
 @section('content')
 <div id="kt_app_content_container" class="app-container container-xxl mt-4">
+
+<div class="row g-4 mb-4">
+  <div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between mb-2">
+          <h6 class="fw-normal">Total 4 users</h6>
+          <div class="symbol-group symbol-hover mb-3">
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Alan Warden">
+                    <span class="symbol-label bg-warning text-inverse-warning">A</span>
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michael Eberon">
+                    <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michelle Swanston">
+                    <img alt="Pic" src="assets/media/avatars/2.jpg" />
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Francis Mitcham">
+                    <img alt="Pic" src="assets/media/avatars/3.jpg" />
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-end">
+          <div class="role-heading">
+            <h4 class="mb-1">Administrator</h4>
+            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#addRoleModal" class="role-edit-modal"><small>Edit Role</small></a>
+          </div>
+          <a href="javascript:void(0);" class="text-muted"><i class="bx bx-copy"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-2">
+          <h6 class="fw-normal">Total 7 users</h6>
+          <div class="symbol-group symbol-hover mb-3">
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Alan Warden">
+                    <span class="symbol-label bg-warning text-inverse-warning">A</span>
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michael Eberon">
+                    <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michelle Swanston">
+                    <img alt="Pic" src="assets/media/avatars/2.jpg" />
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Francis Mitcham">
+                    <img alt="Pic" src="assets/media/avatars/3.jpg" />
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-end">
+          <div class="role-heading">
+            <h4 class="mb-1">Manager</h4>
+            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#addRoleModal" class="role-edit-modal"><small>Edit Role</small></a>
+          </div>
+          <a href="javascript:void(0);" class="text-muted"><i class="bx bx-copy"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-2">
+          <h6 class="fw-normal">Total 5 users</h6>
+          <div class="symbol-group symbol-hover mb-3">
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Alan Warden">
+                    <span class="symbol-label bg-warning text-inverse-warning">A</span>
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michael Eberon">
+                    <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michelle Swanston">
+                    <img alt="Pic" src="assets/media/avatars/2.jpg" />
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Francis Mitcham">
+                    <img alt="Pic" src="assets/media/avatars/3.jpg" />
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-end">
+          <div class="role-heading">
+            <h4 class="mb-1">Users</h4>
+            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#addRoleModal" class="role-edit-modal"><small>Edit Role</small></a>
+          </div>
+          <a href="javascript:void(0);" class="text-muted"><i class="bx bx-copy"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-2">
+          <h6 class="fw-normal">Total 3 users</h6>
+          <div class="symbol-group symbol-hover mb-3">
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Alan Warden">
+                    <span class="symbol-label bg-warning text-inverse-warning">A</span>
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michael Eberon">
+                    <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michelle Swanston">
+                    <img alt="Pic" src="assets/media/avatars/2.jpg" />
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Francis Mitcham">
+                    <img alt="Pic" src="assets/media/avatars/3.jpg" />
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-end">
+          <div class="role-heading">
+            <h4 class="mb-1">Support</h4>
+            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#addRoleModal" class="role-edit-modal"><small>Edit Role</small></a>
+          </div>
+          <a href="javascript:void(0);" class="text-muted"><i class="bx bx-copy"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-2">
+          <h6 class="fw-normal">Total 2 users</h6>
+            <div class="symbol-group symbol-hover mb-3">
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Alan Warden">
+                    <span class="symbol-label bg-warning text-inverse-warning">A</span>
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michael Eberon">
+                    <img alt="Pic" src="assets/media/avatars/1.jpg" />
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Michelle Swanston">
+                    <img alt="Pic" src="assets/media/avatars/2.jpg" />
+                </div>
+
+                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title="Francis Mitcham">
+                    <img alt="Pic" src="assets/media/avatars/3.jpg" />
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-end">
+          <div class="role-heading">
+            <h4 class="mb-1">Restricted User</h4>
+            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#addRoleModal" class="role-edit-modal"><small>Edit Role</small></a>
+          </div>
+          <a href="javascript:void(0);" class="text-muted"><i class="bx bx-copy"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="card h-100">
+      <div class="row h-100">
+        <div class="col-sm-5">
+          <div class="d-flex align-items-end h-100 justify-content-center mt-0 pt-0 pb-5">
+            <img src="assets/media/illustrations/user-role.png" class="img-fluid w-80px" alt="Image" >
+          </div>
+        </div>
+        <div class="col-sm-7">
+          <div class="card-body text-sm-end text-center ps-sm-0">
+          <a class="btn btn-primary mb-3 text-nowrap add-new-role" tooltip="Add New Role" id="add_data">
+                <i class="bi bi-plus-lg me-2"></i>  Add New Role
+                </a>
+                <p class="mb-0">Add role, if it does not exist</p>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
   
     <div class="card card-flush mb-6 mb-xl-9">
-      <div class="card-header pt-5">
-          <div class="card-title">
+      <div class="pt-5">
+      <div class="text-center mb-4">
+          <h3 class="role-title">Add New Role</h3>
+          <p>Set role permissions</p>
+        </div>
+          <!-- <div class="card-title">
               <h2 class="d-flex align-items-center">Roles<span class="text-gray-600 fs-6 ms-1"></span></h2>
-          </div>
+          </div> -->
 
           <div class="card-toolbar">
               <div class="d-flex align-items-center position-relative me-4">
@@ -30,11 +228,7 @@
                   @endforeach
               </select>
           </div>
-          <div class="d-flex ms-3">
-                <a href="#" class=" btn bg-body btn-color-gray-600 btn-active-info" tooltip="Add New Role" id="add_data">
-                <i class="bi bi-plus-lg me-2"></i>  Add Role
-                </a>
-            </div>
+
 
           </div>
       </div>

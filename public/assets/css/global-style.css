@@ -1,0 +1,13 @@
+
+.bi-x-lg {
+  transition: transform 0.3s ease-in-out;
+}
+.bi-x{
+    transition: transform 0.3s ease-in-out;
+}
+.bi-x-lg:hover {
+    transform: rotate(90deg);
+}
+.btn_close{
+    background-color: #f44336;
+}

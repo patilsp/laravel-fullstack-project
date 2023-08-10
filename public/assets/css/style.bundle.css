@@ -56937,7 +56937,7 @@ router-outlet {
 
 .app-sidebar-primary .app-sidebar-menu .menu>.menu-item.here>.menu-link {
     transition: color .2s ease;
-    background-color: #191c2f
+    /* background-color: #191c2f */
 }
 
 .app-sidebar-primary .app-sidebar-menu .menu>.menu-item.here>.menu-link .menu-icon,.app-sidebar-primary .app-sidebar-menu .menu>.menu-item.here>.menu-link .menu-icon .svg-icon,.app-sidebar-primary .app-sidebar-menu .menu>.menu-item.here>.menu-link .menu-icon i {
@@ -56946,7 +56946,7 @@ router-outlet {
 
 .app-sidebar-primary .app-sidebar-menu .menu>.menu-item>.menu-link.active {
     transition: color .2s ease;
-    background-color: #191c2f
+    /* background-color: #191c2f */
 }
 
 .app-sidebar-primary .app-sidebar-menu .menu>.menu-item>.menu-link.active .menu-icon,.app-sidebar-primary .app-sidebar-menu .menu>.menu-item>.menu-link.active .menu-icon .svg-icon,.app-sidebar-primary .app-sidebar-menu .menu>.menu-item>.menu-link.active .menu-icon i {

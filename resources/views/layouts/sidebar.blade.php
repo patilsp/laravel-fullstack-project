@@ -12,7 +12,7 @@
 >
     <div class="app-sidebar-primary">
         <div class="app-sidebar-logo d-none d-md-flex flex-center pt-10 pb-2" id="kt_app_sidebar_logo">
-           <a href="home">
+           <a href="{{ route('home') }}">
                 <img alt="Logo" src="{{ url('assets/media/logos/logo.png') }}" class="h-40px" />
               </a>
         </div>
@@ -661,12 +661,11 @@
                 <img src="/metronic8/demo50/assets/media/avatars/300-2.jpg" alt="user" />
             </div> -->
 
-
             <div class="app-navbar-item">
                           
               <button
                   id="kt_app_sidebar_secondary_toggle"
-                  class="app-sidebar-secondary-toggle btn btn-sm btn-icon bg-body btn-color-gray-600 btn-active-color-primary position-absolute translate-middle z-index-1 start-100 end-0 bottom-0 shadow-sm d-none d-lg-flex mb-4"
+                  class="app-sidebar-secondary-toggle btn btn-sm btn-icon "
                   data-kt-toggle="true"
                   data-kt-toggle-state="active"
                   data-kt-toggle-target="body"
@@ -695,7 +694,7 @@
                     <div class="menu-content"><span class="menu-section fs-5  ps-1 py-1">General</span></div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="index.html">
+                    <a class="menu-link" href="{{ route('tasks.index') }}">
                         <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">All Task</span><span class="badge badge-light ms-auto">10</span>
                     </a>
                 </div>
@@ -724,7 +723,7 @@
                     <div class="menu-content"><span class="menu-section fs-5  ps-1 py-1">Main</span></div>
                 </div> 
                 <div class="menu-item">
-                    <a class="menu-link" href="dashboards/ecommerce.html">
+                    <a class="menu-link" href="{{ route('userdashboard.index') }}">
                         <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Dashboard</span>
                     </a>
                 </div>
@@ -740,7 +739,7 @@
                 </div>
                 
                 <div class="menu-item">
-                    <a class="menu-link" href="dashboards/bidding.html">
+                    <a class="menu-link" href="{{ route('projects.index') }}">
                         <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Projects</span>
                     </a>
                 </div>
