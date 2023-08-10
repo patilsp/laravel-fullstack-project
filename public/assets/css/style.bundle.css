@@ -71,14 +71,14 @@
     --bs-font-monospace: "Roboto Mono", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace; 
     --bs-gradient: linear-gradient(90deg, #FEB85C 0%, #FF7347 100%) 0% 0% no-repeat padding-box;
     --bs-body-font-family: var(--bs-font-sans-serif);
-    --bs-body-font-size: 14px;
+    --bs-body-font-size: 12px;
     --bs-body-font-weight: 400;
     --bs-body-line-height: 1.5;
     --bs-body-color: #181C32;
     --bs-body-color-rgb: 24,28,50;
     --bs-body-bg: #FFFFFF;
     --bs-body-bg-rgb: 255,255,255;
-    --bs-body-bg-content: #fbfaf8;
+    --bs-body-bg-content: rgba(245,246,248,255);
     --bs-emphasis-color: #000000;
     --bs-emphasis-color-rgb: 0,0,0;
     --bs-secondary-color: rgba(24, 28, 50, 0.75);
@@ -122,10 +122,11 @@
     --bs-form-invalid-border-color: #ef6b3f;
 
     --bs-modal-header-bg : #eff0f3;
-    --bs-app-sidebar-secondary-base-bg-color: #eceff7;
+    --bs-app-sidebar-secondary-base-bg-color: #FFFFFF;
     --bs-menu-link-bg: #f8f9fb;
     --bs-menu-link-shadow: 0 0.25rem 0.5rem #fff;
     --bs-body-bg1: linear-gradient(-45deg, #e9ecf7, #dbdde4, #f2f1f6, #fdf3f7, #fdf3f7);
+
   }
 
   /* Dark Theme */
@@ -199,7 +200,7 @@
     --bs-font-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
     --bs-body-font-family: var(--bs-font-sans-serif);
-    --bs-body-font-size: 14px;
+    --bs-body-font-size: 12px;
     --bs-body-font-weight: 400;
     --bs-body-line-height: 1.5;
     --bs-body-color: #FFFFFF;
@@ -266,11 +267,14 @@ body {
     line-height: var(--bs-body-line-height);
     color: var(--bs-body-color);
     text-align: var(--bs-body-text-align);
-    background-color: var(--bs-body-bg);
+    background: var(--bs-body-content-bg);
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
 }
 
+#kt_app_content{
+    background: var(--bs-body-bg-content);
+}
 hr {
     margin: 1rem 0;
     color: inherit;
@@ -35224,6 +35228,7 @@ textarea.form-control-lg {
 
 .menu-item .menu-link:hover {
     background-color: var(--bs-menu-link-bg) !important;
+    color: var(--bs-primary);
 }
 .menu-bullet:hover {
     color: #6d41ee;
@@ -54837,8 +54842,8 @@ body[data-kt-sticky-landing-header=on] {
     --bs-app-header-minimize-bg-color: rgba(255, 255, 255, 0.5);
     --bs-app-toolbar-sticky-bg-color: #ffffff;
     --bs-app-toolbar-sticky-box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.05);
-    --bs-app-sidebar-base-bg-color: #111424;
-    --bs-app-sidebar-primary-base-bg-color: #111424;
+    --bs-app-sidebar-base-bg-color: #FFFFFF;
+    --bs-app-sidebar-primary-base-bg-color: #FFFFFF;
 }
 
 [data-bs-theme=dark] {
@@ -55851,11 +55856,11 @@ router-outlet {
     }
 
     :root {
-        --bs-app-sidebar-primary-width-actual: 82px
+        --bs-app-sidebar-primary-width-actual: 65px
     }
 
     [data-kt-app-sidebar-stacked=true] {
-        --bs-app-sidebar-primary-width: 82px;
+        --bs-app-sidebar-primary-width: 65px;
         --bs-app-sidebar-primary-gap-start: 0px;
         --bs-app-sidebar-primary-gap-end: 0px;
         --bs-app-sidebar-primary-gap-top: 0px;
@@ -55863,7 +55868,7 @@ router-outlet {
     }
 
     [data-kt-app-sidebar-primary-minimize=on] {
-        --bs-app-sidebar-primary-width: 75px;
+        --bs-app-sidebar-primary-width: 60px;
         --bs-app-sidebar-primary-gap-start: 0px;
         --bs-app-sidebar-primary-gap-end: 0px;
         --bs-app-sidebar-primary-gap-top: 0px;
@@ -56813,7 +56818,7 @@ router-outlet {
 }
 
 [data-bs-theme=light] {
-    --bs-app-separator-border: 1px solid #1C2039
+    --bs-app-separator-border: 1px solid #F7F7F7
 }
 
 [data-bs-theme=dark] {
@@ -56965,9 +56970,6 @@ router-outlet {
 }
 
 
-#kt_app_content{
-    background-color: var(--bs-body-bg-content);
-}
 .close-btn{
     cursor: pointer;
     user-select: none;

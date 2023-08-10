@@ -534,7 +534,7 @@
 
             <div class="card-toolbar">
               <div id="kt_activities_close">
-                  <img src="assets/media/images/close.png" class="close-btn w-30px" alt="close">
+                  <img src="assets/media/images/close.png" class="close-btn w-30px rotate-180" alt="close">
               </div>
             </div>
           </div>

@@ -663,11 +663,20 @@
 
 
             <div class="app-navbar-item">
-                <a href="authentication/layouts/corporate/sign-in.html" class="">
-                    <i class="bi bi-exit-right fs-1"></i>
-                </a>
+                          
+              <button
+                  id="kt_app_sidebar_secondary_toggle"
+                  class="app-sidebar-secondary-toggle btn btn-sm btn-icon bg-body btn-color-gray-600 btn-active-color-primary position-absolute translate-middle z-index-1 start-100 end-0 bottom-0 shadow-sm d-none d-lg-flex mb-4"
+                  data-kt-toggle="true"
+                  data-kt-toggle-state="active"
+                  data-kt-toggle-target="body"
+                  data-kt-toggle-name="app-sidebar-secondary-collapse"
+              >
+                  <i class="bi bi-arrow-left fs-2 rotate-180"></i>
+              </button>
             </div>
         </div>
+    
     </div>
 
     <div class="app-sidebar-secondary">
@@ -682,20 +691,35 @@
                 data-kt-scroll-offset="20px"
                 style="height: 214px;"
             >
-                <!-- <div class="menu-item">
-                    <div class="menu-content"><span class="menu-section fs-5  ps-1 py-1">Dashboard</span></div>
-                </div> -->
+                <div class="menu-item">
+                    <div class="menu-content"><span class="menu-section fs-5  ps-1 py-1">General</span></div>
+                </div>
                 <div class="menu-item">
                     <a class="menu-link" href="index.html">
-                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Task</span><span class="badge badge-light ms-auto">10</span>
+                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">All Task</span><span class="badge badge-light ms-auto">10</span>
                     </a>
                 </div>
                 <div class="menu-item">
                     <a class="menu-link" href="index.html">
-                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Activites</span>
+                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Scrum Metting</span>
                     </a>
                 </div>
-                <div class="separator separator-dashed my-4"></div>
+                <div class="menu-item">
+                    <a class="menu-link" href="index.html">
+                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">My Boards</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link" href="index.html">
+                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Bug Tracking</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link" href="index.html">
+                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Software Updates</span>
+                    </a>
+                </div>
+                <div class="separator separator-dashed my-2"></div>
                 <div class="menu-item">
                     <div class="menu-content"><span class="menu-section fs-5  ps-1 py-1">Main</span></div>
                 </div> 
@@ -721,22 +745,33 @@
                     </a>
                 </div>
               
-                <br/>
+                <div class="separator separator-dashed my-2"></div>
                
                 <div class="menu-item">
-                    <div class="menu-content"><span class="menu-section fs-5  ps-1 py-1">Records</span></div>
+                    <div class="menu-content"><span class="menu-section fs-5  ps-1 py-1">Team Boards</span></div>
                 </div>
                 <div class="menu-item">
                     <a class="menu-link" href="dashboards/crypto.html">
-                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Teams</span>
+                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">General</span>
                     </a>
                 </div>
                 <div class="menu-item">
                     <a class="menu-link" href="dashboards/school.html">
-                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Clients</span>
+                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">UI / UX Design</span>
                     </a>
                 </div>
-                <br/>
+                <div class="menu-item">
+                    <a class="menu-link" href="dashboards/crypto.html">
+                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Web Development</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link" href="dashboards/school.html">
+                        <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">App Development</span>
+                    </a>
+                </div>
+
+                <div class="separator separator-dashed my-2"></div>
                   
                 <div class="menu-item">
                     <a class="menu-link" href="dashboards/podcast.html">
@@ -752,14 +787,4 @@
         </div>
     </div>
 
-    <button
-        id="kt_app_sidebar_secondary_toggle"
-        class="app-sidebar-secondary-toggle btn btn-sm btn-icon bg-body btn-color-gray-600 btn-active-color-primary position-absolute translate-middle z-index-1 start-100 end-0 bottom-0 shadow-sm d-none d-lg-flex mb-4"
-        data-kt-toggle="true"
-        data-kt-toggle-state="active"
-        data-kt-toggle-target="body"
-        data-kt-toggle-name="app-sidebar-secondary-collapse"
-    >
-        <i class="bi bi-arrow-left fs-2 rotate-180"></i>
-    </button>
 </div>

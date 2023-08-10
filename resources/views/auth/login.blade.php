@@ -75,7 +75,7 @@
                                 </div>
 
                                 <div class="fv-row mb-5 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
-                                    <label class="form-label  text-dark fs-6 mb-0">Email Id</label>
+                                    <label class="form-label  text-dark fs-6 mb-0">Email</label>
                                     <input id="email" type="email" class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
 
                                     @error('email')
@@ -94,7 +94,7 @@
 
                                     <div class="mb-1">
                                         <div class="position-relative mb-3">
-                                            <input id="password" type="password" class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                            <input id="password" type="password" class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror" name="password" Placeholder="Password" required autocomplete="current-password">
                                             <span id="togglePassword" class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
                                                 <i class="bi bi-eye-slash fs-2"></i>
                                                 <i class="bi bi-eye fs-2 d-none"></i>
