@@ -207,14 +207,10 @@
 </div>
   
     <div class="card card-flush mb-6 mb-xl-9">
-      <div class="pt-5">
-      <div class="text-center mb-4">
-          <h3 class="role-title">Add New Role</h3>
-          <p>Set role permissions</p>
-        </div>
-          <!-- <div class="card-title">
+      <div class="card-header pt-5">
+          <div class="card-title">
               <h2 class="d-flex align-items-center">Roles<span class="text-gray-600 fs-6 ms-1"></span></h2>
-          </div> -->
+          </div>
 
           <div class="card-toolbar">
               <div class="d-flex align-items-center position-relative me-4">

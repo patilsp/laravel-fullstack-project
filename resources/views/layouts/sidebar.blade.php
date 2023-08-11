@@ -30,12 +30,16 @@
             <div id="kt_aside_menu" class="menu menu-column menu-title-gray-600 menu-state-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-semibold fs-6" data-kt-menu="true">
                 <div class="menu-item here py-2">
                     <span class="menu-link menu-center">
-                        <span class="menu-icon me-0"><i class="bi bi-house-door fs-1"></i></span>
+                        <span class="menu-icon me-0">
+                          <img alt="menu-icon" src="{{ url('assets/media/svg/icons/home.svg') }}" class="h-40px" />
+                        </span>
                     </span>
                 </div>
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <span class="menu-link menu-center">
-                      <span class="menu-icon me-0"><i class="bi bi-folder2-open fs-1"></i></span>
+                      <span class="menu-icon me-0">
+                        <img alt="menu-icon" src="{{ url('assets/media/svg/icons/video.svg') }}" class="h-40px" />
+                      </span>
                     </span>
 
                     <div class="menu-sub menu-sub-dropdown menu-sub-indention px-2 py-4 w-250px mh-75 overflow-auto">
@@ -115,7 +119,9 @@
 
                   <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <span class="menu-link menu-center">
-                      <span class="menu-icon me-0"><i class="bi bi-menu-down fs-1"></i></span>
+                      <span class="menu-icon me-0">
+                        <img alt="menu-icon" src="{{ url('assets/media/svg/icons/book.svg') }}" class="h-40px" />
+                      </span>
                     </span>
 
                     <div class="menu-sub menu-sub-dropdown menu-sub-indention px-2 py-4 w-250px mh-75 overflow-auto">
@@ -608,7 +614,9 @@
 
                   <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <span class="menu-link menu-center">
-                      <span class="menu-icon me-0"><i class="bi bi-bar-chart-line fs-1"></i></span>
+                      <span class="menu-icon me-0">
+                        <img alt="menu-icon" src="{{ url('assets/media/svg/icons/bar-chart.svg') }}" class="h-40px" />
+                      </span>
                     </span>
 
                     <div class="menu-sub menu-sub-dropdown px-2 py-4 w-200px w-lg-225px mh-75 overflow-auto">
@@ -642,14 +650,18 @@
                   <div class="menu-item py-2">
                     <a class="menu-link" href="help.html">
                       <span class="menu-link menu-center">
-                        <span class="menu-icon me-0"><i class="bi bi-shield-fill-check fs-1"></i></span>
+                        <span class="menu-icon me-0">
+                            <img alt="menu-icon" src="{{ url('assets/media/svg/icons/globe.svg') }}" class="h-40px" />
+                        </span>
                       </span>
                     </a>
                   </div>
                   <div class="menu-item py-2">
                     <a class="menu-link" href="setting.html">
                       <span class="menu-link menu-center">
-                        <span class="menu-icon me-0"><i class="bi bi-gear fs-1"></i></span>
+                        <span class="menu-icon me-0">
+                          <img alt="menu-icon" src="{{ url('assets/media/svg/icons/setting.svg') }}" class="h-40px" />
+                        </span>
                       </span>
                     </a>
                   </div>

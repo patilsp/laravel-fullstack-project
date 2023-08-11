@@ -15,7 +15,7 @@
 
               <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-1">
                 <a href="/home">
-                  <img alt="Logo" src="assets/media/logos/logo.png" class="h-30px mt-lg-5 me-3" />
+                  <img alt="Logo" src="assets/media/svg/icons/home.svg" class="h-30px mt-lg-5 me-3" />
                 </a>
               </div>
             </div>

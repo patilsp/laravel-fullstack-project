@@ -6212,9 +6212,9 @@ textarea.form-control-lg {
     flex-shrink: 0;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--bs-modal-header-bg);
+    /* background-color: var(--bs-modal-header-bg); */
     padding: var(--bs-modal-header-padding);
-    border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
+    /* border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color); */
     border-top-left-radius: var(--bs-modal-inner-border-radius);
     border-top-right-radius: var(--bs-modal-inner-border-radius);
     height: 50px;
@@ -42199,7 +42199,7 @@ code:not([class*=language-]) {
 }
 
 .form-control.form-control-solid {
-    background-color: var(--bs-gray-200);
+    /* background-color: var(--bs-gray-200); */
     /* border-color: var(--bs-gray-300); */
     color: var(--bs-gray-700);
     transition: color .2s ease
@@ -42215,7 +42215,7 @@ code:not([class*=language-]) {
 }
 
 .dropdown.show>.form-control.form-control-solid,.form-control.form-control-solid.active,.form-control.form-control-solid.focus,.form-control.form-control-solid:active,.form-control.form-control-solid:focus {
-    background-color: var(--bs-gray-200);
+    /* background-color: var(--bs-gray-200); */
     /* border-color: var(--bs-gray-200); */
     color: var(--bs-gray-700);
     transition: color .2s ease
