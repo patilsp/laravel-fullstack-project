@@ -2,1023 +2,1418 @@
 <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+<style>
+    .col-sm-3{
+        display: flex;
+        width: 100%;
+        gap: 5px;
+    }
+</style>
 @endsection @section('content')
 <div id="kt_app_content_container" class="app-container container-xxl mt-4">
-    <div class="card card-flush mb-6 mb-xl-9">
-        <div class="card-header pt-5">
-            <div class="card-title">
-                <h2 class="d-flex align-items-center">tickets<span class="text-gray-600 fs-6 ms-1"></span></h2>
-            </div>
-
-            <div class="card-toolbar">
-                <div class="d-flex align-items-center position-relative me-4">
-                    <i class="bi bi-search fs-1 position-absolute ms-6"></i> <input type="text" class="form-control form-control-solid w-250px ps-15" placeholder="Search tickets" />
-                </div>
-
-                <div class="d-flex ms-3">
-                    <button type="button" class="btn btn-sm btn-flex btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_tickets_export_modal"><i class="bi bi-exit-up fs-2"></i>Export</button>
-
-                    <a href="#" class="btn btn-sm btn-flex btn-light-primary" tooltip="Add New ticket" id="add_data"> <i class="bi bi-plus-lg me-2"></i> Add ticket </a>
+    <div id="page-content">
+     @if($statusname!="status")
+        <div class="row demo-nifty-panel">
+            <div class="container">
+                <div class="col-sm-3">
+                    @foreach($widgets as $key=>$value) @php $code = isset($value[$value["code"]]) ? $value[$value["code"]] : ""; @endphp
+                    <a href="{{ $value['code'] }}" class="ticketype card border-0 min-h-200px mb-7" style="background-color: #35d29a;">
+                        <div class="card-body d-flex flex-column flex-center text-center">
+                            <img class="mw-100 h-100px mb-7 mx-auto" src="assets/media/illustrations/sigma-1/5.png" />
+                            <h4 class="text-white text-uppercase">
+                                {{ isset($value[$value["code"]]) ? $value[$value["code"]] : 0 }}
+                                <div><strong>{{ $key }}</strong></div>
+                            </h4>
+                        </div>
+                    </a>
+                    @endforeach
                 </div>
             </div>
         </div>
+        @endif
 
-        <div class="card-body pt-0">
-            <div class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <div class="table-responsive">
-                    <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0 no-footer" id="tickets_table">
-                        <thead>
-                            <tr class="text-start text-muted fs-7 text-uppercase gs-0">
-                                <th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1">
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input header-checkbox" type="checkbox" id="selectAll" />
-                                    </div>
-                                </th>
-                                <th class="min-w-150px sorting">Ticket Id</th>
-                                <th class="min-w-150px sorting">Ticket Name</th>
-                                <th class="min-w-125px sorting">Project Name</th>
-                                <th class="min-w-125px sorting">Status</th>
-                                <th class="min-w-125px sorting">Created Date</th>
-                                <th class="text-end min-w-100px sorting_disabled">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-gray-600"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+        <div class="row demo-nifty-panel">
+            <div class="col-lg-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="panel-control">
+                            @if (Auth::user()->hasRole('IT Project Manager'))
+                            <a href="{{ url('gantt') }}" target="_blank"><button type="button" id="view_chart" class="btn btn-primary nav dt-add" target="_blank">View Chart</button></a>
+                            <button type="button" id="assign_proj" data-toggle="modal" data-target="#assignedproj" class="btn btn-primary nav dt-add">Assign Projects</button>
+                            @endif @if (Auth::user()->hasRole('AVP'))
+                            <a href="{{ url('gantt') }}" target="_blank"><button type="button" id="view_chart" class="btn btn-primary nav dt-add">View Chart</button></a>
+                            @endif @if($statusname!="status")
 
-<div class="modal fade" id="modal_ticket" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-650px">
-        <div class="modal-content">
-                <div class="modal-header pb-0 border-0 justify-content-end" id="kt_modal_add_Ticket_header">
-               
-                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"><span class="path1"></span><span class="path2"></span></i>
-                </div>
-            </div>
+                            <button type="button" name="add" id="add_task" data-func="dt-add" class="btn btn-primary nav dt-add">Create new ticket</button>
 
-            <div class="modal-body px-5 my-2">
-                <form id="modal_ticket_form" class="form fv-plugins-bootstrap5 fv-plugins-framework">
-                    {{csrf_field()}}
-                    <span id="form_output"></span>
-
-
-
-                    <div
-                        class="d-flex flex-column scroll-y px-4 px-lg-5"
-                        id="kt_modal_add_ticket_scroll"
-                        data-kt-scroll="false"
-                        data-kt-scroll-activate="false"
-                        data-kt-scroll-max-height="auto"
-                        data-kt-scroll-dependencies="#kt_modal_add_ticket_header"
-                        data-kt-scroll-wrappers="#kt_modal_add_ticket_scroll"
-                        data-kt-scroll-offset="200px"
-                    >
-                   
-
-                    <div class="mb-13 text-center">
-                        <h1 class="mb-3">Create Ticket</h1>
-
-                        <div class="text-gray-400  fs-5">If you need more info, please check <a href="" class=" link-primary">Support Guidelines</a>.</div>
+                            @endif
+                        </div>
+                        <h3 class="panel-title text-danger">Tickets</h3>
                     </div>
 
-                    <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
-                        <label class="d-flex align-items-center fs-6  mb-2">
-                            <span class="required">Ticket Title</span>
-
-                            <span class="ms-2" data-bs-toggle="tooltip" aria-label="Specify a Ticket Title for your issue" data-bs-original-title="Specify a subject for your issue" data-kt-initialized="1"> <i class="bi bi-bar-chart fs-7"></i> </span>
-                        </label>
-
-                        <input type="text" class="form-control form-control-solid" placeholder="Enter your ticket name" name="title" id="title" />
-                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                    </div>
-
-                   
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="required fs-6 mb-2">Project</label>
-                            <select class="form-select form-select-solid select2-hidden-accessible" data-control="select2"
-                                data-hide-search="true" data-placeholder="Select a project" name="project_id" id="project_id">
-                                <option value="">Select a project...</option>
-                                <option value="1">HTML Theme</option>
-                                <option value="2">Angular App</option>
-                                <option value="3">Vue App</option>
-                                <option value="4">React Theme</option>
-                                <option value="5">Figma UI Kit</option>
-                                <option value="6">Laravel App</option>
-                                <option value="7">Blazor App</option>
-                                <option value="8">Django App</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="required fs-6 mb-2">Assign</label>
-                            <select class="form-select form-select-solid select2-hidden-accessible" data-control="select2"
-                                data-hide-search="true" data-placeholder="Select a Team Member" name="assigned_to" id="assigned_to">
-                                <option value="">Select a user...</option>
-                                <option value="1">Karina Clark</option>
-                                <option value="2">Robert Doe</option>
-                                <option value="3">Niel Owen</option>
-                                <option value="4">Olivia Wild</option>
-                                <option value="5">Sean Bean</option>
-                            </select>
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="row g-9 mb-8">
-                        <div class="col-md-6 fv-row">
-                            <label class="required fs-6  mb-2">Status</label>
-
-                            <select class="form-select form-select-solid select2-hidden-accessible" data-control="select2"
-                                data-hide-search="true" data-placeholder="Select a Team Member" name="status_id" id="status_id">
-                                <option value="">Select Status</option>
-                                <option value="1">Open</option>
-                                <option value="2">Pending</option>
-                                <option value="3">Resolved</option>
-                                <option value="3">Closed</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6 fv-row fv-plugins-icon-container">
-                            <label class="required fs-6  mb-2">Due Date</label>
-
-                            <div class="position-relative d-flex align-items-center">
-                                <div class="symbol symbol-20px me-4 position-absolute ms-4">
-                                    <i class="bi bi-calendar-date"></i>
-                                </div>
-
-                                <input class="form-control form-control-solid ps-12 flatpickr-input" placeholder="Select a date" name="due_date" id="due_date" type="text" readonly="readonly" />
+                    <div class="panel-body">
+                        <div class="row">
+                            @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
                             </div>
+                            @endif
 
-                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                        </div>
-                    </div>
+                            <table border="1" align="center" id="assign_task_table" class="table table-bordered table-striped" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th align="center">Ticket#</th>
+                                        <th align="center">Task Description</th>
+                                        <th align="center">Project Name</th>
+                                        <th align="center">Opened By</th>
+                                        <th align="center">Assigned To</th>
 
-                    <div class="row g-9 mb-8">
-                        <div class="col-md-6 fv-row">
-                          <label class="required fs-6  mb-2">Priority</label>
+                                        <th align="center">Due Date</th>
+                                        <th align="center">TAT</th>
+                                        <th align="center">Type</th>
+                                        <th align="center">Priority</th>
+                                        <th align="center">Effort</th>
 
-                          <select
-                              class="form-select form-select-solid select2-hidden-accessible"
-                              data-control="select2"
-                              data-hide-search="true"
-                              data-select2-id="select2-data-13-zemy"
-                              tabindex="-1"
-                              aria-hidden="true"
-                              data-kt-initialized="1"
-                              name="priority_id"
-                              id="priority_id"
-                          >
-                            <option value="">Select Priority</option>
-                            <option value="1">Low</option>
-                            <option value="2">Medium</option>
-                            <option value="3">High</option>
-                            <option value="4">Urgent</option>
-                          </select>
-                      </div>
+                                        <th align="center">Task Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
 
-                      <div class="col-md-6">
-                            <label class="required fs-6 mb-2">Category</label>
-                            <select class="form-select form-select-solid select2-hidden-accessible" data-control="select2"
-                                data-hide-search="true" data-placeholder="Select a Category" name="category_id" id="category_id">
-                                <option value="">Select a Category...</option>
-                                <option value="1">Developers</option>
-                                <option value="2">Operational Team</option>
-                                <option value="3">Management</option>
-                                <option value="4">IT</option>
-                                <option value="5">HR</option>
-                                <option value="6">Admin</option>
-                         
-                            </select>
-                        </div>
-                  </div>
-
-                    <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
-                        <label class="fs-6  mb-2">Description</label>
-
-                        <textarea class="form-control form-control-solid" rows="4" name="description" id="description" placeholder="Type your ticket description"> </textarea>
-                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                    </div>
-
-                    <div class="fv-row mb-8">
-                        <label class="fs-6  mb-2">Attachments</label>
-
-                        <div class="dropzone dz-clickable" id="kt_modal_create_ticket_attachments">
-                            <div class="dz-message needsclick align-items-center">
-                                <i class="bi bi-file-up fs-3hx text-primary"></i>
-
-                                <div class="ms-4">
-                                    <h3 class="fs-5  text-gray-900 mb-1">Drop files here or click to upload.</h3>
-                                    <span class=" fs-7 text-gray-400">Upload up to 10 files</span>
+                            <div id="assignedproj" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Assign Projects To Team</h4>
+                                        </div>
+                                        <form method="post" action="{{ url('tickets.assignprojects') }}">
+                                            <div class="modal-body">
+                                                {{csrf_field()}}
+                                                <label>Projects:</label>
+                                                <select class="form-control" name="projects">
+                                                    <option value="">Select</option>
+                                                    @foreach($clients as $key=>$v)
+                                                    <option value="{{ $v->id }}">{{ $v->project_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <label>Team:</label>
+                                                <select class="form-control" name="developer">
+                                                    <option>Select</option>
+                                                </select>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="mb-15 fv-row fv-plugins-icon-container">
-                        <div class="d-flex flex-stack">
-                            <div class=" me-5">
-                                <label class="fs-6">Notifications</label>
+                            <div id="assignTaskEditModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <form method="post" id="task_edit_form" enctype="multipart/form-data">
+                                            {{csrf_field()}}
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                                                <h4 class="modal-title">Create New Task</h4>
+                                            </div>
 
-                                <div class="fs-7 text-gray-400">Allow Notifications by Phone or Email</div>
-                            </div>
+                                            <div class="modal-body">
+                                                <span id="form_output1"></span>
+                                                <!--Text Input-->
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label" for="title">Task Description</label>
+                                                            <input type="text" name="title" id="title" class="form-control" placeholder="" />
+                                                        </div>
+                                                    </div>
 
-                            <div class="d-flex align-items-center">
-                                <label class="form-check form-check-custom form-check-solid me-10">
-                                    <input class="form-check-input h-20px w-20px" type="checkbox" name="notifications" value="email" checked="checked" />
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label" for="priority_id">Department</label>
+                                                            <select name="category_id" id="category_id" class="form-control">
+                                                                <option value="-1" selected="selected">-Select-</option>
 
-                                    <span class="form-check-label ">
-                                        Email
-                                    </span>
-                                </label>
+                                                                @foreach ($categories as $category)
+                                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
 
-                                <label class="form-check form-check-custom form-check-solid">
-                                    <input class="form-check-input h-20px w-20px" type="checkbox" name="notifications" value="phone" />
+                                                    <div id="hiderow">
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="role_id">Role</label>
 
-                                    <span class="form-check-label ">
-                                        Phone
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
+                                                                <select name="role_id" id="role_id" class="form-control">
+                                                                    <option value="" selected="selected">-Select-</option>
+                                                                    <option value="all">All</option>
+                                                                    @foreach ($roles as $role)
+                                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
 
-                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                    </div>
-                    
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="assigned_to">Assigned To</label>
+                                                                <select class="js-example-basic-multiple" name="assigned_to[]" id="assigned_to" style="width: 100%;" multiple="multiple"> </select>
+                                                            </div>
+                                                        </div>
 
-                    </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="due_date">Due Date</label>
+                                                                <div id="demo-dp-txtinput_duedate" class="input-group date">
+                                                                    <input type="text" class="date form-control" name="due_date" id="due_date" placeholder="" value="" autocomplete="off" onkeydown="event.preventDefault()" />
+                                                                    <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 priority">
+                                                        <div class="form-group">
+                                                            <label class="control-label" for="priority_id">Priority</label>
+                                                            <select name="priority_id" id="priority_id" class="form-control">
+                                                                <option value="1" selected="selected">-Select-</option>
 
-                    <div class="text-center pt-10">
-                        <input type="hidden" name="ticket_id" id="ticket_id" value="" />
-                        <input type="hidden" name="button_action" id="button_action" value="insert" />
-                        <button type="reset" class="btn btn-light me-3" modal-close="close">
-                            Discard
-                        </button>
+                                                                @foreach ($prorites as $prority)
+                                                                <option value="{{ $prority->id }}">{{ $prority->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3" id="proj_list" style="display: none;">
+                                                        <div class="form-group">
+                                                            <label class="control-label" for="project">Project</label>
+                                                            <select class="js-example-basic-multiple" name="project" id="project" style="width: 100%;">
+                                                                <option value="" selected="selected">-Select-</option>
 
-                        <button type="submit" class="btn btn-primary" name="submit" id="action">
-                            <span class="indicator-label">
-                                Submit
-                            </span>
-                            <span class="indicator-progress"> Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span> </span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="kt_tickets_export_modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-650px">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="fw-bold">Export tickets</h2>
-                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"><span class="path1"></span><span class="path2"></span></i>
-                </div>
-            </div>
+                                                                @foreach ($clients as $proj)
+                                                                <option value="{{ $proj->id }}">{{ $proj->project_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
 
-            <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                <form id="kt_tickets_export_form" class="form" action="#">
-                    <div class="fv-row mb-10">
-                        <label class="fs-5 form-label mb-5">Select Export Format:</label>
+                                                    <div class="row">
+                                                        <div class="col-sm-12" id="approver_div" style="display: none;">
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label class="control-label" for="due_date">Due Date</label>
+                                                                    <div id="demo-dp-txtinput_duedate" class="input-group date">
+                                                                        <input type="text" class="date form-control" name="due_date" id="due_date" placeholder="" value="" autocomplete="off" onkeydown="event.preventDefault()" />
+                                                                        <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6" id="customer_name">
+                                                                <label class="control-label" for="description">Customer Name </label>
+                                                                <select name="ref_client_id" id="ref_client_id" class="form-control">
+                                                                    <option value="" selected="selected">-Select-</option>
+                                                                    @foreach ($customers as $customer)
+                                                                    <option value="{{ $customer->ref_client_id }}">{{ $customer->clientname }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                        <select name="country" data-control="select2" data-placeholder="Select a format" data-hide-search="true" name="format" class="form-select form-select-solid">
-                            <option value="excell">Excel</option>
-                            <option value="pdf">PDF</option>
-                            <option value="cvs">CVS</option>
-                            <option value="zip">ZIP</option>
-                        </select>
-                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12" id="impacted_tasks" style="display: none;">
+                                                            <div class="col-sm-3" id="classification_use">
+                                                                <div class="form-group">
+                                                                    <label class="control-label" for="classification">Project/Production</label>
+                                                                    <select class="js-example-basic-multiple" name="ticket_type" id="ticket_type" style="width: 100%;">
+                                                                        <option value="" selected="selected">-Select-</option>
+                                                                        @foreach ($impacted_task_type as $k=>$v)
+                                                                        <option value="{{ $v->id }}">{{ $v->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
 
-                    <div class="fv-row mb-10">
-                        <label class="fs-5 form-label mb-5">Select Date Range:</label>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                    <label class="control-label" for="classification">Impacted Customer</label>
+                                                                    <select class="form-control" name="customer_type" id="customer_type" style="width: 100%;">
+                                                                        <option value="" selected="selected">-Select-</option>
+                                                                        @foreach ($impacted_customer as $k=>$v)
+                                                                        <option value="{{ $v->id }}">{{ $v->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
 
-                        <input class="form-control form-control-solid" placeholder="Pick a date" name="date" id="date" />
-                    </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                    <label class="control-label" for="classification">Impacted User</label>
+                                                                    <select class="form-control" name="user_type" id="user_type" style="width: 100%;">
+                                                                        <option value="" selected="selected">-Select-</option>
+                                                                        @foreach ($impacted_user as $k=>$v)
+                                                                        <option value="{{ $v->id }}">{{ $v->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group">
+                                                                    <label class="control-label" for="classification">Impacted Order</label>
+                                                                    <select class="form-control" name="order_type" id="order_type" style="width: 100%;">
+                                                                        <option value="" selected="selected">-Select-</option>
+                                                                        @foreach ($impacted_orders as $k=>$v)
+                                                                        <option value="{{ $v->id }}">{{ $v->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label" for="description">Task Specifics</label>
+                                                            <textarea id="description" name="description" rows="3" class="form-control" placeholder=""></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                    <div class="row fv-row mb-15">
-                        <label class="fs-5 form-label mb-5">Status</label>
+                                                <div class="input-group control-group increment-add-ticket">
+                                                    <input type="file" name="filename[]" class="form-control" />
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-success btn-success-add-ticket" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
+                                                    </div>
+                                                </div>
+                                                <div class="add-clone hide">
+                                                    <div class="control-group input-group" style="margin-top: 10px;">
+                                                        <input type="file" name="filename[]" class="form-control" />
+                                                        <div class="input-group-btn">
+                                                            <button class="btn btn-danger btn-danger-add-ticket" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                        <div class="d-flex flex-column">
-                            <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                <input class="form-check-input" type="checkbox" value="1" checked="checked" name="payment_type" />
-                                <span class="form-check-label text-gray-600">
-                                    Open
-                                </span>
-                            </label>
-
-                            <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                <input class="form-check-input" type="checkbox" value="2" checked="checked" name="payment_type" />
-                                <span class="form-check-label text-gray-600">
-                                    Close
-                                </span>
-                            </label>
-
-                            <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                <input class="form-check-input" type="checkbox" value="3" name="payment_type" />
-                                <span class="form-check-label text-gray-600">
-                                    Rivew
-                                </span>
-                            </label>
-
-                            <label class="form-check form-check-custom form-check-sm form-check-solid">
-                                <input class="form-check-input" type="checkbox" value="4" name="payment_type" />
-                                <span class="form-check-label text-gray-600">
-                                    Completed
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button type="reset" id="kt_tickets_export_cancel" class="btn btn-light me-3">
-                            Discard
-                        </button>
-
-                        <button type="submit" id="kt_tickets_export_submit" class="btn btn-primary">
-                            <span class="indicator-label">
-                                Submit
-                            </span>
-                            <span class="indicator-progress"> Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span> </span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="modal fade" id="taskEditModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mw-650px">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="fw-bold">Export tickets</h2>
-                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"><span class="path1"></span><span class="path2"></span></i>
-                </div>
-            </div>
-
-            <div class="modal-body scroll-y mx-4 my-5">
-                <form method="post" id="ticket_response_form">
-
-                {{csrf_field()}}
-                  
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-4">
-                            <p><strong>Owner</strong>: <span id="opened_by_name_view"></span></p>
-                            <p><strong>Department</strong>: <span id="category_veiw"></span></p>
-                            <p><strong>Created</strong>: <span id="created_at_veiw"></span></p>
-                            <p><strong>Project/Production</strong>: <span id="impact_task_type"></span></p>
-                            <p><strong>Impacted Customer</strong>: <span id="impact_customer"></span></p>
-                        </div>
-                        <div class="col-md-4">
-                            <p><strong>Responsible</strong>: <span id="assigned_to_name_view"></span></p>
-                            <p>
-                                <strong>Priority</strong>:
-
-                                <span id="prioritylabel"><label class="badge badge-danger"></label></span>
-                            </p>
-
-                            <p><strong>Last Update</strong>: <span id="updated_at_veiw"></span></p>
-                            <p><strong>TAT</strong>: <span id="impact_tat"></span></p>
-                            <p><strong>Impacted User</strong>: <span id="impact_user"></span></p>
-                        </div>
-                        <div class="col-md-4">
-                            <p><strong>Due Date</strong>: <span id="due_date_view"></span></p>
-                            <p><strong>Status</strong>: <span id="status_veiw"></span></p>
-                            <p><strong>Delayed Days</strong>: <span id="delayed_date_view"></span></p>
-                            
-                        </div>
-                        <div class="col-md-12" id="task_comments_view"></div>
-                    </div>
-                    
-                    <p style="margin-bottom: 0px; padding-bottom: 0px;" class="taskattachments">&nbsp;&nbsp;<strong>Attachments</strong> : <span id="task_attachments"></span></p>
-
-             
-           
-                    <div id="displaycomments"></div>
-             
-              <div class="panel panel-default">
-                  <div class="panel-heading">
-                      <h3 class="panel-title">Reply</h3>
-                  </div>
-                  <div class="panel-body">
-                      <div class="content">
-                          <input type="hidden" value="" id="category_id" />
-                          <input type="hidden" value="" id="category_id_new" />
-                          <input type="hidden" name="task_name_hidden" id="task_name_hidden" value="" />
-                          <div class="row">
-                             
-                              <div class="col-md-4">
-                                  <label class="control-label label_cl" for="role_id">Status</label>
-                                  <select name="response_status" id="response_status" class="form-control">
-                                      <option value="">Select Status</option>
-                                      <option value="12">Started</option>
-                                      <option value="11">Assign To</option>
-                                      <option value="13">Waiting for Testing</option>
-                                      <option value="7">Closed</option>
-                                  </select>
-                              </div>
-
-
-                              
-                              <div class="col-md-4" id="progress">
-                                  <label class="control-label" for="role_id">Progress</label>
-                                  <input type="number" name="progress" id="progress" class="form-control" />
-                              </div>
-
-                              <div class="col-md-4" id="priority-change">
-                                  <label class="control-label" for="priority">Priority</label>
-                                  <select name="priority_change" id="priority_change" class="form-control">
-                                      <option value="" selected="selected">-Select-</option>
-                                  </select>
-                              </div>
-
-                              <div class="col-md-4" style="display: none;" id="clarification_role_div">
-                                  <label class="control-label" for="clarification_role">Role</label>
-                                  <select name="clarification_role" id="clarification_role" style="width: 100%;" class="form-control">
-                                      <option value="">-- Select --</option>
-                                  </select>
-                              </div>
-                              <div class="col-md-4" style="display: none;" id="clarification_user_div">
-                                  <label class="control-label" for="clarification_to">User</label>
-                                  <select name="clarification_to" id="clarification_to" style="width: 100%;" class="form-control">
-                                      <option value="">-- Select --</option>
-                                  </select>
-                              </div>
-                              <div class="col-md-4">
-                                  <div class="form-group ticket-delay-due-date">
-                                      <label class="control-label" for="role_id">Revised Due Date</label>
-                                      <div id="demo-dp-txtinput_duedate" class="input-group date">
-                                          <input type="text" class="date form-control" name="updated_due_date" id="updated_due_date" placeholder="Select Revised Due Date" value="" autocomplete="off" />
-                                          <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                    <div class="assigned_to">
-                                        <label class="control-label" for="role_id">User</label>
-
-                                        <select name="update_assigned_to" id="update_assigned_to" style="width: 100%;" class="form-control">
-                                            <option value="" selected="selected">-- Select --</option>
-                                            <option value="1">Jagan Mohan</option>
-                                            <option value="40">Rashmi A</option>
-                                            <option value="1359">Santhosh Kumar</option>
-                                            <option value="1655">Jayanth T A</option>
-                                            <option value="1645">Nischitha S Katta</option>
-                                            <option value="1250">Ramanuja Akash R</option>
-                                        </select>
+                                                <div class="modal-footer">
+                                                    <input type="hidden" name="button_action" id="button_action" value="insert" />
+                                                    <input type="submit" name="submit" id="action" value="Submit" class="btn btn-info" />
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                  </div>
-                                  
-                              </div>
+                                </div>
+                            </div>
 
-                              <div class="col-md-4">
-                                  <div class="assigned_to">
-                                      <label class="control-label" for="role_id">Type</label>
+                            <div id="taskEditModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <form method="post" id="ticket_response_form">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                                                <h4 class="modal-title">
+                                                    <span id="task_name_view"> </span>
+                                                </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                {{csrf_field()}}
+                                                <span id="form_output_new"></span>
 
-                                      <select name="update_type" id="update_type" style="width: 100%;" class="form-control update_type">
-                                          <option value="" selected="selected">-- Select --</option>
-                                          <option value="1">General</option>
-                                          <option value="2">Enchancement</option>
-                                          <option value="3">Bug</option>
-                                          <option value="4">New Development</option>
-                                          <option value="5">Reports</option>
-                                          <option value="6">New Product</option>
-                                          <option value="7">Integration</option>
-                                          <option value="8">Others</option>
-                                      </select>
-                                  </div>
-                                
-                              </div>
+                                                {{-- New Edit page --}}
 
-                              <div class="col-md-4 approved_to" id="customer_name">
-                                  <label class="control-label" for="description">Customer Name </label>
-                                  <select name="ref_client_id" id="ref_client_id" class="form-control">
-                                      <option value="" selected="selected">-Select-</option>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <div class="content">
+                                                            {{--
+                                                            <h2 class="header">
+                                                                Vitae quia veniam delectus et similique eos eum.
+                                                                <span class="pull-right">
+                                                                    <a href="http://ticketit.kordy.info/tickets/3/reopen" class="btn btn-success">Reopen Ticket</a>
+                                                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ticket-edit-modal">
+                                                                        Edit
+                                                                    </button>
+                                                                    <a href="http://ticketit.kordy.info/tickets/3" class="btn btn-danger deleteit" form="delete-ticket-3" node="Vitae quia veniam delectus et similique eos eum.">Delete</a>
+                                                                </span>
+                                                            </h2>
+                                                            --}}
+                                                            <div class="panel well well-sm popup-panel">
+                                                                <div class="panel-body">
+                                                                    <div class="col-md-12">
+                                                                        <div class="col-md-4">
+                                                                            <p><strong>Owner</strong>: <span id="opened_by_name_view"></span></p>
+                                                                            <p><strong>Department</strong>: <span id="category_veiw"></span></p>
+                                                                            <p><strong>Created</strong>:</p>
+                                                                            <p id="created_at_veiw"></p>
+                                                                            <p><strong>Project/Production</strong>:</p>
+                                                                            <p id="impact_task_type"></p>
+                                                                            <p><strong>Impacted Customer</strong>:</p>
+                                                                            <p id="impact_customer"></p>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <p><strong>Responsible</strong>: <span id="assigned_to_name_view"></span></p>
+                                                                            <p>
+                                                                                <strong>Priority</strong>:
 
-                                      @foreach ($customers as $customer)
-                                      <option value="{{ $customer->ref_client_id }}">{{ $customer->clientname }}</option>
-                                      @endforeach
-                                  </select>
-                              </div>
+                                                                                <span id="prioritylabel"><label class="badge badge-danger"></label></span>
+                                                                            </p>
 
-                           
-                              <div class="col-md-4 approved_to">
-                                  <label class="control-label" for="role_id">Duedate</label>
-                                  <div id="demo-dp-approved_duedate" class="input-group date">
-                                      <input type="text" class="date form-control" name="update_due_date" id="update_due_date" placeholder="Duedate" value="" autocomplete="off" />
-                                      <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
-                                  </div>
-                              </div>
-                         
-                    
-                      </div>
+                                                                            <p><strong>Last Update</strong>:</p>
+                                                                            <p id="updated_at_veiw"></p>
+                                                                            <p><strong>TAT</strong>:</p>
+                                                                            <p id="impact_tat"></p>
+                                                                            <p><strong>Impacted User</strong>:</p>
+                                                                            <p id="impact_user"></p>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <p><strong>Due Date</strong>: <span id="due_date_view"></span></p>
+                                                                            <p><strong>Status</strong>: <span id="status_veiw"></span></p>
+                                                                            <p><strong>Delayed Days</strong>: <span id="delayed_date_view"></span></p>
+                                                                            <p><br /></p>
+                                                                            <p><strong>Impacted Order</strong>:</p>
+                                                                            <p id="impact_order"></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
+                                                            <div class="col-md-12" id="task_comments_view"></div>
+                                                        </div>
 
-                      <div class="col-md-4 assigned_to">
-                          <label class="control-label" for="role_id">Effort</label>
-                          <select name="effort" id="effort" style="width: 100%;" class="form-control">
-                              <option value="" selected="selected">-- Select --</option>
-                              <option value="1">High</option>
-                              <option value="2">Medium</option>
-                              <option value="3">Low</option>
-                          </select>
-                      </div>
+                                                        <p style="margin-bottom: 0px; padding-bottom: 0px;" class="taskattachments">&nbsp;&nbsp;<strong>Attachments</strong> : <span id="task_attachments"></span></p>
+                                                    </div>
+                                                </div>
 
-                  
-                  </div>
-                 
-              </div>
-              <div class="row margin_bottom">
-                  <div class="col-md-4 assigned_to margin_left">
-                      <label class="control-label" for="role_id">Testing required</label>
-                      <select name="testing_needed" id="testing_needed" style="width: 100%;" class="form-control">
-                          <option value="" selected="selected">-- Select --</option>
-                          <option value="yes">Yes</option>
-                          <option value="no">No</option>
-                      </select>
-                  </div>
-              </div>
+                                                <div id="displaycomments"></div>
 
-              <textarea id="demo-summernote-ticket" name="taskcomments" rows="3" class="form-control taskcomments" placeholder=""></textarea>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">Reply</h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="content">
+                                                            <input type="hidden" value="" id="category_id" />
+                                                            <input type="hidden" value="" id="category_id_new" />
+                                                            <input type="hidden" name="task_name_hidden" id="task_name_hidden" value="" />
+                                                            <div class="row">
+                                                                {{--
+                                                                <div class="col-md-4"><h4>Reply</h4></div>
+                                                                --}}
 
-          </div>
+                                                                <div class="col-md-4">
+                                                                    <label class="control-label label_cl" for="role_id">Status</label>
+                                                                    <select name="response_status" id="response_status" class="form-control response_status status_position">
+                                                                        <option value="" selected="selected">-- Update Status --</option>
+                                                                        <option value="12">Started</option>
 
+                                                                        <option value="11">Assign To</option>
+                                                                        <option value="13">Waiting for Testing</option>
 
-                    <div class="text-center">
-                        <button type="reset" id="taskEditModal_cancel" class="btn btn-light me-3">
-                            Discard
-                        </button>
+                                                                        <option value="7">Closed</option>
+                                                                    </select>
+                                                                </div>
+                                                                @if(Auth::user()->hasRole('Developer'))
+                                                                <div class="col-md-4" id="progress">
+                                                                    <label class="control-label" for="role_id">Progress</label>
+                                                                    <input type="number" name="progress" id="progress" class="form-control" />
+                                                                </div>
+                                                                @endif @if(Auth::user()->hasAnyPermission('Tickets Approval'))
+                                                                <div class="col-md-4" id="priority-change">
+                                                                    <label class="control-label" for="priority">Priority</label>
+                                                                    <select name="priority_change" id="priority_change" class="form-control">
+                                                                        <option value="" selected="selected">-Select-</option>
+                                                                        @foreach ($prorites as $prority)
+                                                                        <option value="{{ $prority->id }}">{{ $prority->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                @endif
+                                                                <div class="col-md-4" style="display: none;" id="clarification_role_div">
+                                                                    <label class="control-label" for="clarification_role">Role</label>
+                                                                    <select name="clarification_role" id="clarification_role" style="width: 100%;" class="form-control">
+                                                                        <option value="">-- Select --</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-4" style="display: none;" id="clarification_user_div">
+                                                                    <label class="control-label" for="clarification_to">User</label>
+                                                                    <select name="clarification_to" id="clarification_to" style="width: 100%;" class="form-control">
+                                                                        <option value="">-- Select --</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group ticket-delay-due-date">
+                                                                        <label class="control-label" for="role_id">Revised Due Date</label>
+                                                                        <div id="demo-dp-txtinput_duedate" class="input-group date">
+                                                                            <input type="text" class="date form-control" name="updated_due_date" id="updated_due_date" placeholder="Select Revised Due Date" value="" autocomplete="off" />
+                                                                            <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
+                                                                        </div>
+                                                                    </div>
 
-                        <button type="submit" id="taskEditModal_submit" class="btn btn-primary">
-                            <span class="indicator-label">
-                                Submit
-                            </span>
-                            <span class="indicator-progress"> Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span> </span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                                                                    <div class="assigned_to">
+                                                                        <label class="control-label" for="role_id">User</label>
 
+                                                                        <select name="update_assigned_to" id="update_assigned_to" style="width: 100%;" class="form-control">
+                                                                            <option value="" selected="selected">-- Select --</option>
+                                                                            <option value="1">Jagan Mohan</option>
+                                                                            <option value="40">Rashmi A</option>
+                                                                            <option value="1359">Santhosh Kumar</option>
+                                                                            <option value="1655">Jayanth T A</option>
+                                                                            <option value="1645">Nischitha S Katta</option>
+                                                                            <option value="1250">Ramanuja Akash R</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="assigned_to_optit_class">
+                                                                        <label class="control-label" for="role_id">User</label>
+                                                                        <select name="assigned_to_optit" id="assigned_to_optit" style="width: 100%;" class="form-control">
+                                                                            <option value="" selected="selected">-- Select --</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
 
-@endsection
+                                                                <div class="col-md-4">
+                                                                    <div class="assigned_to">
+                                                                        <label class="control-label" for="role_id">Type</label>
 
-<script>
-    var hostUrl = "assets/";
-</script>
+                                                                        <select name="update_type" id="update_type" style="width: 100%;" class="form-control update_type">
+                                                                            <option value="" selected="selected">-- Select --</option>
+                                                                            <option value="1">General</option>
+                                                                            <option value="2">Enchancement</option>
+                                                                            <option value="3">Bug</option>
+                                                                            <option value="4">New Development</option>
+                                                                            <option value="5">Reports</option>
+                                                                            <option value="6">New Product</option>
+                                                                            <option value="7">Integration</option>
+                                                                            <option value="8">Others</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="category_optit_class">
+                                                                        <label class="control-label" for="role_id">Category</label>
 
-<script src="assets/plugins/global/plugins.bundle.js"></script>
-<script src="assets/js/scripts.bundle.js"></script>
-<script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+                                                                        <select name="category_optit" id="category_optit" style="width: 100%;" class="form-control" onchange="categorychange()">
+                                                                            <option value="" selected="selected">-- Select --</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-    const datepicker = $("[name=due_date]");
+                                                                <div class="col-md-4 approved_to" id="customer_name">
+                                                                    <label class="control-label" for="description">Customer Name </label>
+                                                                    <select name="ref_client_id" id="ref_client_id" class="form-control">
+                                                                        <option value="" selected="selected">-Select-</option>
 
-        datepicker.flatpickr({
-        altInput: true,
-        altFormat: "F j, Y",
-        dateFormat: "Y-m-d",
-        mode: "range"
-        });
-    });
+                                                                        @foreach ($customers as $customer)
+                                                                        <option value="{{ $customer->ref_client_id }}">{{ $customer->clientname }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
 
-    $(document).ready(function () {
+                                                                <div class="col-md-4 approved_to">
+                                                                    <label class="control-label" for="role_id">Duedate</label>
+                                                                    <div id="demo-dp-approved_duedate" class="input-group date">
+                                                                        <input type="text" class="date form-control" name="update_due_date" id="update_due_date" placeholder="Duedate" value="" autocomplete="off" />
+                                                                        <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group approved_to">
+                                                                    <label class="control-label" for="role_id">Duedate</label>
+                                                                    <div id="demo-dp-approved_duedate" class="input-group date">
+                                                                        <input type="text" class="date form-control" name="update_due_date" id="update_due_date" placeholder="Duedate" value="" autocomplete="off" />
+                                                                        <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            -->
+                                                            <div class="col-md-4 approved_to margin_bottom" id="projects">
+                                                                <label class="control-label" for="description">Project Name </label>
+                                                                <select name="project_list" id="project_list" class="form-control"> </select>
+                                                            </div>
+                                                            <div class="col-md-4 approved_to margin_bottom" id="dept">
+                                                                <label class="control-label" for="category_id">Department</label>
+                                                                <select name="category_id" id="department" class="form-control"> </select>
+                                                            </div>
+                                                            <div class="col-md-4 approved_to margin_bottom" id="classification_use">
+                                                                <label class="control-label" for="classification_use">Project/Production</label>
+                                                                <select class="js-example-basic-multiple" name="ticket_type" id="ticket_type1" style="width: 100%;"> </select>
+                                                            </div>
+                                                        </div>
 
-        
-        // $("#date").daterangepicker();
-        // $("#due_date").daterangepicker();
-        
+                                                        <div class="row">
+                                                            <div class="col-md-4 approved_to margin_bottom">
+                                                                <label class="control-label">Impacted Customer</label>
+                                                                <select class="form-control" name="customer_type" id="customer_type1" style="width: 100%;"> </select>
+                                                            </div>
+                                                            <div class="col-md-4 approved_to margin_bottom">
+                                                                <label class="control-label">Impacted User</label>
+                                                                <select class="form-control" name="user_type" id="user_type1" style="width: 100%;"> </select>
+                                                            </div>
+                                                            <div class="col-md-4 approved_to margin_bottom">
+                                                                <label class="control-label">Impacted Order</label>
+                                                                <select class="form-control" name="order_type" id="order_type1" style="width: 100%;"> </select>
+                                                            </div>
+                                                            {{--
+                                                            <div class="col-md-4"><h4>Reply</h4></div>
+                                                            --}}
+                                                            <div class="col-md-4 category_optit_class">
+                                                                <label class="control-label" for="role_id">Subcategory</label>
+                                                                <select name="optit_subcategory" id="optit_subcategory" style="width: 100%;" class="form-control" onchange="subcategory_change()">
+                                                                    <option value="" selected="selected">-- Select --</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4 category_optit_class">
+                                                                <label class="control-label" for="role_id">Item</label>
+                                                                <select name="optit_item" id="optit_item" style="width: 100%;" class="form-control">
+                                                                    <option value="" selected="selected">-- Select --</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group assigned_to">
+                                                                    <label class="control-label" for="role_id">Start date</label>
+                                                                    <div id="demo-dp-txtinput_duedate" class="input-group date">
+                                                                        <input
+                                                                            type="text"
+                                                                            class="date form-control"
+                                                                            name="start_date"
+                                                                            id="start_date"
+                                                                            placeholder="Start Date"
+                                                                            value=""
+                                                                            autocomplete="off"
+                                                                            onkeydown="event.preventDefault()"
+                                                                        />
+                                                                        <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group assigned_to">
+                                                                    <label class="control-label" for="role_id">End Date</label>
+                                                                    <div id="demo-dp-txtinput_enddate" class="input-group date">
+                                                                        <input
+                                                                            type="text"
+                                                                            class="date form-control"
+                                                                            name="update_est_tat"
+                                                                            id="update_est_tat"
+                                                                            placeholder="TAT"
+                                                                            value=""
+                                                                            autocomplete="off"
+                                                                            onkeydown="event.preventDefault()"
+                                                                        />
+                                                                        <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-        $("#tickets_table").DataTable({
-            processing: true,
-            searching: true,
-            paging: true,
-            pageLength: 10,
-            ajax: {
-                url: "{{ route('tickets.getall') }}",
-            },
-            columns: [
-                {
-                    data: "id",
-                    render: function (data) {
-                        return '<div class="form-check form-check-sm form-check-custom form-check-solid me-3" ><input type="checkbox" class="form-check-input row-checkbox" name="ticket_ids[]" value="' + data + '"></div>';
-                    },
-                    orderable: false,
-                    searchable: false,
-                },
-                { data: "ticketid" },
-                
-                    { data: 'title', "render": function (data,type, row) {
-                                   return  '<a href="#" class="btn-md ticket-edit" id="'+row.id+'" >'+ data +'</a>'; },
-                                },
+                                                            <label class="control-label" for="role_id">Type</label>
+                                                            <select name="update_type" id="update_type" style="width: 100%;" class="form-control update_type">
+                                                                <option value="" selected="selected">-- Select --</option>
+                                                                <option value="1">General</option>
+                                                                <option value="2">Enchancement</option>
+                                                                <option value="3">Bug</option>
+                                                                <option value="4">New Development</option>
+                                                                <option value="5">Reports</option>
+                                                                <option value="6">New Product</option>
+                                                                <option value="7">Integration</option>
+                                                                <option value="8">Others</option>
+                                                            </select>
+                                                        </div>
+                                                        -->
 
-                { data: "projectname" },
-                { data: "task_status_name" },
-                { data: "open_date" },
-                { data: "action", orderable: true, searchable: true },
-            ],
-            columnDefs: [
-                {
-                    targets: "_all",
-                    className: "text-center",
-                },
-            ],
-        });
-    });
+                                                        <div class="col-md-4 assigned_to">
+                                                            <label class="control-label" for="role_id">Effort</label>
+                                                            <select name="effort" id="effort" style="width: 100%;" class="form-control">
+                                                                <option value="" selected="selected">-- Select --</option>
+                                                                <option value="1">High</option>
+                                                                <option value="2">Medium</option>
+                                                                <option value="3">Low</option>
+                                                            </select>
+                                                        </div>
 
-    $(document).on("click", "#add_data", function () {
-        $("#modal_ticket").modal("show");
-        $("#modal_ticket_form")[0].reset();
-        $("#form_output").html("");
-        $("#button_action").val("insert");
-        $("#action").val("Add");
-        $(".modal-title").text("Add a ticket");
-    });
+                                                        <label class="control-label" for="role_id">Resouce</label>
+                                                        <select name="resource" id="resource" style="width: 100%;" class="form-control">
+                                                            <option value="" selected="selected">-- Select --</option>
+                                                            <option value="1">Internale</option>
+                                                            <option value="2">External</option>
+                                                        </select>
+                                                    </div>
+                                                    -->
+                                                </div>
+                                                <div class="row margin_bottom">
+                                                    <div class="col-md-4 assigned_to margin_left">
+                                                        <label class="control-label" for="role_id">Testing required</label>
+                                                        <select name="testing_needed" id="testing_needed" style="width: 100%;" class="form-control">
+                                                            <option value="" selected="selected">-- Select --</option>
+                                                            <option value="yes">Yes</option>
+                                                            <option value="no">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
 
-    $(document).ready(function () {
-        let formValidator;
-        function setupFormValidation(form) {
-            formValidator = FormValidation.formValidation(form, {
-                fields: {
-                    title: {
-                        validators: {
-                            notEmpty: {
-                                message: "ticket name is required",
-                            },
-                        },
-                    },
-                   
-                   
-                },
-                plugins: {
-                    trigger: new FormValidation.plugins.Trigger(),
-                    bootstrap: new FormValidation.plugins.Bootstrap5({
-                        rowSelector: ".fv-row",
-                        eleInvalidClass: "",
-                        eleValidClass: "",
-                    }),
-                },
-            });
-        }
+                                                <textarea id="demo-summernote-ticket" name="taskcomments" rows="3" class="form-control taskcomments" placeholder=""></textarea>
 
-        const form = document.getElementById("modal_ticket_form");
-        setupFormValidation(form);
-        $("#action").on("click", function (event) {
-            event.preventDefault();
-            formValidator.validate().then(function (status) {
-                if (status === "Valid") {
-                    const form_data = new FormData(form);
-                    $.ajax({
-                        url: "{{ route('tickets.store') }}",
-                        type: "POST",
-                        data: form_data,
-                        dataType: "json",
-                        processData: false,
-                        contentType: false,
-                        success: function (data) {
-                            if (data.error.length > 0) {
-                                var error_html = "";
-                                for (var count = 0; count < data.error.length; count++) {
-                                    error_html += '<div class="alert alert-danger">' + data.error[count] + "</div>";
-                                }
-                                $("#form_output").html(error_html);
-                            } else {
-                                const submitButton = document.getElementById("action");
-                                submitButton.setAttribute("data-kt-indicator", "on");
-                                submitButton.disabled = true;
-                                setTimeout(function () {
-                                    submitButton.removeAttribute("data-kt-indicator");
-                                    submitButton.disabled = false;
-                                    Swal.fire({
-                                        text: "ticket has been successfully created!",
-                                        icon: "success",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary",
-                                        },
-                                    }).then(function (result) {
-                                        if (result.isConfirmed) {
-                                            $("#modal_ticket_form")[0].reset();
-                                            $("#tickets_table").DataTable().ajax.reload();
-                                            $("#modal_ticket").modal("hide");
+                                                <div class="input-group control-group increment-ticket">
+                                                    <input type="file" name="filename[]" class="form-control" />
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-success btn-success-ticket" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
+                                                    </div>
+                                                </div>
+                                                <div class="clone hide">
+                                                    <div class="control-group input-group" style="margin-top: 10px;">
+                                                        <input type="file" name="filename[]" class="form-control" />
+                                                        <div class="input-group-btn">
+                                                            <button class="btn btn-danger btn-danger-ticket" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {{--
+                                            <div class="row">
+                                                <div class="col-md-4 text-left">
+                                                    <select name="response_status" id="response_status" class="form-control">
+                                                        <option value="" selected="selected">-- Update Status --</option>
+
+                                                        <option value="6">Delayed</option>
+                                                        <option value="7">Closed</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-4 text-right">
+                                                    <div class="form-group delay-due-date">
+                                                        <div id="demo-dp-txtinput_duedate" class="input-group date">
+                                                            <input type="text" class="date form-control" name="updated_due_date" id="updated_due_date" placeholder="Select Revised Due Date" value="" autocomplete="off" />
+                                                            <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4 text-right">
+                                                    <input class="btn btn-primary text-right" type="submit" value="Submit" />
+                                                </div>
+                                            </div>
+                                            --}} {{-- end new edit page --}}
+
+                                            <div class="modal-footer">
+                                                <input type="hidden" name="ticket_assign_id" id="ticket_assign_id" value="" />
+                                                {{-- <input type="hidden" name="tasktype" id="tasktype" value="" /> --}}
+                                                <input type="hidden" name="ticketresponse_button_action" id="ticketresponse_button_action" value="insert" />
+                                                <input type="submit" name="submit" id="ticketresponse_action" value="Save" class="btn btn-info" />
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @endsection
+
+                            <script>
+                                var hostUrl = "assets/";
+                            </script>
+
+                            <script src="assets/plugins/global/plugins.bundle.js"></script>
+                            <script src="assets/js/scripts.bundle.js"></script>
+                            <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $(".date").daterangepicker({
+                                        singleDatePicker: true,
+                                        showDropdowns: true,
+                                        minYear: 1901,
+                                        maxYear: parseInt(moment().format("YYYY"), 12),
+                                    });
+                                });
+
+                                $(document).ready(function () {
+                                    $("#hiderow").show();
+                                    $("#category_id").change(function () {
+                                        var category_id = $(this).val();
+                                        var role = "{{ $user_role }}";
+                                        if (category_id == 1) {
+                                            $(".priority").hide();
+                                            $("select[multiple]").empty();
+                                            $("#proj_list").css("display", "block");
+                                            if (role == "Approver") {
+                                                $("#impacted_tasks").css("display", "block");
+                                                $("#approver_div").css("display", "block");
+                                            }
+                                            $("#hiderow").hide();
+                                        } else {
+                                            $("#proj_list").css("display", "none");
+                                            $("#impacted_tasks").css("display", "none");
+                                            $("#approver_div").css("display", "none");
+                                            $("#hiderow").show();
+                                            $(".priority").show();
                                         }
                                     });
-                                }, 2000);
-                            }
-                        },
-                        error: function () {
-                            console.log("AJAX error occurred");
-                        },
-                    });
-                } else {
-                    Swal.fire({
-                        text: "Sorry, looks like there are some errors detected, please try again.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        },
-                    });
-                }
-            });
-        });
-    });
 
-    $(document).on("click", ".edit", function () {
-        var id = $(this).attr("id");
+                                    $("#customer_type").change(function () {
+                                        var customer = $("#customer_type").val();
+                                        if (customer == "2") {
+                                            $("#order_type").val("2");
+                                            $("#user_type").val("2");
+                                        } else {
+                                            $("#order_type").val("");
+                                            $("#user_type").val("");
+                                        }
+                                    });
 
-        $("#form_output").html("");
-        $.ajax({
-            url: "{{ route('tickets.getdata') }}",
-            method: "get",
-            data: { id: id },
-            dataType: "json",
-            success: function (data) {
-                var ignoreArray = ["id", "created_at", "updated_at"];
-                $.each(data, function (key, value) {
-                    if ($.inArray(key, ignoreArray) == -1) {
-                        $("#" + key).val(value);
-                    }
-                });
-                $("#ticket_id").val(id);
-                $("#project_id").val(project_id);
-            
-                $("#modal_ticket").modal("show");
-                $("#action").val("Save");
-                $(".modal-title").text("Update ticket");
-                $("#button_action").val("update");
-            },
-        });
-    });
+                                    $("#user_type").change(function () {
+                                        var user = $("#user_type").val();
+                                        if (user == "2") {
+                                            $("#order_type").val("2");
+                                        } else {
+                                            $("#order_type").val("");
+                                        }
+                                    });
 
-    $(document).on("click", ".delete", function () {
-        var id = $(this).attr("id");
-        Swal.fire({
-            text: "Are you sure you want to delete this ticket?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel",
-            buttonsStyling: false,
-            customClass: {
-                confirmButton: "btn btn-primary me-3",
-                cancelButton: "btn btn-light",
-            },
-        }).then(function (result) {
-            if (result.isConfirmed) {
-                deleteticket(id);
-            }
-        });
-    });
+                                    $(".btn-success-add-ticket").click(function () {
+                                        var html = $(".add-clone").html();
+                                        $(".increment-add-ticket").after(html);
+                                    });
 
-    function deleteticket(id) {
-        $.ajax({
-            url: "{{ route('tickets.delete') }}",
-            method: "get",
-            data: { id: id },
-            beforeSend: function () {
-                showDeleteIndicator();
-            },
-            success: function (data) {
-                hideDeleteIndicator();
-                Swal.fire({
-                    text: "ticket has been deleted successfully!",
-                    icon: "success",
-                    buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                    },
-                });
-                $("#tickets_table").DataTable().ajax.reload();
-            },
-            error: function () {
-                hideDeleteIndicator();
-                Swal.fire({
-                    text: "An error occurred while deleting the ticket.",
-                    icon: "error",
-                    buttonsStyling: false,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                    },
-                });
-            },
-        });
-    }
+                                    $(".btn-danger-add-ticket").click(function () {
+                                        var html = $(".add-clone").html();
+                                        $(".increment-add-ticket").after(html);
+                                    });
 
-    function showDeleteIndicator() {
-        const deleteButton = document.querySelector(".delete");
-        deleteButton.setAttribute("data-kt-indicator", "on");
-        deleteButton.disabled = true;
-    }
-    function hideDeleteIndicator() {
-        const deleteButton = document.querySelector(".delete");
-        deleteButton.removeAttribute("data-kt-indicator");
-        deleteButton.disabled = false;
-    }
+                                    $(".js-example-basic-multiple").select2();
 
-    $(document).ready(function () {
-        // Handle check state
-        $("#tickets_select_all").on("change", function () {
-            const isChecked = $(this).prop("checked");
-            $('[type="checkbox"]').prop("checked", isChecked);
-        });
-    });
+                                    var table = $("#assign_task_table").DataTable();
+                                    //$('#assign_task_table').DataTable();
 
-    $(document).ready(function () {
-        const closeButton = $('[modal-close="close"]');
-        closeButton.on("click", function (e) {
-            e.preventDefault();
+                                    function assign_task_datatable(status) {
+                                        var _token = $('input[name="_token"]').val();
 
-            Swal.fire({
-                text: "Are you sure you would like to close?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                confirmButtonText: "Yes, close it!",
-                cancelButtonText: "No, return",
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                    cancelButton: "btn btn-active-light",
-                },
-            }).then(function (result) {
-                if (result.value) {
-                    // Hide modal
-                    $("#modal_ticket").modal("hide");
-                }
-            });
-        });
-    });
-    $(document).ready(function () {
-        $("#selectAll").on("click", function () {
-            const isChecked = $(this).prop("checked");
-            $(".row-checkbox").prop("checked", isChecked);
-        });
+                                        $("#assign_task_table").DataTable({
+                                            processing: true,
+                                            serverSide: true,
+                                            destroy: true,
+                                            ajax: {
+                                                url: "{{ route('tickets.gettickets') }}",
 
-        $(".row-checkbox").on("click", function () {
-            const allChecked = $(".row-checkbox:checked").length === $(".row-checkbox").length;
-            $("#selectAll").prop("checked", allChecked);
-        });
-    });
+                                                data: { status: status, _token: _token },
+                                            },
 
+                                            columns: [
+                                                { data: "ticketid" },
 
-    $(document).on('click', '.ticket-edit', function(){
-        
-       
+                                                {
+                                                    data: "title",
+                                                    render: function (data, type, row) {
+                                                        return '<a href="#" class="btn-md ticket-edit" id="' + row.id + '" >' + data + "</a>";
+                                                    },
+                                                },
 
-        var id = $(this).attr("id");
-        var tasktype = $(this).data("task");
-       
-        $('#form_output_new').html('');
-        $.ajax({
-            url:"{{ route('tickets.getticketdetails') }}",
-            method:'get',
-            data:{id:id},
-            dataType:'json',
-            success:function(data)
-            {
-    
-                $("#category_id_new").val(data.category_id);
-                if (data.category_id == '1') {
-                  $("#category_id").val(1);
-                  $("#response_status").empty();
-                  $("#response_status").append("<option value=''>Select</option>");
-                  $.each(data.allowed_status, function(index, value) {
-                    $("#response_status").append("<option value="+value.status_id+">"+value.status+"</option>");
-                  });
-                  $.each(data.project_list, function(index, value) {
-                    if (data.proj_id == value.id) {
-                      $("#project_list").append("<option value="+value.id+" selected>"+value.project_name+"</option>");
-                    } else {
-                      $("#project_list").append("<option value="+value.id+">"+value.project_name+"</option>");
-                    }
-                  });
+                                                { data: "projectname" },
 
-                  $("#update_assigned_to").empty();
-                  $("#update_assigned_to").append("<option>Select</option>");
-                  $.each(data.team_members, function(index, value) {
-                    $("#update_assigned_to").append("<option value="+value.id+">"+value.firstname+' '+value.lastname+"</option>");
-                  });
-                  $.each(data.roles, function(index, value) {
-                    $("#clarification_role").append("<option value="+value.id+">"+value.name+"</option>");
-                  });
+                                                { data: "opened_by_name" },
+                                                { data: "assigned_to_name" },
 
-                    $.each(data.categories, function(index, value) {
-                      if (data.category_id == value.id) {
-                        $("#department").append("<option value="+value.id+" selected>"+value.name+"</option>");
-                      } else {
-                        $("#department").append("<option value="+value.id+">"+value.name+"</option>");
-                      }
-                    });
-                    $("#classification_task_edit").hide();
-                    $("#update_type").empty();
-                    $("#update_type").append("<option value=''>Select</option>")
-                    $.each(data.ticket_type, function(index, value) {
-                      $("#update_type").append("<option value="+value.id+">"+value.type+"</option>");
-                      
-                    });
-                    $("#order_type1").append("<option value=''>Select</option>")
-                    $.each(data.impacted_orders, function(index, value) {
-                        $("#order_type1").append("<option value="+value.id+">"+value.name+"</option>");
-                    });
-                    $("#customer_type1").append("<option value=''>Select</option>")
-                    $.each(data.impacted_customer, function(index, value) {
-                        $("#customer_type1").append("<option value="+value.id+">"+value.name+"</option>");
-                    });
-                    $("#ticket_type1").append("<option value=''>Select</option>")
-                    $.each(data.impacted_task_type, function(index, value) {
-                        $("#ticket_type1").append("<option value="+value.id+">"+value.name+"</option>");
-                    });
-                    $("#user_type1").append("<option value=''>Select</option>")
-                    $.each(data.impacted_user, function(index, value) {
-                        $("#user_type1").append("<option value="+value.id+">"+value.name+"</option>");
-                    });
-                    if (data.approver == 0) {
-                      $("#priority-change").css("display","none");
-                    }
-                  
-                }
-              
-                $('#task_name_view').html(data.title);
-                $('#task_name_hidden').val(data.title);
-                $('#open_date_view').html(data.open_date);
-                $('#created_at_veiw').html(data.created_noofdays);
-                $('#opened_by_name_view').html(data.opened_by_name);
-                $('#due_date_view').html(data.due_date_org);
-                $('#delayed_date_view').html(data.delayed_noofdays);
-                $('#task_comments_view').html(data.description);
-                $('#updated_at_veiw').html(data.lastupdated_noofdays);
-                $('#created_at_view').html(data.created);
-                $('#impact_task_type').html(data.this_impacted_task_type);
-                $('#impact_order').html(data.this_impacted_order);
-                $('#impact_customer').html(data.this_impacted_customer);
-                $('#impact_user').html(data.this_impacted_user);
-                $('#impact_tat').html(data.tat);
+                                                { data: "due_date" },
 
+                                                { data: "update_est_tat" },
 
-               $('#category_veiw').html('<span style="color:'+data.ccolor+'" >'+data.cname+'</span>');
-               $('#priority_veiw').html('<span style="color:'+data.pcolor+'" >'+data.pname+'</span>');
-               $('#status_veiw').html('<span style="color:'+data.scolor+'" >'+data.sname+'</span>');
+                                                { data: "tickettype" },
+                                                { data: "priority_name" },
+                                                { data: "effort_name" },
+                                                // { "data": "task_comments" },
 
+                                                { data: "task_status_name" },
+                                                // { "data": "action", orderable:false, searchable: false},
+                                            ],
+                                            columnDefs: [
+                                                {
+                                                    targets: [0, 2, 3, 4, 5, 6, 7, 8, 9],
+                                                    className: "text-center",
+                                                },
+                                            ],
 
-              if(data.task_attachments!=null){
-                  $("#task_attachments").html('');
-                  var attchments =  data.task_attachments.split(","); 
-                  $.each( attchments, function( index, value ){
-                       $("#task_attachments").append('<a href="/download/tickets/'+value+'" target="_blank" class="attachedfiles" >'+value+'</a>');
-                  });
+                                            bDestroy: true,
+                                        });
+                                    }
 
-              }else{
-                 $("#task_attachments").html('No Attachments found.');
-              }
-        
+                                    assign_task_datatable("{{ $status }}");
 
-                $('#assigned_to_name_view').html(data.assigned_to_name);
-                $('#task_status_name_view').html(data.task_status_name);
+                                    $(document).on("click", ".ticketype", function (event) {
+                                        event.preventDefault();
 
-                if(data.task_status_name != 'Closed'  && data.assignuser == 1 ){
-                     $('.response-form').show();
-                     $('#taskresponse_action').show();
+                                        var ticketype = $(this).attr("href");
 
-                }else{
+                                        assign_task_datatable(ticketype);
 
-                      $('.response-form').hide();
-                      $('#taskresponse_action').hide();
-                }
+                                        //$('#testTable').DataTable().draw();
+                                    });
 
+                                    // $(document).on("click","#tab-assign-task",function() {
 
-                $('#prioritylabel').html('<label class="badge badge-'+data.pcolor+'">'+data.pname+'</label>'); 
+                                    //     assign_task_datatable();
 
+                                    //     //$('#testTable').DataTable().draw();
+                                    // });
 
-               
-                 $('.ticket-notification-'+id).hide();
-                
-                
-                $('#taskEditModal').modal('show');
-                $('#taskresponse_action').val('Save');
-                $('#ticket_assign_id').val(data.id);
-                $('#tasktype').val(tasktype);
-            }
-        })
-    });
+                                    function assign_task_type_datatable(status) {
+                                        var _token = $('input[name="_token"]').val();
 
+                                        $("#assign_task_table").DataTable({
+                                            processing: true,
+                                            serverSide: true,
+                                            destroy: true,
+                                            ajax: {
+                                                url: "{{ route('tickets.gettickets') }}",
 
+                                                data: { status: status, _token: _token },
+                                            },
 
+                                            columns: [
+                                                { data: "ticketid" },
+                                                {
+                                                    data: "title",
+                                                    render: function (data, type, row) {
+                                                        return '<a href="#" class="btn-md ticket-edit" id="' + row.id + '" >' + data + "</a>";
+                                                    },
+                                                },
+                                                { data: "projectname" },
+                                                { data: "opened_by_name" },
+                                                { data: "assigned_to_name" },
+                                                { data: "due_date" },
+                                                { data: "update_est_tat" },
+                                                { data: "tickettype" },
+                                                { data: "priority_name" },
+                                                { data: "effort_name" },
+                                                { data: "task_status_name" },
+                                                // { "data": "action", orderable:false, searchable: false},
+                                            ],
+                                            columnDefs: [
+                                                {
+                                                    targets: [0, 2, 3, 4, 5, 6, 7, 8, 9],
+                                                    className: "text-center",
+                                                },
+                                            ],
 
-</script>
+                                            bDestroy: true,
+                                        });
+                                    }
+
+                                    assign_task_type_datatable("{{ $status }}");
+
+                                    $(document).on("click", ".ticketype", function (event) {
+                                        event.preventDefault();
+
+                                        var ticketype = $(this).attr("href");
+
+                                        assign_task_type_datatable(ticketype);
+                                    });
+
+                                    $("#add_task").click(function () {
+                                        $("#assignTaskEditModal").modal("show");
+                                        $("#task_edit_form")[0].reset();
+                                        // $('#form_output').html('');
+
+                                        // $('.modal-title').text('Order Book');
+                                    });
+
+                                    $("#role_id").change(function () {
+                                        var role_id = $(this).val();
+
+                                        $("#assigned_to").empty();
+                                        $("#assigned_to").append('<option value="" >-Select-</option>');
+
+                                        if (role_id != "") {
+                                            $.ajax({
+                                                url: "{{ route('users.getusersbyrole') }}",
+                                                method: "GET",
+                                                data: { role_id: role_id },
+                                                success: function (result) {
+                                                    //$('#county').html(result);
+
+                                                    $.each(result, function (key, value) {
+                                                        $("#assigned_to").append('<option value="' + key + '">' + value + "</option>");
+                                                    });
+                                                },
+                                            });
+                                        }
+                                    });
+
+                                    $("#filter_role_id").change(function () {
+                                        var role_id = $(this).val();
+
+                                        $("#filter_assigned_to").empty();
+                                        $("#filter_assigned_to").append('<option value="" >-Select-</option>');
+
+                                        if (role_id != "") {
+                                            $.ajax({
+                                                url: "{{ route('users.getusersbyrole') }}",
+                                                method: "GET",
+                                                data: { role_id: role_id },
+                                                success: function (result) {
+                                                    //$('#county').html(result);
+
+                                                    $.each(result, function (key, value) {
+                                                        $("#filter_assigned_to").append('<option value="' + key + '">' + value + "</option>");
+                                                    });
+                                                },
+                                            });
+                                        }
+                                    });
+
+                                    $("#task_edit_form").on("submit", function (event) {
+                                        event.preventDefault();
+                                        //var form_data = $(this).serialize();
+
+                                        var form_data = new FormData($("#task_edit_form")[0]);
+
+                                        $.ajax({
+                                            url: "{{ route('tickets.store') }}",
+                                            type: "POST",
+                                            data: form_data,
+                                            dataType: "json",
+                                            processData: false,
+                                            contentType: false,
+                                            success: function (data) {
+                                                if (data.error.length > 0) {
+                                                    var error_html = "";
+                                                    for (var count = 0; count < data.error.length; count++) {
+                                                        error_html += '<div class="alert alert-danger">' + data.error[count] + "</div>";
+                                                    }
+                                                    // $('#form_output').html(error_html);
+                                                } else {
+                                                    $("#task_edit_form")[0].reset();
+                                                    $("#action").val("Add");
+                                                    $(".modal-title").text("Add Data");
+                                                    $("#button_action").val("insert");
+                                                    $("#assign_task_table").DataTable().ajax.reload();
+                                                    $("#assignTaskEditModal").modal("hide");
+                                                    $.niftyNoty({
+                                                        type: "success",
+                                                        icon: "pli-like-2 icon-2x",
+                                                        message: "Updated Successfully",
+                                                        container: "floating",
+                                                        timer: 3000,
+                                                    });
+
+                                                    window.location.href = "{{ route('tickets',['status' => 'Open-1'])}}";
+                                                }
+                                            },
+                                        });
+                                    });
+
+                                    $("#taskfilter_form").on("submit", function (e) {
+                                        //  oTable.draw();
+                                        //e.preventDefault();
+
+                                        $("#assign_task_table").DataTable().ajax.reload();
+                                        e.preventDefault();
+                                    });
+                                });
+                            </script>
+
+                            <script type="text/javascript">
+                                $(function () {
+                                    $("#taskEditModal").on("hidden.bs.modal", function () {
+                                        // location.reload();;
+                                        $("#response_status").val("");
+                                        $(".approved_to").css("display", "none");
+                                        $(".assigned_to").css("display", "none");
+                                        $(".assigned_to_optit_class").css("display", "none");
+                                        $(".category_optit_class").css("display", "none");
+                                    });
+
+                                    $(".ticket-delay-due-date").hide();
+                                    $(".assigned_to").hide();
+                                    $(".approved_to").hide();
+                                    $(".assigned_to_optit_class").hide();
+                                    $(".category_optit_class").hide();
+
+                                    $(".btn-success-ticket").click(function () {
+                                        var html = $(".clone").html();
+                                        $(".increment-ticket").after(html);
+                                    });
+
+                                    $(".btn-danger-ticket").click(function () {
+                                        var html = $(".clone").html();
+                                        $(".increment-ticket").after(html);
+                                    });
+
+                                    // $("body").on("click",".btn-danger-ticket",function(){
+                                    //     $(this).parents(".control-group").remove();
+                                    // });
+
+                                    $("#customer_type1").change(function () {
+                                        var customer = $("#customer_type1").val();
+                                        if (customer == "2") {
+                                            $("#user_type1").val("2");
+                                            $("#order_type1").val("2");
+                                        } else {
+                                            $("#user_type1").val("");
+                                            $("#order_type1").val("");
+                                        }
+                                    });
+                                    $("#user_type1").change(function () {
+                                        var user = $("#user_type1").val();
+                                        if (user == "2") {
+                                            $("#order_type1").val("2");
+                                        } else {
+                                            $("#order_type1").val("");
+                                        }
+                                    });
+                                    $("#classification_use_1").change(function () {
+                                        var type = $("#classification_use_1").val();
+                                        if (type == "yes") {
+                                            $("#classification_task_edit").css("display", "block");
+                                        } else {
+                                            $("#classification_task_edit").css("display", "none");
+                                        }
+                                    });
+                                    $("#start_date").on("change", function () {
+                                        var startDate = $("#start_date").val();
+
+                                        var endDate = new Date(startDate);
+
+                                        endDate = endDate.setDate(endDate.getDate() + 1);
+
+                                        $("#demo-dp-txtinput_enddate input").datetimepicker({
+                                            autoclose: true,
+                                            format: "m/d/Y",
+                                            timepicker: false,
+                                            minDate: endDate,
+                                        });
+                                    });
+
+                                    $(document).on("click", ".ticket-edit", function () {
+                                        var id = $(this).attr("id");
+                                        var tasktype = $(this).data("task");
+
+                                        $("#form_output_new").html("");
+                                        $.ajax({
+                                            url: "{{ route('tickets.getticketdetails') }}",
+                                            method: "get",
+                                            data: { id: id },
+                                            dataType: "json",
+                                            success: function (data) {
+                                                // var ignoreArray = ["id"];
+                                                // $.each(data, function( key, value ) {
+                                                //   if($.inArray(key, ignoreArray) == -1 ){
+                                                //       $('#'+key).val(value);
+                                                // }
+
+                                                // });
+                                                $("#category_id_new").val(data.category_id);
+                                                if (data.category_id == "1") {
+                                                    $("#category_id").val(1);
+                                                    $("#response_status").empty();
+                                                    $("#response_status").append("<option value=''>Select</option>");
+                                                    $.each(data.allowed_status, function (index, value) {
+                                                        $("#response_status").append("<option value=" + value.status_id + ">" + value.status + "</option>");
+                                                    });
+                                                    $.each(data.project_list, function (index, value) {
+                                                        if (data.proj_id == value.id) {
+                                                            $("#project_list").append("<option value=" + value.id + " selected>" + value.project_name + "</option>");
+                                                        } else {
+                                                            $("#project_list").append("<option value=" + value.id + ">" + value.project_name + "</option>");
+                                                        }
+                                                    });
+
+                                                    $("#update_assigned_to").empty();
+                                                    $("#update_assigned_to").append("<option>Select</option>");
+                                                    $.each(data.team_members, function (index, value) {
+                                                        $("#update_assigned_to").append("<option value=" + value.id + ">" + value.firstname + " " + value.lastname + "</option>");
+                                                    });
+                                                    $.each(data.roles, function (index, value) {
+                                                        $("#clarification_role").append("<option value=" + value.id + ">" + value.name + "</option>");
+                                                    });
+
+                                                    $.each(data.categories, function (index, value) {
+                                                        if (data.category_id == value.id) {
+                                                            $("#department").append("<option value=" + value.id + " selected>" + value.name + "</option>");
+                                                        } else {
+                                                            $("#department").append("<option value=" + value.id + ">" + value.name + "</option>");
+                                                        }
+                                                    });
+                                                    $("#classification_task_edit").hide();
+                                                    $("#update_type").empty();
+                                                    $("#update_type").append("<option value=''>Select</option>");
+                                                    $.each(data.ticket_type, function (index, value) {
+                                                        $("#update_type").append("<option value=" + value.id + ">" + value.type + "</option>");
+                                                    });
+                                                    $("#order_type1").append("<option value=''>Select</option>");
+                                                    $.each(data.impacted_orders, function (index, value) {
+                                                        $("#order_type1").append("<option value=" + value.id + ">" + value.name + "</option>");
+                                                    });
+                                                    $("#customer_type1").append("<option value=''>Select</option>");
+                                                    $.each(data.impacted_customer, function (index, value) {
+                                                        $("#customer_type1").append("<option value=" + value.id + ">" + value.name + "</option>");
+                                                    });
+                                                    $("#ticket_type1").append("<option value=''>Select</option>");
+                                                    $.each(data.impacted_task_type, function (index, value) {
+                                                        $("#ticket_type1").append("<option value=" + value.id + ">" + value.name + "</option>");
+                                                    });
+                                                    $("#user_type1").append("<option value=''>Select</option>");
+                                                    $.each(data.impacted_user, function (index, value) {
+                                                        $("#user_type1").append("<option value=" + value.id + ">" + value.name + "</option>");
+                                                    });
+                                                    if (data.approver == 0) {
+                                                        $("#priority-change").css("display", "none");
+                                                    }
+                                                }
+                                                if (data.category_id == "4") {
+                                                    // $("#assigned_to_optit").append("<option value=''>Select</option>")
+                                                    $("#response_status").empty();
+                                                    $("#response_status").append('<option value="">-- Update Status --</option>');
+                                                    $("#response_status").append('<option value="12">Started</option>');
+                                                    $("#response_status").append('<option value="7">Closed</option>');
+
+                                                    // $("#category_optit").append("<option value=''>Select</option>")
+                                                    $.each(data.optit_category, function (index, value) {
+                                                        if (data.optit_category_select == value.category) {
+                                                            $("#category_optit").append('<option value="' + value.category + '" selected>' + value.category + "</option>");
+                                                        } else {
+                                                            $("#category_optit").append('<option value="' + value.category + '">' + value.category + "</option>");
+                                                        }
+                                                    });
+                                                    if (data.optit_category_select != "") {
+                                                        categorychange(data.optit_subcategory_select);
+                                                    }
+                                                    $.each(data.optit_users, function (index, value) {
+                                                        if (data.assigned_to_optit == value.id) {
+                                                            $("#assigned_to_optit").append('<option value="' + value.id + '" selected>' + value.firstname + " " + value.lastname + "</option>");
+                                                        } else {
+                                                            $("#assigned_to_optit").append('<option value="' + value.id + '">' + value.firstname + " " + value.lastname + "</option>");
+                                                        }
+                                                    });
+                                                    if (data.optit_item_select != "") {
+                                                        subcategory_change(data.optit_item_select, data.optit_subcategory_select);
+                                                    }
+                                                }
+                                                $("#task_name_view").html(data.title);
+                                                $("#task_name_hidden").val(data.title);
+                                                $("#open_date_view").html(data.open_date);
+                                                $("#created_at_veiw").html(data.created_noofdays);
+                                                $("#opened_by_name_view").html(data.opened_by_name);
+                                                $("#due_date_view").html(data.due_date_org);
+                                                $("#delayed_date_view").html(data.delayed_noofdays);
+                                                $("#task_comments_view").html(data.description);
+                                                $("#updated_at_veiw").html(data.lastupdated_noofdays);
+                                                $("#created_at_view").html(data.created);
+                                                $("#impact_task_type").html(data.this_impacted_task_type);
+                                                $("#impact_order").html(data.this_impacted_order);
+                                                $("#impact_customer").html(data.this_impacted_customer);
+                                                $("#impact_user").html(data.this_impacted_user);
+                                                $("#impact_tat").html(data.tat);
+
+                                                //    $('#task_attachments').html(data.task_attachments);
+
+                                                $("#category_veiw").html('<span style="color:' + data.ccolor + '" >' + data.cname + "</span>");
+                                                $("#priority_veiw").html('<span style="color:' + data.pcolor + '" >' + data.pname + "</span>");
+                                                $("#status_veiw").html('<span style="color:' + data.scolor + '" >' + data.sname + "</span>");
+
+                                                if (data.task_attachments != null) {
+                                                    $("#task_attachments").html("");
+                                                    var attchments = data.task_attachments.split(",");
+                                                    $.each(attchments, function (index, value) {
+                                                        $("#task_attachments").append('<a href="/download/tickets/' + value + '" target="_blank" class="attachedfiles" >' + value + "</a>");
+                                                    });
+                                                } else {
+                                                    $("#task_attachments").html("No Attachments found.");
+                                                }
+
+                                                //   $.each(attchments,function(key,value){
+
+                                                // $("#task-details-data").append('<a href="" >'+value+'</a>');
+                                                //  }
+                                                //$('#demo-summernote').summernote('code', data.special_instruction);
+
+                                                $("#assigned_to_name_view").html(data.assigned_to_name);
+                                                $("#task_status_name_view").html(data.task_status_name);
+
+                                                if (data.task_status_name != "Closed" && data.assignuser == 1) {
+                                                    $(".response-form").show();
+                                                    $("#taskresponse_action").show();
+                                                } else {
+                                                    $(".response-form").hide();
+                                                    $("#taskresponse_action").hide();
+                                                }
+
+                                                // $("#task-details-data").empty();
+                                                // if(data.taskdetails.length > 0 ){
+                                                //     $('.task-details-table').show();
+                                                // }else{
+                                                //     $('.task-details-table').hide();
+                                                // }
+
+                                                $("#prioritylabel").html('<label class="badge badge-' + data.pcolor + '">' + data.pname + "</label>");
+
+                                                $("#displaycomments").empty();
+                                                $.each(data.taskcomments, function (key, value) {
+                                                    if (value.updated_due_date == null || value.updated_due_date == "") {
+                                                        value.updated_due_date = "";
+                                                    }
+
+                                                    // $("#updated_due_date").append(' <tr><td>'+(key+1)+'</td><td>'+value.fullname+'</td><td>'+value.response+'</td><td>'+value.response_date+'</td> <td>'+value.taskdetail_status_name+'</td><td>'+value.updated_due_date+'</td></tr>');
+
+                                                    $("#displaycomments").append(
+                                                        ' <div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">' +
+                                                            value.fullname +
+                                                            '<span class="pull-right">' +
+                                                            data.lastupdated_noofdays +
+                                                            '</span></h3></div><div class="panel-body"><div class="content"><p>' +
+                                                            value.comments +
+                                                            '</p>  <p style="margin-bottom: 0px; padding-bottom: 0px;"  class="task_attachments_' +
+                                                            value.id +
+                                                            '" >&nbsp;&nbsp;<strong>Attachments</strong> : <span id="task_attachments_' +
+                                                            value.id +
+                                                            '"></span></p></div></div></div>'
+                                                    );
+
+                                                    if (value.attachments != null) {
+                                                        var attchments = value.attachments.split(",");
+
+                                                        $.each(attchments, function (index, value1) {
+                                                            $("#task_attachments_" + value.id).append('<a href="/download/tickets/' + value1 + '" target="_blank" class="attachedfiles" >' + value1 + "</a>");
+                                                        });
+                                                    } else {
+                                                        $(".task_attachments_" + value.id).hide();
+                                                    }
+                                                });
+
+                                                $(".ticket-notification-" + id).hide();
+                                                $("#taskEditModal").modal("show");
+                                                $("#taskresponse_action").val("Save");
+                                                $("#ticket_assign_id").val(data.id);
+                                                $("#tasktype").val(tasktype);
+
+                                                // $('.modal-title').text('Order Table Details');
+                                                // $('#taskresponse_button_action').val('update');
+                                            },
+                                        });
+                                    });
+
+                                    $("#response_status").change(function () {
+                                        var category = $("#category_id_new").val();
+                                        var val = $(this).val();
+                                        $("#progress").css("display", "none");
+                                        $("#clarification_role_div").css("display", "none");
+                                        $("#clarification_user_div").css("display", "none");
+                                        $(".ticket-delay-due-date").hide();
+                                        $(".assigned_to").hide();
+                                        $(".approved_to").hide();
+                                        $(".assigned_to_optit_class").hide();
+                                        $(".category_optit_class").hide();
+                                        $(".note-editor").css("display", "block");
+                                        $(".increment-ticket").show();
+                                        $("#priority-change").css("display", "none");
+
+                                        if (val == 6) {
+                                            $(".ticket-delay-due-date").show();
+                                        } else if (val == 11) {
+                                            $(".assigned_to").show();
+                                        } else if (val == 9) {
+                                            //alert(11);
+                                            $(".approved_to").show();
+                                            $("#classification_task_edit").hide();
+                                        } else if (val == 16) {
+                                            $("#clarification_role_div").css("display", "block");
+                                        } else if (val == 12) {
+                                            if (category != 4) {
+                                                $(".note-editor").css("display", "none");
+                                                $(".increment-ticket").hide();
+                                            } else {
+                                                $(".assigned_to_optit_class").css("display", "block");
+                                                $(".category_optit_class").css("display", "block");
+                                            }
+                                        } else if (val == 7) {
+                                            if (category == 4) {
+                                                $(".assigned_to_optit_class").css("display", "block");
+                                                $(".category_optit_class").css("display", "block");
+                                            }
+                                        }
+                                    });
+                                    $("#clarification_role").change(function () {
+                                        $("#clarification_user_div").css("display", "block");
+                                        var role = $(this).val();
+                                        $.ajax({
+                                            url: "{{ route('tickets.getusers') }}",
+                                            type: "GET",
+                                            data: { role: role },
+                                            dataType: "json",
+                                            success: function (data) {
+                                                $("#clarification_to").empty();
+                                                $.each(data, function (index, value) {
+                                                    $("#clarification_to").append("<option value=" + value.id + ">" + value.firstname + "</option>");
+                                                });
+                                            },
+                                        });
+                                    });
+                                    $("#ticket_response_form").on("submit", function (event) {
+                                        event.preventDefault();
+                                        //   var form_data = $(this).serialize();
+
+                                        var form_data = new FormData($("#ticket_response_form")[0]);
+
+                                        $.ajax({
+                                            url: "{{ route('tickets.store') }}",
+                                            type: "POST",
+                                            data: form_data,
+                                            dataType: "json",
+                                            processData: false,
+                                            contentType: false,
+                                            success: function (data) {
+                                                if (data.error.length > 0) {
+                                                    var error_html = "";
+                                                    for (var count = 0; count < data.error.length; count++) {
+                                                        error_html += '<div class="alert alert-danger">' + data.error[count] + "</div>";
+                                                    }
+                                                    $("#form_output_new").html(error_html);
+                                                } else {
+                                                    $("#ticket_response_form")[0].reset();
+                                                    $("#ticketresponse_action").val("Add");
+                                                    $(".modal-title").text("Add Data");
+                                                    $("#ticketresponse_button_action").val("insert");
+                                                    //$('#assign_task_table').DataTable().ajax.reload();
+                                                    $("#taskEditModal").modal("hide");
+
+                                                    // if(data.responsedata.length > 0){
+
+                                                    //   $("."+tasktype).empty();
+                                                    //   $.each(data.responsedata,function(key,value){
+                                                    //       $("."+tasktype).append('<div class="list-group" style="padding: 0px"><div class="list-group-item" style="border: 0px; border-bottom: 1px solid;    padding: 10px 15px 5px 15px;"><span class="badge bg-info task-edit"  data-task="'+tasktype+'" id="'+value.id+'" style="font-size: 1.2em; cursor: pointer;">Action</span><p style="margin-bottom: 0px">'+value.task_name+'</p></div> <div class="list-group-item" style="border: 0px; padding: 5px 15px 10px 15px"><span class="badge bg-default" style="background: transparent;color: #ccc;">'+value.due_date+'</span><p style="margin-bottom: 0px; color: #ccc;">Assigned by:'+value.fullname+'</p></div><hr style="margin: 0.5rem auto;"></div>');
+                                                    //   });
+                                                    // }else if(response_status ==2){
+                                                    //        var tasktext = "No Tasks";
+                                                    //        if(tasktype=="overduetasks"){
+                                                    //          tasktext = "No Overdue Tasks";
+                                                    //        }else if(tasktype=="todaytasks"){
+                                                    //          tasktext = "No Tasks for the day";
+                                                    //        }else if(tasktype=="upcomingtasks"){
+                                                    //           tasktext = "No Upcoming Tasks";
+                                                    //        }
+                                                    //        $("."+tasktype).html('<br/><center><img src="{{ asset('img/notasks.png') }}" style="width:100px" class="img-responsive" /></center><p style="text-align: center;font-size: 16px; font-weight: bold;">'+tasktext+'</p>');
+                                                    // }
+
+                                                    $.niftyNoty({
+                                                        type: "success",
+                                                        icon: "pli-like-2 icon-2x",
+                                                        message: "Updated Successfully",
+                                                        container: "floating",
+                                                        timer: 3000,
+                                                    });
+                                                    window.location.href = "{{ route('tickets',['status' => 'Open-1'])}}";
+                                                }
+                                            },
+                                        });
+                                    });
+                                });
+                            </script>
+
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -373,48 +373,20 @@
                         </span>
 
                         <div class="menu-sub menu-sub-accordion">
-                          <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
-                            <span class="menu-link">
-                              <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Users</span><span class="menu-arrow"></span>
-                            </span>
-
-                            <div class="menu-sub menu-sub-accordion">
-                              <div class="menu-item">
-                                <a class="menu-link" href="user-list.html">
-                                  <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Users List</span>
-                                </a>
-                              </div>
-
-                              <div class="menu-item">
-                                <a class="menu-link" href="user-view.html">
-                                  <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">View User</span>
-                                </a>
-                              </div>
-                            </div>
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('users.index') }}">
+                              <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Users</span>
+                            </a>
                           </div>
-
-                          <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                            <span class="menu-link">
-                              <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Roles</span><span class="menu-arrow"></span>
-                            </span>
-
-                            <div class="menu-sub menu-sub-accordion">
-                              <div class="menu-item">
-                                <a class="menu-link" href="../demo50/apps/user-management/roles/list.html">
-                                  <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Roles List</span>
-                                </a>
-                              </div>
-
-                              <div class="menu-item">
-                                <a class="menu-link" href="../demo50/apps/user-management/roles/view.html">
-                                  <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">View Role</span>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
                           <div class="menu-item">
-                            <a class="menu-link" href="../demo50/apps/user-management/permissions.html">
+                            <a class="menu-link" href="{{ route('roles.index') }}">
+                              <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Roles</span>
+                            </a>
+                          </div>
+
+                      
+                          <div class="menu-item">
+                            <a class="menu-link" href="{{ route('permissions.index') }}">
                               <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Permissions</span>
                             </a>
                           </div>

@@ -69,6 +69,30 @@ Route::get('tickets.delete', 'TicketController@destroy')->name('tickets.delete')
 
 
 Route::get('tickets/{status}/{id?}', 'TicketController@index')->name('tickets');
+	Route::resource('tickets', 'TicketController');
+	Route::get('tickets.getnotifications', 'TicketController@getnotifications')->name('tickets.getnotifications')->middleware('setconnection');
+	Route::get('tickets.gettickets', 'TicketController@gettickets')->name('tickets.gettickets');
+	Route::get('tickets.getticketdetails', 'TicketController@getticketdetails')->name('tickets.getticketdetails');
+	Route::get('tickets.ticketstypes', 'TicketController@ticketstypes')->name('tickets.ticketstypes');
+	Route::get('tickets.getprojects', 'TicketController@getProjects')->name('tickets.getprojects');
+
+
+    Route::get('users.getusersbyrole', 'UserController@getusersbyrole')->name('users.getusersbyrole');
+
+
+    Route::get('users', 'UserController@index')->name('users');
+		Route::get('users.index', 'UserController@index')->name('users.index');
+		Route::post('users.importexcel', 'UserController@importexcel')->name('users.importexcel');
+		Route::get('employee.index', 'UserController@employeeindex')->name('employee.index');
+		Route::get('employee.getallemployee','UserController@getallemployee')->name('employee.getallemployee');
+		Route::get('employee.getemployee','UserController@getemployee')->name('employee.getemployee');
+		Route::post('employee.update','UserController@employeeupdate')->name('employee.update');
+		Route::get('users.getalldata', 'UserController@getalldata')->name('users.getalldata');
+
+
+
+
+Route::get('tickets/{status}/{id?}', 'TicketController@index')->name('tickets');
 Route::resource('tickets', 'TicketController');
 Route::get('tickets.getnotifications', 'TicketController@getnotifications')->name('tickets.getnotifications')->middleware('setconnection');
 Route::get('tickets.getall', 'TicketController@getall')->name('tickets.getall');

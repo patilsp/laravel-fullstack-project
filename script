@@ -28,3 +28,73 @@ CREATE TABLE customers (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+CREATE TABLE `tickets` (
+  `id` int(11) NOT NULL,
+  `title` text DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `priority_id` int(11) DEFAULT 0,
+  `status_id` int(11) DEFAULT 1,
+  `assigned_by` int(11) DEFAULT NULL,
+  `assigned_to` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `project_id` int(11) DEFAULT NULL,
+  `due_date` varchar(255) DEFAULT NULL,
+  `reg_client_id` int(11) DEFAULT NULL,
+  `current_user_id` int(11) DEFAULT NULL,
+  `current_user_role` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `attachemnts` longtext DEFAULT NULL,
+  `open_date` datetime DEFAULT NULL,
+  `due_date_org` date DEFAULT NULL,
+  `notification` varchar(45) DEFAULT NULL,
+  `notification_user_id` int(11) DEFAULT 0,
+  `updated_assigned_by` int(11) DEFAULT NULL,
+  `update_est_tat` date DEFAULT NULL,
+  `update_type` int(11) DEFAULT NULL,
+  `resource` int(11) DEFAULT NULL,
+  `effort` int(11) DEFAULT NULL,
+  `started_date` datetime DEFAULT NULL,
+  `status_code` varchar(255) DEFAULT NULL,
+  `clarification_raised_to` varchar(255) DEFAULT NULL,
+  `clarification_raised_by` varchar(255) DEFAULT NULL,
+  `testing` varchar(100) DEFAULT NULL,
+  `impacted_task_type` int(11) DEFAULT NULL,
+  `impacted_order` int(11) DEFAULT NULL,
+  `impacted_customer` int(11) DEFAULT NULL,
+  `impacted_user` int(11) DEFAULT NULL,
+  `approver` int(11) DEFAULT NULL,
+  `assigned_to_optit` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `tickets` (`id`, `title`, `description`, `priority_id`, `status_id`, `assigned_by`, `assigned_to`, `category_id`, `project_id`, `due_date`, `reg_client_id`, `current_user_id`, `current_user_role`, `created_at`, `updated_at`, `attachemnts`, `open_date`, `due_date_org`, `notification`, `notification_user_id`, `updated_assigned_by`, `update_est_tat`, `update_type`, `resource`, `effort`, `started_date`, `status_code`, `clarification_raised_to`, `clarification_raised_by`, `testing`, `impacted_task_type`, `impacted_order`, `impacted_customer`, `impacted_user`, `approver`, `assigned_to_optit`) VALUES
+(1, 'Ticket title', 'Ticket  Description', 1, 2, 13, NULL, 1, NULL, '2023-08-11 23:59:59', NULL, NULL, NULL, '2023-08-11 01:18:48', '2023-08-11 01:18:48', NULL, '2023-08-11 06:48:48', '2023-08-11', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'WA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+
+ALTER TABLE `tickets`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `owner` (`assigned_by`),
+  ADD KEY `responsble` (`assigned_to`),
+  ADD KEY `due` (`due_date`),
+  ADD KEY `priority_id` (`priority_id`),
+  ADD KEY `statusid` (`status_id`),
+  ADD KEY `categoryid` (`category_id`),
+  ADD KEY `nuserid` (`notification_user_id`),
+  ADD KEY `notification` (`notification`),
+  ADD KEY `effort` (`effort`),
+  ADD KEY `resource` (`resource`),
+  ADD KEY `tyoe` (`update_type`),
+  ADD KEY `updateassignedby` (`updated_assigned_by`);
+
+ALTER TABLE `tickets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+

@@ -51,9 +51,11 @@
                                 </div>
                             </th>
                                 <th class="min-w-150px sorting">User Name</th>
+                                <th class="min-w-150px sorting">Email Id</th>
+                                <th class="min-w-150px sorting">Employee Id</th>
                                 <th class="min-w-150px sorting">Role</th>
                                 <th class="min-w-150px sorting">Last Login</th>
-                                <th class="min-w-150px sorting">Two Step</th>
+                             
                                 <th class="min-w-125px sorting">Joined Date</th>
                                 <th class="text-end min-w-100px sorting_disabled"> Action</th>
                             </tr>
@@ -141,12 +143,13 @@
                             @foreach ($roles as $role)                 
                             <div class="d-flex fv-row">
                                 <div class="form-check form-check-custom form-check-solid">
-                                    <input class="form-check-input me-3" name="user_role" type="radio" id="user_role" checked="" />
+                                    
 
                                     <label class="form-check-label" for="user_role">
                                         <div class=" text-gray-800">{{ $role->name }}</div>
                                         <div class="text-gray-600">{{ $role->description }}</div>
                                     </label>
+                                    <input class="form-check-input me-3" name="role_id" type="radio" id="role_id" type="checkbox"  checked="" />
                                 </div>
                             </div>
                            
@@ -213,7 +216,14 @@
             ajax: {
                 url: "{{ route('users.getall') }}",
             },
-            columns: [{ data: "id" }, { data: "name" }, { data: "name" }, { data: "formatted_updated_at" },{ data: "name" }, { data: "formatted_created_at" }, { data: "action", orderable: true, searchable: true }],
+            columns: [{ data: "id" }, 
+            { data: "name" }, 
+            { data: "email" }, 
+            { data: "employee_id" }, 
+            { data: "rolename" }, 
+            { data: "formatted_updated_at" },
+            { data: "formatted_created_at" }, 
+            { data: "action", orderable: true, searchable: true }],
             columnDefs: [
                 {
                     targets: "_all",
