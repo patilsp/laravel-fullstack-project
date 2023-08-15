@@ -70,18 +70,18 @@
                              
                             <div class="card-body">
                                 <div class="text-start mb-10">
-                                    <h1 class="text-dark mb-3" data-kt-translate="sign-in-title">
+                                    <h1 class="text-dark text-dark-fade-in mb-3">
                                         Create an Account
                                     </h1>
 
-                                    <div class="text-gray-600  fs-6" data-kt-translate="general-desc">
+                                    <div class="text-gray-600  fs-6">
                                         Join the Sprint: Sign Up and Get Started.
                                     </div>
                                 </div>
 
                                 <div class="row fv-row mb-5 fv-plugins-icon-container">
                                     <div class="col-xl-6">
-                                        <input id="name" type="text" class="form-control form-control-lg form-control-solid @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Fiest Name" required autocomplete="name" autofocus>
+                                        <input id="name" type="text" class="form-control form-control-lg form-control-solid @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="First Name" required autocomplete="name" autofocus>
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                     </div>
 

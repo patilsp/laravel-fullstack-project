@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\UserProfile;
+use App\User;
 use Datatables;
 use DB;
 use Validator;
 use DateTime;
+use Auth;
 
 class UserProfileController extends Controller
 {
@@ -18,9 +19,8 @@ class UserProfileController extends Controller
      */
     public function index()
     {
-
-        $roles = UserProfile::all();
-        return view('roles.index', compact('roles'));
+        $users = User::all();
+        return view('userprofiles.index', compact('users'));
     }
 
     /**
@@ -43,7 +43,7 @@ class UserProfileController extends Controller
     {
 
         $validation = Validator::make($request->all(), [            
-            'name' => 'required',
+            // 'name' => 'required',
         ]);
 
         $error_array = array();
@@ -53,18 +53,31 @@ class UserProfileController extends Controller
                 $error_array[] = $messages;
             }
         } else {
-            if ($request->get('button_action') == 'insert') {
-                $input = $request->all();
-                $roles = UserProfile::create($input);
-                $success_output = '<div class="alert alert-success">Data Inserted</div>';
-            }
 
             if ($request->get('button_action') == 'update') {
                 $input = $request->all();
-                $roles = UserProfile::find($request->get('role_id'));
-                $roles->update($input);
-                $success_output = '<div class="alert alert-success">Data Updated</div>';
-
+                $users = User::find($request->get('user_profile_id'));
+                $users->update($input);
+            }
+            if ($request->hasFile('profile_pic')) {
+                $user = Auth::user();
+        
+                // Validate the uploaded file
+                $request->validate([
+                    'profile_pic' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                ]);
+        
+                // Handle the image upload and update
+                if ($request->hasFile('profile_pic')) {
+                    // Delete the previous profile picture if exists
+                    if ($user->profile_pic) {
+                        Storage::delete('assets/media/avatars/profile_pics/' . $user->profile_pic);
+                    
+        
+                    $profilePicPath = $request->file('profile_pic')->store('assets/media/avatars/profile_pics');
+                    $user->profile_pic = $profilePicPath;
+                    $user->save();
+                }
             }
 
             
@@ -77,6 +90,7 @@ class UserProfileController extends Controller
         );
         echo json_encode($output);
        
+    }
     }
 
     /**

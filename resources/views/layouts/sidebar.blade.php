@@ -74,46 +74,6 @@
                           <span class="menu-icon"><i class="bi bi-command"></i></span><span class="menu-title">Social Account</span>
                         </a>
                       </div>
-
-                      <div data-kt-menu-trigger="click" class="menu-item menu-accordion ml-1">
-                        <span class="menu-link">
-                          <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Authentication</span><span class="menu-arrow"></span>
-                        </span>
-
-                        <div class="menu-sub menu-sub-accordion">
-                          <div class="menu-item">
-                            <a class="menu-link" href="layout/sign-in.html">
-                              <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Sign-up</span>
-                            </a>
-                          </div>
-
-                          <div class="menu-item">
-                            <a class="menu-link" href="layout/sign-up.html">
-                              <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Sign-up</span>
-                            </a>
-                          </div>
-
-                          <div class="menu-item">
-                            <a class="menu-link" href="layout/welcome.html">
-                              <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Welcome Message</span>
-                            </a>
-                          </div>
-
-       
-                          <div class="menu-item">
-                            <a class="menu-link" href="layout/coming-soon.html">
-                              <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Coming Soon</span>
-                            </a>
-                          </div>
-
-                          <div class="menu-item">
-                            <a class="menu-link" href="layout/error-500.html">
-                              <span class="menu-bullet"><span class="bi bi-command"></span></span><span class="menu-title">Error 500</span>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-
                     </div>
                   </div>
 

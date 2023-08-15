@@ -42,7 +42,7 @@
             document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
     </script>
-     <div class="d-flex flex-column flex-root" id="kt_app_root">
+     <div class="d-flex flex-column flex-root login-fade-up" id="kt_app_root">
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
 
             <div class="d-flex flex-column flex-column-fluid flex-center w-lg-50 p-10">
@@ -65,7 +65,7 @@
                             @csrf   
                             <div class="card-body">
                                 <div class="text-start mb-10">
-                                    <h1 class="text-dark mb-3 fs-3x">
+                                    <h1 class="text-dark text-dark-fade-in mb-3 fs-3x">
                                         Sign In
                                     </h1>
 

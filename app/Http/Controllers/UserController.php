@@ -130,33 +130,72 @@ class UserController extends Controller {
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(Request $request) {
-		$this->validate($request, [
+	// public function store(Request $request) {
+	// 	$this->validate($request, [
+	// 		'firstname' => 'required',
+	// 		'lastname' => 'required',
+	// 		'email' => 'required|email|unique:users,email',
+	// 		'password' => 'required|same:confirm-password|min:8|regex:/^(?=.*?[0-9])(?=.*?[a-zA-Z])(?=.*?[@&!#?%^*]).{8,50}$/',
+	// 	]);
+
+	// 	if ($request->hourly_wage != '') {
+	// 		$this->validate($request, [
+	// 			'hourly_wage' => 'numeric',
+	// 		]);
+	// 	}
+
+	// 	$input = $request->all();
+	// 	if ($request->hourly_wage != '') {
+	// 		$input['hourly_wage'] = $request->hourly_wage;
+	// 	}
+	// 	$input['password'] = Hash::make($input['password']);
+	// 	$user = User::create($input);
+	// 	$user->assignRole($request->input('roles'));
+
+	// 	return redirect()->route('users.index')
+	// 		->with('success', 'User created successfully');
+	// }
+
+	public function store(Request $request)
+    {
+
+		$validation = Validator::make($request->all(), [ 
 			'firstname' => 'required',
 			'lastname' => 'required',
 			'email' => 'required|email|unique:users,email',
 			'password' => 'required|same:confirm-password|min:8|regex:/^(?=.*?[0-9])(?=.*?[a-zA-Z])(?=.*?[@&!#?%^*]).{8,50}$/',
-			'roles' => 'required',
 		]);
 
-		if ($request->hourly_wage != '') {
-			$this->validate($request, [
-				'hourly_wage' => 'numeric',
-			]);
-		}
+		dd($request);
+		
+        $error_array = array();
+        $success_output = '';
+        if ($validation->fails()) {
+            foreach ($validation->messages()->getMessages() as $field_name => $messages) {
+                $error_array[] = $messages;
+            }
+        } else {
+            if ($request->get('button_action') == 'insert') {
+                $input = $request->all();
+                $users = User::create($input);
+            }
 
-		$input = $request->all();
-		if ($request->hourly_wage != '') {
-			$input['hourly_wage'] = $request->hourly_wage;
-		}
-		//$input['password'] = date('Y-m-d', strtotime($userProfileData->start_date));
-		$input['password'] = Hash::make($input['password']);
-		$user = User::create($input);
-		$user->assignRole($request->input('roles'));
+            if ($request->get('button_action') == 'update') {
+                $input = $request->all();
+                $users = User::find($request->get('user_id'));
+                $users->update($input);
+            }
+        }
 
-		return redirect()->route('users1.index')
-			->with('success', 'User created successfully');
-	}
+        $output = array(
+            'error' => $error_array,
+            'success' => $success_output,
+        );
+        echo json_encode($output);
+       
+    }
+
+
 
 	/**
 	 * Display the specified resource.
@@ -164,10 +203,6 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id) {
-		$user = User::find($id);
-		return view('users1.show', compact('user'));
-	}
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -175,44 +210,9 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($id) {
-		$user = User::find($id);
-		$roles = Role::pluck('name', 'name')->all();
-		$userRole = $user->roles->pluck('name', 'name')->all();
-		$customers = Customer::where('customer_status', '=', 1)->get();
-		$productcategories = DB::table('product_category')->get();
-		$processtypes = DB::table('process_types')->get();
-		$vendors = Vendor::all();
-		$supervisors = DB::table('skills')
-		->leftjoin('users', 'skills.user_id', '=', 'users.id')
-		->leftjoin('roles', 'skills.role_id', '=', 'roles.id')
-		->select('users.id', 'users.firstname as firstname', 'users.lastname as lastname', 'users.employee_id as employee_id')
-		//->where('skills.role_id', '=', 17)
-		//->where('roles.employee_role', '=', 2)
-		->whereNotIn('users.employee_id',[$user->employee_id])
-		->where('skills.role_id', '>', 2)
-		->orderBy('skills.id', 'desc')
-		->get();
-		$accountManager = DB::table('skills')
-		->leftjoin('users', 'skills.user_id', '=', 'users.id')
-		->leftjoin('roles', 'skills.role_id', '=', 'roles.id')
-		->select('users.id', 'users.firstname as firstname', 'users.lastname as lastname', 'users.employee_id as employee_id')
-		//->where('skills.role_id', '=', 12)
-		//->where('roles.employee_role', '=', 1)
-		->whereNotIn('users.employee_id',[$user->employee_id])
-		->where('skills.role_id', '>', 4)
-		->orderBy('skills.id', 'desc')
-		->get();		
-		return view('users1.edit', compact('user','supervisors', 'roles', 'userRole','customers','vendors','productcategories','accountManager','processtypes'));
-	}
 
 	public function changepassword(Request $request) {
 		$userinfo = Auth::user();
-//		return "abc";
-		// $this->validate($request, [
-		// 	'old-password' => 'required',
-		// 	'password' => 'same:confirm-password|required',
-		// ]);
 		$error_array = array();
 		$success_output = '';
 		$validation = Validator::make($request->all(), [
@@ -223,7 +223,7 @@ class UserController extends Controller {
 		if ($validation->fails()) {
 			foreach ($validation->messages()->getMessages() as $field_name => $messages) {
 				$error_array[] = $messages;
-				//$error_array[] = $field_name;
+				
 			}
 		} else {
 
@@ -239,44 +239,7 @@ class UserController extends Controller {
 			if (!Hash::check($input['old-password'], $user->password)) {
 
 				$error_array[] = 'The specified password does not match the database password';
-			} else {
-				$password_history = DB::table("password_history")->where("user_id",$userinfo->id)
-										->select("password","created_on")
-										->orderBy("id","desc")
-										->limit(5)
-										->get()
-										->toArray();
-
-					foreach ($password_history as $key => $value) {
-						if (Hash::check($password,$value->password)) {
-							$error_array[] = 'The new password should not be the same as the last 5 passwords';
-							break;
-						}
-						
-					}
-					if (empty($error_array)) {
-						$user->update($input);
-						if (count($password_history) >= 5) {
-							$first_id = DB::table("password_history")
-							->where("user_id",$userinfo->id)
-							->select("id")
-							->orderBy("id","asc")
-							->first();
-							$firstId = $first_id->id;
-							$delete = DB::table("password_history")->where("id",$firstId)
-									  ->delete();
-							
-						}
-						$update = User::where("id",$userinfo->id)->update(array("password_reset" => '0'));
-						$insert = DB::table("password_history")->insert(['user_id' => $userinfo->id,'password' => Hash::make($password)]);
-						$success_output = '<div class="alert alert-success">User updated successfull</div>';
-	
-					}
-				// $user->update($input);
-
-				// $success_output = '<div class="alert alert-success">User updated successfull</div>';
-
-			}
+			} 
 
 		}
 
@@ -285,24 +248,7 @@ class UserController extends Controller {
 			'success' => $success_output,
 		);
 		echo json_encode($output);
-		// $input = $request->all();
-		// if (!empty($input['password'])) {
-		// 	$input['password'] = Hash::make($input['password']);
-		// } else {
-		// 	$input = array_except($input, array('password'));
-		// }
 
-		// $user = User::find($id);
-		// if (!Hash::check($input['old-password'], $user->password)) {
-
-		// 	return redirect()->route('users1.index')
-		// 		->with('error', 'The specified password does not match the database password');
-		// } else {
-		// 	$user->update($input);
-
-		// 	return redirect()->route('users1.index')
-		// 		->with('success', 'User updated successfully');
-		// }
 	}
 
 	/**
@@ -419,7 +365,7 @@ class UserController extends Controller {
  
         
          $data = User::join('model_has_roles','users.id','=','model_has_roles.model_id')
-         ->join('roles','model_has_roles.role_id','=','roles.id')->select('users.*','roles.name as rolename','users.id as uid', DB::raw("CONCAT(firstname,' ',lastname,' - ',employee_id) AS name") )->orderBy('users.id', 'DESC')->where('users.deleted','!=',1)->get();
+         ->join('roles','model_has_roles.role_id','=','roles.id')->select('users.*', 'roles.name as rolename','users.id as uid', DB::raw("CONCAT(firstname,' ',lastname,' - ',employee_id) AS name"), DB::raw('CONCAT("#EMP", users.id) AS employee_id'))->orderBy('users.id', 'DESC')->where('users.deleted','!=',1)->get();
          foreach($data as $key => $value) {
              $data[$key]['rolename'] = $value->rolename;
          }
