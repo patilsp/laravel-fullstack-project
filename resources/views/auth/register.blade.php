@@ -81,36 +81,29 @@
 
                                 <div class="row fv-row mb-5 fv-plugins-icon-container">
                                     <div class="col-xl-6">
-                                        <input id="name" type="text" class="form-control form-control-lg form-control-solid @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="First Name" required autocomplete="name" autofocus>
+                                        <input id="name" type="text" class="form-control form-control-lg form-control-solid @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="First Name" autocomplete="name" autofocus>
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                     </div>
 
                                     <div class="col-xl-6">
-                                        <input id="lastname" type="text" class="form-control form-control-lg form-control-solid @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" placeholder="Last Name" required autocomplete="name" autofocus>
+                                        <input id="lastname" type="text" class="form-control form-control-lg form-control-solid @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" placeholder="Last Name" autocomplete="name" autofocus>
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                     </div>
                                 </div>
                                 
                                 <div class="fv-row mb-5 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
-                                    <input id="email" type="email" class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" required autocomplete="email">
+                                    <input id="email" type="email" class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" autocomplete="email">
 
                                     @error('email')
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback" role="alert">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 
-                                <!-- <div class="fv-row mb-5 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
-                                <input id="password" type="password" class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="new-password">
 
-                                    @error('password')
-                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback" role="alert">{{ $message }}</div>
-                                    @enderror
-                                </div> -->
-
-                                <div class="mb-1">
+                                <!-- <div class="mb-1">
                                 
                                     <div class="position-relative mb-3">
-                                        <input id="password" type="password" class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
+                                        <input id="password" type="password" class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror" name="password" placeholder="Password" autocomplete="current-password">
                                         <span id="togglePassword" class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
                                             <i class="bi bi-eye-slash fs-2"></i>
                                             <i class="bi bi-eye fs-2 d-none"></i>
@@ -124,12 +117,24 @@
                                         <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
                                         <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
                                     </div>
+                                </div> -->
+
+                                <div class="position-relative mb-3">
+                                    <input id="password" type="password" class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror" name="password" placeholder="Password" autocomplete="current-password">
+                                    <span id="togglePassword" class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2">
+                                        <i class="bi bi-eye-slash fs-2"></i>
+                                        <i class="bi bi-eye fs-2 d-none"></i>
+                                    </span>
+                                </div>
+                                <div class="d-flex align-items-center rounded h-5px me-2 mb-3" id="password-strength">
+                                    <!-- <div class="flex-grow-1 rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div> -->
                                 </div>
 
-
-                                
-                                <div class="fv-row mb-5 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
-                                    <input id="password-confirm" type="password" class="form-control form-control-lg form-control-solid" name="password_confirmation" placeholder="Confirm Password" required autocomplete="new-password">
+                                <div class="fv-row mb-5 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid mt-1">
+                                    <input id="password-confirm" type="password" class="form-control form-control-lg form-control-solid" name="password_confirmation" placeholder="Confirm Password" autocomplete="new-password">
 
                                     @error('password_confirmation')
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback" role="alert">{{ $message }}</div>
@@ -147,7 +152,7 @@
                                 
                                 <div class="d-flex flex-stack">
                                     <button id="kt_sign_in_submit" class="btn btn-primary me-2 flex-shrink-0">
-                                        <span class="indicator-label" data-kt-translate="sign-in-submit">
+                                        <span class="indicator-label">
                                             {{ __('Register') }}
                                         </span>
 
@@ -174,6 +179,7 @@
 
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script src="assets/js/scripts.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
 
 
 
@@ -193,10 +199,108 @@
                     icon.addClass('bi-eye-slash');
                 }
             });
+            const passwordInput = $('#password');
+            const passwordStrength = $('#password-strength');
+
+            passwordInput.on('input', function() {
+                const password = $(this).val();
+                const score = zxcvbn(password).score; 
+                const colors = ['', 'bg-danger', 'bg-warning', 'bg-info', 'bg-success'];
+                passwordStrength.attr('class', `flex-grow-1 rounded h-5px ${colors[score]}`);
+            });
         });
 
+        $(document).ready(function () {
+            var form = document.querySelector("#kt_sign_up_form");
+            var formValidator = FormValidation.formValidation(form, {
+                fields: {
+                    name: {
+                        validators: {
+                            notEmpty: {
+                                message: "First Name is required",
+                            },
+                        },
+                    },
+                    lastname: {
+                        validators: {
+                            notEmpty: {
+                                message: "Last Name is required",
+                            },
+                        },
+                    },
+                    email: {
+                        validators: {
+                            emailAddress: {
+                                message: "The value is not a valid email address",
+                            },
+                            notEmpty: {
+                                message: "Email address is required",
+                            },
+                        },
+                    },
+                    password: {
+                        validators: {
+                            notEmpty: {
+                                message: "The password is required",
+                            },
+                        },
+                    },
+                    "password-confirm": {
+                        validators: {
+                            identical: {
+                                compare: function () {
+                                    return $("#password").val();
+                                },
+                                message: "The password and its confirm are not the same",
+                            },
+                        },
+                    },
+                    toc: {
+                        validators: {
+                            notEmpty: {
+                                message: "You must accept the terms and conditions",
+                            },
+                        },
+                    },
+                },
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger({
+                        event: {
+                            password: false,
+                        },
+                    }),
+                    bootstrap: new FormValidation.plugins.Bootstrap5({
+                        rowSelector: ".fv-row",
+                        eleInvalidClass: "",
+                        eleValidClass: "",
+                    }),
+                },
+            });
 
+            $("#kt_sign_in_submit").on("click", function (event) {
+                event.preventDefault();
 
+                formValidator.validate().then(function (status) {
+                    if (status === "Valid") {
+                        // Perform your AJAX request here
+                        // Example: $.ajax({ ... })
+                    } else {
+                        Swal.fire({
+                            text: "Sorry, looks like there are some errors detected, please try again.",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                            },
+                        });
+                    }
+                });
+            });
+
+            
+   
+        });
     </script>
 </body>
 
