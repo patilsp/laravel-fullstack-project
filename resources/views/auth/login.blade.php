@@ -54,9 +54,8 @@
                           </a>
                         </div>
 
-                        <div class="m-0">
-                          <h3 class="text-center fs-bold text-uppercase fs-2">Welcome to Task Sprint</h3>
-
+                        <div class="m-0 animation-div">
+                          <h3 class="text-center fs-bold text-uppercase fs-2 title-animation">Welcome to Task Sprint</h3>
                         </div>
                     </div>
 
@@ -121,6 +120,7 @@
                                         </span>
                                     </button>
 
+                                    
                                     <div class="d-flex align-items-center">
                                         <div class="text-gray-400  fs-6 me-3 me-md-6" data-kt-translate="general-or">Or</div>
 

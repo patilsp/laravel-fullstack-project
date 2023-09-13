@@ -9,6 +9,7 @@ use DB;
 use Validator;
 use DateTime;
 use Auth;
+use App\Role;
 
 class UserProfileController extends Controller
 {
@@ -20,7 +21,8 @@ class UserProfileController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('userprofiles.index', compact('users'));
+        $roles = Role::all();
+        return view('userprofiles.index', compact('users','roles'));
     }
 
     /**
@@ -156,4 +158,26 @@ class UserProfileController extends Controller
         UserProfile::find($id)->delete();
         echo 'Data Deleted';
     }
+
+
+    public function updateProfile(Request $request){
+        $user = Auth::user();
+        $request->validate([
+            'profile_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
+        ]);
+
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/assets/profile_images', $imageName);
+            $user->profile_image = $imageName;
+            $user->save();
+        }
+        
+
+        return redirect()->back()->with('success', 'Profile image updated successfully.');
+    }
+
+
+    
 }

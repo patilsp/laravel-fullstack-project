@@ -382,14 +382,14 @@
   
                   <div class="d-flex align-items-center ms-2 ms-lg-5" id="kt_header_user_menu_toggle">
                     <div class="btn btn-icon w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                      <img class="h-100 w-100 rounded" src="assets/media/avatars/1.jpg" alt="" />
+                      <img class="h-100 w-100 rounded" src="{{ asset('storage/assets/profile_images/' . Auth::user()->profile_image) }}" alt="" />
                     </div>
   
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color py-4  w-275px" data-kt-menu="true">
                       <div class="menu-item px-3">
                         <div class="menu-content d-flex align-items-center px-3">
                           <div class="symbol symbol-50px me-5">
-                            <img alt="Logo" src="assets/media/avatars/1.jpg" />
+                            <img alt="Logo" src="{{ asset('storage/assets/profile_images/' . Auth::user()->profile_image) }}" />
                           </div>
   
                           <div class="d-flex flex-column">

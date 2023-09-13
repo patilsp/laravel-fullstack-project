@@ -111,3 +111,11 @@ Route::resource('userprofile', 'UserProfileController');
 Route::get('userprofile.getall', 'UserProfileController@getall')->name('userprofile.getall');
 Route::get('userprofile.getdata', 'UserProfileController@getdata')->name('userprofile.getdata');
 Route::get('userprofile.delete', 'UserProfileController@destroy')->name('userprofile.delete');
+
+// Route::get('userprofile/{userId}', 'UserProfileController@editUserProfile');
+Route::get('userprofile/edit/{userId}', 'UserProfileController@editUserProfile')->name('userprofile.edit');
+
+Route::put('update-profile', 'UserProfileController@updateProfile')->name('updateProfile');
+
+
+

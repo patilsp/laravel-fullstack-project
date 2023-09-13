@@ -8,6 +8,9 @@
         width: 100%;
         gap: 5px;
     }
+    .control-label{
+        margin-bottom: 5px
+    }
 </style>
 @endsection @section('content')
 <div id="kt_app_content_container" class="app-container container-xxl mt-4">
@@ -36,19 +39,17 @@
             <div class="col-lg-12">
                 <div class="panel">
                     <div class="panel-heading">
-                        <div class="panel-control">
-                            @if (Auth::user()->hasRole('IT Project Manager'))
-                            <a href="{{ url('gantt') }}" target="_blank"><button type="button" id="view_chart" class="btn btn-primary nav dt-add" target="_blank">View Chart</button></a>
+                        <div class="panel-control d-flex justify-content-between">
+                            <h3 class="panel-title text-danger">Tickets</h3>
+                            <!-- <a href="{{ url('gantt') }}" target="_blank"><button type="button" id="view_chart" class="btn btn-primary nav dt-add" target="_blank">View Chart</button></a>
                             <button type="button" id="assign_proj" data-toggle="modal" data-target="#assignedproj" class="btn btn-primary nav dt-add">Assign Projects</button>
-                            @endif @if (Auth::user()->hasRole('AVP'))
+                           
                             <a href="{{ url('gantt') }}" target="_blank"><button type="button" id="view_chart" class="btn btn-primary nav dt-add">View Chart</button></a>
-                            @endif @if($statusname!="status")
+                            -->
 
-                            <button type="button" name="add" id="add_task" data-func="dt-add" class="btn btn-primary nav dt-add">Create new ticket</button>
-
-                            @endif
+                            <button type="button" name="add" id="add_task" data-func="dt-add" class="btn btn-primary py-4 mb-2">Create ticket</button>                           
                         </div>
-                        <h3 class="panel-title text-danger">Tickets</h3>
+                        
                     </div>
 
                     <div class="panel-body">
@@ -115,25 +116,39 @@
                             <div id="assignTaskEditModal" class="modal fade" role="dialog">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
-                                        <form method="post" id="task_edit_form" enctype="multipart/form-data">
+                                        <form method="post" id="task_edit_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" enctype="multipart/form-data">
                                             {{csrf_field()}}
                                             <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                                                <h4 class="modal-title">Create New Task</h4>
+                                                <!-- <button type="button" class="close" data-ds-dismiss="modal"><i class="bi bi-x"></i></button> -->
+                                                <!-- <h4 class="modal-title">Create New Task</h4> -->
                                             </div>
 
-                                            <div class="modal-body">
+                                            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                                                    <div class="mb-13 text-center">
+                                                        <h1 class="mb-3">Create Ticket</h1>
+
+                                                        <div class="text-gray-400 fw-semibold fs-5">If you need more info, please check <a href="" class="fw-bold link-primary">Support Guidelines</a>.</div>
+                                                    </div>
+
                                                 <span id="form_output1"></span>
                                                 <!--Text Input-->
                                                 <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="title">Task Description</label>
-                                                            <input type="text" name="title" id="title" class="form-control" placeholder="" />
-                                                        </div>
-                                                    </div>
 
-                                                    <div class="col-lg-3">
+                                                    <div class="d-flex flex-column fv-row fv-plugins-icon-container">
+                                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                        <span class="required">Ticket Title</span>
+
+                                                        <span class="ms-2" data-bs-toggle="tooltip" aria-label="Specify a subject for your issue" data-bs-original-title="Specify a subject for your issue" data-kt-initialized="1">
+                                                            <i class="bi bi-information fs-7"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <input type="text" class="form-control form-control-solid" placeholder="Enter your ticket title" name="title" id="title"/>
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+
+                                               
+                                                    <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label class="control-label" for="priority_id">Department</label>
                                                             <select name="category_id" id="category_id" class="form-control">
@@ -145,9 +160,33 @@
                                                             </select>
                                                         </div>
                                                     </div>
+                                                    <div class="col-sm-6 mb-2" id="customer_name">
+                                                                <label class="control-label" for="description">Customer Name </label>
+                                                                <select name="ref_client_id" id="ref_client_id" class="form-control">
+                                                                    <option value="" selected="selected">-Select-</option>
+                                                                    @foreach ($customers as $customer)
+                                                                    <option value="{{ $customer->ref_client_id }}">{{ $customer->clientname }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
 
-                                                    <div id="hiderow">
-                                                        <div class="col-sm-3">
+
+                                                            <div class="col-sm-6 mb-2" id="proj_list">
+                                                        <div class="form-group">
+                                                            <label class="control-label" for="project">Project</label>
+                                                            <select class="js-example-basic-multiple form-control" name="project" id="project" style="width: 100%;">
+                                                                <option value="" selected="selected">-Select-</option>
+
+                                                                @foreach ($clients as $proj)
+                                                                <option value="{{ $proj->id }}">{{ $proj->project_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+<!--                                                     
+                                                        <div class="col-sm-6 mb-2">
                                                             <div class="form-group">
                                                                 <label class="control-label" for="role_id">Role</label>
 
@@ -159,26 +198,32 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
 
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-6 mb-2">
                                                             <div class="form-group">
                                                                 <label class="control-label" for="assigned_to">Assigned To</label>
-                                                                <select class="js-example-basic-multiple" name="assigned_to[]" id="assigned_to" style="width: 100%;" multiple="multiple"> </select>
+                                                                <select class="js-example-basic-multiple form-control" name="assigned_to[]" id="assigned_to" style="width: 100%;" multiple="multiple">
+                                                                
+                                                                        @foreach ($users as $k=>$user)
+                                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                                        @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-sm-3">
+                                                      
+
+                                                        <div class="col-sm-6 mb-2">
                                                             <div class="form-group">
                                                                 <label class="control-label" for="due_date">Due Date</label>
                                                                 <div id="demo-dp-txtinput_duedate" class="input-group date">
-                                                                    <input type="text" class="date form-control" name="due_date" id="due_date" placeholder="" value="" autocomplete="off" onkeydown="event.preventDefault()" />
+                                                                    <input type="text" class="date form-control" name="due_date" id="due_date" placeholder="Due Date" value="" autocomplete="off" onkeydown="event.preventDefault()" />
                                                                     <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 priority">
+                                                        <div class="col-sm-6 mb-2 priority">
                                                         <div class="form-group">
                                                             <label class="control-label" for="priority_id">Priority</label>
                                                             <select name="priority_id" id="priority_id" class="form-control">
@@ -190,93 +235,12 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3" id="proj_list" style="display: none;">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="project">Project</label>
-                                                            <select class="js-example-basic-multiple" name="project" id="project" style="width: 100%;">
-                                                                <option value="" selected="selected">-Select-</option>
 
-                                                                @foreach ($clients as $proj)
-                                                                <option value="{{ $proj->id }}">{{ $proj->project_name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                                                
+                                                  
+                                                   
 
-                                                    <div class="row">
-                                                        <div class="col-sm-12" id="approver_div" style="display: none;">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="due_date">Due Date</label>
-                                                                    <div id="demo-dp-txtinput_duedate" class="input-group date">
-                                                                        <input type="text" class="date form-control" name="due_date" id="due_date" placeholder="" value="" autocomplete="off" onkeydown="event.preventDefault()" />
-                                                                        <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-6" id="customer_name">
-                                                                <label class="control-label" for="description">Customer Name </label>
-                                                                <select name="ref_client_id" id="ref_client_id" class="form-control">
-                                                                    <option value="" selected="selected">-Select-</option>
-                                                                    @foreach ($customers as $customer)
-                                                                    <option value="{{ $customer->ref_client_id }}">{{ $customer->clientname }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-sm-12" id="impacted_tasks" style="display: none;">
-                                                            <div class="col-sm-3" id="classification_use">
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="classification">Project/Production</label>
-                                                                    <select class="js-example-basic-multiple" name="ticket_type" id="ticket_type" style="width: 100%;">
-                                                                        <option value="" selected="selected">-Select-</option>
-                                                                        @foreach ($impacted_task_type as $k=>$v)
-                                                                        <option value="{{ $v->id }}">{{ $v->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-sm-3">
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="classification">Impacted Customer</label>
-                                                                    <select class="form-control" name="customer_type" id="customer_type" style="width: 100%;">
-                                                                        <option value="" selected="selected">-Select-</option>
-                                                                        @foreach ($impacted_customer as $k=>$v)
-                                                                        <option value="{{ $v->id }}">{{ $v->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-sm-3">
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="classification">Impacted User</label>
-                                                                    <select class="form-control" name="user_type" id="user_type" style="width: 100%;">
-                                                                        <option value="" selected="selected">-Select-</option>
-                                                                        @foreach ($impacted_user as $k=>$v)
-                                                                        <option value="{{ $v->id }}">{{ $v->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="classification">Impacted Order</label>
-                                                                    <select class="form-control" name="order_type" id="order_type" style="width: 100%;">
-                                                                        <option value="" selected="selected">-Select-</option>
-                                                                        @foreach ($impacted_orders as $k=>$v)
-                                                                        <option value="{{ $v->id }}">{{ $v->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
+                                                    <div class="col-sm-12 mb-2">
                                                         <div class="form-group">
                                                             <label class="control-label" for="description">Task Specifics</label>
                                                             <textarea id="description" name="description" rows="3" class="form-control" placeholder=""></textarea>
@@ -290,7 +254,7 @@
                                                         <button class="btn btn-success btn-success-add-ticket" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
                                                     </div>
                                                 </div>
-                                                <div class="add-clone hide">
+                                                <div class="add-clone hide" style="display:none">
                                                     <div class="control-group input-group" style="margin-top: 10px;">
                                                         <input type="file" name="filename[]" class="form-control" />
                                                         <div class="input-group-btn">
@@ -299,16 +263,22 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="modal-footer">
+                                                <div class="modal-footer ">
                                                     <input type="hidden" name="button_action" id="button_action" value="insert" />
                                                     <input type="submit" name="submit" id="action" value="Submit" class="btn btn-info" />
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
+
+                                            
                                         </form>
                                     </div>
                                 </div>
                             </div>
+
+
+
+                            
 
                             <div id="taskEditModal" class="modal fade" role="dialog">
                                 <div class="modal-dialog modal-lg">
@@ -329,22 +299,11 @@
                                                 <div class="panel panel-default">
                                                     <div class="panel-body">
                                                         <div class="content">
-                                                            {{--
-                                                            <h2 class="header">
-                                                                Vitae quia veniam delectus et similique eos eum.
-                                                                <span class="pull-right">
-                                                                    <a href="http://ticketit.kordy.info/tickets/3/reopen" class="btn btn-success">Reopen Ticket</a>
-                                                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ticket-edit-modal">
-                                                                        Edit
-                                                                    </button>
-                                                                    <a href="http://ticketit.kordy.info/tickets/3" class="btn btn-danger deleteit" form="delete-ticket-3" node="Vitae quia veniam delectus et similique eos eum.">Delete</a>
-                                                                </span>
-                                                            </h2>
-                                                            --}}
+                                                        
                                                             <div class="panel well well-sm popup-panel">
                                                                 <div class="panel-body">
                                                                     <div class="col-md-12">
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-6 mb-2">
                                                                             <p><strong>Owner</strong>: <span id="opened_by_name_view"></span></p>
                                                                             <p><strong>Department</strong>: <span id="category_veiw"></span></p>
                                                                             <p><strong>Created</strong>:</p>
@@ -354,7 +313,7 @@
                                                                             <p><strong>Impacted Customer</strong>:</p>
                                                                             <p id="impact_customer"></p>
                                                                         </div>
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-6 mb-2">
                                                                             <p><strong>Responsible</strong>: <span id="assigned_to_name_view"></span></p>
                                                                             <p>
                                                                                 <strong>Priority</strong>:
@@ -369,7 +328,7 @@
                                                                             <p><strong>Impacted User</strong>:</p>
                                                                             <p id="impact_user"></p>
                                                                         </div>
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-6 mb-2">
                                                                             <p><strong>Due Date</strong>: <span id="due_date_view"></span></p>
                                                                             <p><strong>Status</strong>: <span id="status_veiw"></span></p>
                                                                             <p><strong>Delayed Days</strong>: <span id="delayed_date_view"></span></p>
@@ -400,29 +359,27 @@
                                                             <input type="hidden" value="" id="category_id_new" />
                                                             <input type="hidden" name="task_name_hidden" id="task_name_hidden" value="" />
                                                             <div class="row">
-                                                                {{--
-                                                                <div class="col-md-4"><h4>Reply</h4></div>
-                                                                --}}
+                                                              
 
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6 mb-2">
                                                                     <label class="control-label label_cl" for="role_id">Status</label>
                                                                     <select name="response_status" id="response_status" class="form-control response_status status_position">
                                                                         <option value="" selected="selected">-- Update Status --</option>
+                                                                        <option value="6">Delayed</option>
+                                                                        <option value="7">Closed</option>
                                                                         <option value="12">Started</option>
-
                                                                         <option value="11">Assign To</option>
                                                                         <option value="13">Waiting for Testing</option>
-
                                                                         <option value="7">Closed</option>
                                                                     </select>
                                                                 </div>
-                                                                @if(Auth::user()->hasRole('Developer'))
-                                                                <div class="col-md-4" id="progress">
+                                                               
+                                                                <div class="col-md-6 mb-2" id="progress">
                                                                     <label class="control-label" for="role_id">Progress</label>
                                                                     <input type="number" name="progress" id="progress" class="form-control" />
                                                                 </div>
-                                                                @endif @if(Auth::user()->hasAnyPermission('Tickets Approval'))
-                                                                <div class="col-md-4" id="priority-change">
+                                                               
+                                                                <div class="col-md-6 mb-2" id="priority-change">
                                                                     <label class="control-label" for="priority">Priority</label>
                                                                     <select name="priority_change" id="priority_change" class="form-control">
                                                                         <option value="" selected="selected">-Select-</option>
@@ -431,20 +388,20 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                @endif
-                                                                <div class="col-md-4" style="display: none;" id="clarification_role_div">
+                                                              
+                                                                <div class="col-md-6 mb-2" id="clarification_role_div">
                                                                     <label class="control-label" for="clarification_role">Role</label>
                                                                     <select name="clarification_role" id="clarification_role" style="width: 100%;" class="form-control">
                                                                         <option value="">-- Select --</option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-md-4" style="display: none;" id="clarification_user_div">
+                                                                <div class="col-md-6 mb-2" id="clarification_user_div">
                                                                     <label class="control-label" for="clarification_to">User</label>
                                                                     <select name="clarification_to" id="clarification_to" style="width: 100%;" class="form-control">
                                                                         <option value="">-- Select --</option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6 mb-2">
                                                                     <div class="form-group ticket-delay-due-date">
                                                                         <label class="control-label" for="role_id">Revised Due Date</label>
                                                                         <div id="demo-dp-txtinput_duedate" class="input-group date">
@@ -458,23 +415,17 @@
 
                                                                         <select name="update_assigned_to" id="update_assigned_to" style="width: 100%;" class="form-control">
                                                                             <option value="" selected="selected">-- Select --</option>
-                                                                            <option value="1">Jagan Mohan</option>
-                                                                            <option value="40">Rashmi A</option>
-                                                                            <option value="1359">Santhosh Kumar</option>
-                                                                            <option value="1655">Jayanth T A</option>
-                                                                            <option value="1645">Nischitha S Katta</option>
-                                                                            <option value="1250">Ramanuja Akash R</option>
+                                                                                @foreach($users as $user)
+                                                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+
+                                                                                @endforeach
+                                                                           
                                                                         </select>
                                                                     </div>
-                                                                    <div class="assigned_to_optit_class">
-                                                                        <label class="control-label" for="role_id">User</label>
-                                                                        <select name="assigned_to_optit" id="assigned_to_optit" style="width: 100%;" class="form-control">
-                                                                            <option value="" selected="selected">-- Select --</option>
-                                                                        </select>
-                                                                    </div>
+                                                                  
                                                                 </div>
 
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-6 mb-2">
                                                                     <div class="assigned_to">
                                                                         <label class="control-label" for="role_id">Type</label>
 
@@ -490,16 +441,10 @@
                                                                             <option value="8">Others</option>
                                                                         </select>
                                                                     </div>
-                                                                    <div class="category_optit_class">
-                                                                        <label class="control-label" for="role_id">Category</label>
-
-                                                                        <select name="category_optit" id="category_optit" style="width: 100%;" class="form-control" onchange="categorychange()">
-                                                                            <option value="" selected="selected">-- Select --</option>
-                                                                        </select>
-                                                                    </div>
+                                                                   
                                                                 </div>
 
-                                                                <div class="col-md-4 approved_to" id="customer_name">
+                                                                <div class="col-md-6 mb-2 approved_to" id="customer_name">
                                                                     <label class="control-label" for="description">Customer Name </label>
                                                                     <select name="ref_client_id" id="ref_client_id" class="form-control">
                                                                         <option value="" selected="selected">-Select-</option>
@@ -510,67 +455,39 @@
                                                                     </select>
                                                                 </div>
 
-                                                                <div class="col-md-4 approved_to">
-                                                                    <label class="control-label" for="role_id">Duedate</label>
+                                                                <div class="col-md-6 mb-2 approved_to">
+                                                                    <label class="control-label" for="role_id">Due date</label>
                                                                     <div id="demo-dp-approved_duedate" class="input-group date">
                                                                         <input type="text" class="date form-control" name="update_due_date" id="update_due_date" placeholder="Duedate" value="" autocomplete="off" />
                                                                         <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="row">
+                                                         
                                                                 <div class="form-group approved_to">
-                                                                    <label class="control-label" for="role_id">Duedate</label>
+                                                                    <label class="control-label" for="role_id">Due date</label>
                                                                     <div id="demo-dp-approved_duedate" class="input-group date">
                                                                         <input type="text" class="date form-control" name="update_due_date" id="update_due_date" placeholder="Duedate" value="" autocomplete="off" />
                                                                         <span class="input-group-addon"><i class="demo-pli-calendar-4 jcal2"></i></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            -->
-                                                            <div class="col-md-4 approved_to margin_bottom" id="projects">
+                                                           
+                                                            <div class="col-md-6 mb-2 approved_to margin_bottom" id="projects">
                                                                 <label class="control-label" for="description">Project Name </label>
                                                                 <select name="project_list" id="project_list" class="form-control"> </select>
                                                             </div>
-                                                            <div class="col-md-4 approved_to margin_bottom" id="dept">
+                                                            <div class="col-md-6 mb-2 approved_to margin_bottom" id="dept">
                                                                 <label class="control-label" for="category_id">Department</label>
                                                                 <select name="category_id" id="department" class="form-control"> </select>
                                                             </div>
-                                                            <div class="col-md-4 approved_to margin_bottom" id="classification_use">
+                                                            <div class="col-md-6 mb-2 approved_to margin_bottom" id="classification_use">
                                                                 <label class="control-label" for="classification_use">Project/Production</label>
                                                                 <select class="js-example-basic-multiple" name="ticket_type" id="ticket_type1" style="width: 100%;"> </select>
                                                             </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-md-4 approved_to margin_bottom">
-                                                                <label class="control-label">Impacted Customer</label>
-                                                                <select class="form-control" name="customer_type" id="customer_type1" style="width: 100%;"> </select>
-                                                            </div>
-                                                            <div class="col-md-4 approved_to margin_bottom">
-                                                                <label class="control-label">Impacted User</label>
-                                                                <select class="form-control" name="user_type" id="user_type1" style="width: 100%;"> </select>
-                                                            </div>
-                                                            <div class="col-md-4 approved_to margin_bottom">
-                                                                <label class="control-label">Impacted Order</label>
-                                                                <select class="form-control" name="order_type" id="order_type1" style="width: 100%;"> </select>
-                                                            </div>
-                                                            {{--
-                                                            <div class="col-md-4"><h4>Reply</h4></div>
-                                                            --}}
-                                                            <div class="col-md-4 category_optit_class">
-                                                                <label class="control-label" for="role_id">Subcategory</label>
-                                                                <select name="optit_subcategory" id="optit_subcategory" style="width: 100%;" class="form-control" onchange="subcategory_change()">
-                                                                    <option value="" selected="selected">-- Select --</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-4 category_optit_class">
-                                                                <label class="control-label" for="role_id">Item</label>
-                                                                <select name="optit_item" id="optit_item" style="width: 100%;" class="form-control">
-                                                                    <option value="" selected="selected">-- Select --</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-4">
+                                                     
+                                                         
+                                                           
+                                                            <div class="col-md-6 mb-2">
                                                                 <div class="form-group assigned_to">
                                                                     <label class="control-label" for="role_id">Start date</label>
                                                                     <div id="demo-dp-txtinput_duedate" class="input-group date">
@@ -588,7 +505,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-6 mb-2">
                                                                 <div class="form-group assigned_to">
                                                                     <label class="control-label" for="role_id">End Date</label>
                                                                     <div id="demo-dp-txtinput_enddate" class="input-group date">
@@ -607,22 +524,10 @@
                                                                 </div>
                                                             </div>
 
-                                                            <label class="control-label" for="role_id">Type</label>
-                                                            <select name="update_type" id="update_type" style="width: 100%;" class="form-control update_type">
-                                                                <option value="" selected="selected">-- Select --</option>
-                                                                <option value="1">General</option>
-                                                                <option value="2">Enchancement</option>
-                                                                <option value="3">Bug</option>
-                                                                <option value="4">New Development</option>
-                                                                <option value="5">Reports</option>
-                                                                <option value="6">New Product</option>
-                                                                <option value="7">Integration</option>
-                                                                <option value="8">Others</option>
-                                                            </select>
                                                         </div>
-                                                        -->
+                                                        
 
-                                                        <div class="col-md-4 assigned_to">
+                                                        <div class="col-md-6 mb-2 assigned_to">
                                                             <label class="control-label" for="role_id">Effort</label>
                                                             <select name="effort" id="effort" style="width: 100%;" class="form-control">
                                                                 <option value="" selected="selected">-- Select --</option>
@@ -632,17 +537,11 @@
                                                             </select>
                                                         </div>
 
-                                                        <label class="control-label" for="role_id">Resouce</label>
-                                                        <select name="resource" id="resource" style="width: 100%;" class="form-control">
-                                                            <option value="" selected="selected">-- Select --</option>
-                                                            <option value="1">Internale</option>
-                                                            <option value="2">External</option>
-                                                        </select>
                                                     </div>
-                                                    -->
+                                                 
                                                 </div>
                                                 <div class="row margin_bottom">
-                                                    <div class="col-md-4 assigned_to margin_left">
+                                                    <div class="col-md-6 mb-2 assigned_to margin_left">
                                                         <label class="control-label" for="role_id">Testing required</label>
                                                         <select name="testing_needed" id="testing_needed" style="width: 100%;" class="form-control">
                                                             <option value="" selected="selected">-- Select --</option>
@@ -652,7 +551,7 @@
                                                     </div>
                                                 </div>
 
-                                                <textarea id="demo-summernote-ticket" name="taskcomments" rows="3" class="form-control taskcomments" placeholder=""></textarea>
+                                                <textarea id="demo-summernote-ticket" name="taskcomments" rows="3" class="form-control mb-2 taskcomments" placeholder=""></textarea>
 
                                                 <div class="input-group control-group increment-ticket">
                                                     <input type="file" name="filename[]" class="form-control" />
@@ -660,7 +559,7 @@
                                                         <button class="btn btn-success btn-success-ticket" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
                                                     </div>
                                                 </div>
-                                                <div class="clone hide">
+                                                <div class="clone hide" style="display:none">
                                                     <div class="control-group input-group" style="margin-top: 10px;">
                                                         <input type="file" name="filename[]" class="form-control" />
                                                         <div class="input-group-btn">
@@ -670,18 +569,11 @@
                                                 </div>
                                             </div>
 
-                                            {{--
-                                            <div class="row">
-                                                <div class="col-md-4 text-left">
-                                                    <select name="response_status" id="response_status" class="form-control">
-                                                        <option value="" selected="selected">-- Update Status --</option>
+                                           
+                                            <div class="row" style="display:none">
+                      
 
-                                                        <option value="6">Delayed</option>
-                                                        <option value="7">Closed</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-md-4 text-right">
+                                                <div class="col-md-6 mb-2 text-right">
                                                     <div class="form-group delay-due-date">
                                                         <div id="demo-dp-txtinput_duedate" class="input-group date">
                                                             <input type="text" class="date form-control" name="updated_due_date" id="updated_due_date" placeholder="Select Revised Due Date" value="" autocomplete="off" />
@@ -690,15 +582,14 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-4 text-right">
+                                                <div class="col-md-6 mb-2 text-right">
                                                     <input class="btn btn-primary text-right" type="submit" value="Submit" />
                                                 </div>
                                             </div>
-                                            --}} {{-- end new edit page --}}
+                                          
 
                                             <div class="modal-footer">
                                                 <input type="hidden" name="ticket_assign_id" id="ticket_assign_id" value="" />
-                                                {{-- <input type="hidden" name="tasktype" id="tasktype" value="" /> --}}
                                                 <input type="hidden" name="ticketresponse_button_action" id="ticketresponse_button_action" value="insert" />
                                                 <input type="submit" name="submit" id="ticketresponse_action" value="Save" class="btn btn-info" />
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -917,27 +808,27 @@
                                         // $('.modal-title').text('Order Book');
                                     });
 
-                                    $("#role_id").change(function () {
-                                        var role_id = $(this).val();
+                                    // $("#role_id").change(function () {
+                                    //     var role_id = $(this).val();
 
-                                        $("#assigned_to").empty();
-                                        $("#assigned_to").append('<option value="" >-Select-</option>');
+                                    //     $("#assigned_to").empty();
+                                    //     $("#assigned_to").append('<option value="" >-Select-</option>');
 
-                                        if (role_id != "") {
-                                            $.ajax({
-                                                url: "{{ route('users.getusersbyrole') }}",
-                                                method: "GET",
-                                                data: { role_id: role_id },
-                                                success: function (result) {
-                                                    //$('#county').html(result);
+                                    //     if (role_id != "") {
+                                    //         $.ajax({
+                                    //             url: "{{ route('users.getusersbyrole') }}",
+                                    //             method: "GET",
+                                    //             data: { role_id: role_id },
+                                    //             success: function (result) {
+                                    //                 //$('#county').html(result);
 
-                                                    $.each(result, function (key, value) {
-                                                        $("#assigned_to").append('<option value="' + key + '">' + value + "</option>");
-                                                    });
-                                                },
-                                            });
-                                        }
-                                    });
+                                    //                 $.each(result, function (key, value) {
+                                    //                     $("#assigned_to").append('<option value="' + key + '">' + value + "</option>");
+                                    //                 });
+                                    //             },
+                                    //         });
+                                    //     }
+                                    // });
 
                                     $("#filter_role_id").change(function () {
                                         var role_id = $(this).val();
@@ -988,13 +879,7 @@
                                                     $("#button_action").val("insert");
                                                     $("#assign_task_table").DataTable().ajax.reload();
                                                     $("#assignTaskEditModal").modal("hide");
-                                                    $.niftyNoty({
-                                                        type: "success",
-                                                        icon: "pli-like-2 icon-2x",
-                                                        message: "Updated Successfully",
-                                                        container: "floating",
-                                                        timer: 3000,
-                                                    });
+                                                   
 
                                                     window.location.href = "{{ route('tickets',['status' => 'Open-1'])}}";
                                                 }
@@ -1373,34 +1258,28 @@
                                                     $("#ticketresponse_action").val("Add");
                                                     $(".modal-title").text("Add Data");
                                                     $("#ticketresponse_button_action").val("insert");
-                                                    //$('#assign_task_table').DataTable().ajax.reload();
+                                                    $('#assign_task_table').DataTable().ajax.reload();
                                                     $("#taskEditModal").modal("hide");
 
-                                                    // if(data.responsedata.length > 0){
+                                                    if(data.responsedata.length > 0){
 
-                                                    //   $("."+tasktype).empty();
-                                                    //   $.each(data.responsedata,function(key,value){
-                                                    //       $("."+tasktype).append('<div class="list-group" style="padding: 0px"><div class="list-group-item" style="border: 0px; border-bottom: 1px solid;    padding: 10px 15px 5px 15px;"><span class="badge bg-info task-edit"  data-task="'+tasktype+'" id="'+value.id+'" style="font-size: 1.2em; cursor: pointer;">Action</span><p style="margin-bottom: 0px">'+value.task_name+'</p></div> <div class="list-group-item" style="border: 0px; padding: 5px 15px 10px 15px"><span class="badge bg-default" style="background: transparent;color: #ccc;">'+value.due_date+'</span><p style="margin-bottom: 0px; color: #ccc;">Assigned by:'+value.fullname+'</p></div><hr style="margin: 0.5rem auto;"></div>');
-                                                    //   });
-                                                    // }else if(response_status ==2){
-                                                    //        var tasktext = "No Tasks";
-                                                    //        if(tasktype=="overduetasks"){
-                                                    //          tasktext = "No Overdue Tasks";
-                                                    //        }else if(tasktype=="todaytasks"){
-                                                    //          tasktext = "No Tasks for the day";
-                                                    //        }else if(tasktype=="upcomingtasks"){
-                                                    //           tasktext = "No Upcoming Tasks";
-                                                    //        }
-                                                    //        $("."+tasktype).html('<br/><center><img src="{{ asset('img/notasks.png') }}" style="width:100px" class="img-responsive" /></center><p style="text-align: center;font-size: 16px; font-weight: bold;">'+tasktext+'</p>');
-                                                    // }
+                                                      $("."+tasktype).empty();
+                                                      $.each(data.responsedata,function(key,value){
+                                                          $("."+tasktype).append('<div class="list-group" style="padding: 0px"><div class="list-group-item" style="border: 0px; border-bottom: 1px solid;    padding: 10px 15px 5px 15px;"><span class="badge bg-info task-edit"  data-task="'+tasktype+'" id="'+value.id+'" style="font-size: 1.2em; cursor: pointer;">Action</span><p style="margin-bottom: 0px">'+value.task_name+'</p></div> <div class="list-group-item" style="border: 0px; padding: 5px 15px 10px 15px"><span class="badge bg-default" style="background: transparent;color: #ccc;">'+value.due_date+'</span><p style="margin-bottom: 0px; color: #ccc;">Assigned by:'+value.fullname+'</p></div><hr style="margin: 0.5rem auto;"></div>');
+                                                      });
+                                                    }else if(response_status ==2){
+                                                           var tasktext = "No Tasks";
+                                                           if(tasktype=="overduetasks"){
+                                                             tasktext = "No Overdue Tasks";
+                                                           }else if(tasktype=="todaytasks"){
+                                                             tasktext = "No Tasks for the day";
+                                                           }else if(tasktype=="upcomingtasks"){
+                                                              tasktext = "No Upcoming Tasks";
+                                                           }
+                                                           $("."+tasktype).html('<br/><center><img src="{{ asset('img/notasks.png') }}" style="width:100px" class="img-responsive" /></center><p style="text-align: center;font-size: 16px; font-weight: bold;">'+tasktext+'</p>');
+                                                    }
 
-                                                    $.niftyNoty({
-                                                        type: "success",
-                                                        icon: "pli-like-2 icon-2x",
-                                                        message: "Updated Successfully",
-                                                        container: "floating",
-                                                        timer: 3000,
-                                                    });
+                                                   
                                                     window.location.href = "{{ route('tickets',['status' => 'Open-1'])}}";
                                                 }
                                             },

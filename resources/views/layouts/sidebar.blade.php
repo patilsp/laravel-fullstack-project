@@ -545,7 +545,7 @@
                   </div>
 
                   <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
-                    <span class="menu-link menu-center">
+                    <span class="menu-link">
                       <span class="menu-icon me-0">
                         <img alt="menu-icon" src="{{ url('assets/media/svg/icons/bar-chart.svg') }}" class="h-40px" />
                       </span>
@@ -581,7 +581,7 @@
 
                   <div class="menu-item py-2">
                     <a class="menu-link" href="help.html">
-                      <span class="menu-link menu-center">
+                      <span class="menu-link">
                         <span class="menu-icon me-0">
                             <img alt="menu-icon" src="{{ url('assets/media/svg/icons/globe.svg') }}" class="h-40px" />
                         </span>
@@ -590,7 +590,7 @@
                   </div>
                   <div class="menu-item py-2">
                     <a class="menu-link" href="setting.html">
-                      <span class="menu-link menu-center">
+                      <span class="menu-link">
                         <span class="menu-icon me-0">
                           <img alt="menu-icon" src="{{ url('assets/media/svg/icons/setting.svg') }}" class="h-40px" />
                         </span>

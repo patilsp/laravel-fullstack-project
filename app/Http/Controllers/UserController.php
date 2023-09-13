@@ -24,21 +24,13 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$users = User::orderBy('firstname', 'ASC')
+		$users = User::orderBy('id', 'ASC')
 						->where('deleted','!=',1)
 						->get();
-
-
-        $projects = Project::all();
-		
+        $projects = Project::all();		
 		$customers = Customer::all();
 		$projects = Project::all();
-		
-	
-				
 		$roles = Role::all();
-
-
 		return view('users.index', compact('users', 'roles',  'locations', 'customers','projects','starters'));
 	}
 
@@ -106,17 +98,13 @@ class UserController extends Controller {
 		->leftjoin('users', 'skills.user_id', '=', 'users.id')
 		->leftjoin('roles', 'skills.role_id', '=', 'roles.id')
 		->select('users.id', 'users.firstname as firstname', 'users.lastname as lastname', 'users.employee_id as employee_id')
-		//->where('roles.employee_role', '=', 2)
 		->where('skills.role_id', '>', 2)
-		//->where('skills.role_id', '=', 17)
 		->orderBy('skills.id', 'desc')
 		->get();
 		$accountManager = DB::table('skills')
 		->leftjoin('users', 'skills.user_id', '=', 'users.id')
 		->leftjoin('roles', 'skills.role_id', '=', 'roles.id')
 		->select('users.id', 'users.firstname as firstname', 'users.lastname as lastname', 'users.employee_id as employee_id')
-		//->where('skills.role_id', '=', 12)
-		//->where('roles.employee_role', '=', 1)
 		->where('skills.role_id', '>', 4)
 		->orderBy('skills.id', 'desc')
 		->get();
@@ -365,8 +353,10 @@ class UserController extends Controller {
  
         
          $data = User::join('model_has_roles','users.id','=','model_has_roles.model_id')
-         ->join('roles','model_has_roles.role_id','=','roles.id')->select('users.*', 'roles.name as rolename','users.id as uid', DB::raw("CONCAT(firstname,' ',lastname,' - ',employee_id) AS name"), DB::raw('CONCAT("#EMP", users.id) AS employee_id'))->orderBy('users.id', 'DESC')->where('users.deleted','!=',1)->get();
-         foreach($data as $key => $value) {
+         ->join('roles','model_has_roles.role_id','=','roles.id')->select('users.*', 'users.profile_image as profileImage', 'roles.name as rolename','users.id as uid', DB::raw("CONCAT(firstname,' ',lastname) AS name"), DB::raw('CONCAT("#EMP", users.id) AS employee_id'))->orderBy('users.id', 'DESC')->where('users.deleted','!=',1)->get();
+
+	       
+		 foreach($data as $key => $value) {
              $data[$key]['rolename'] = $value->rolename;
          }
  
@@ -380,9 +370,11 @@ class UserController extends Controller {
              return $data;
          });
  
-         return Datatables::of($data)->addColumn('action', function ($data) {
-             return '<a href="#" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto edit" id="' . $data->id . '"><i class="bi bi-pencil"></i></a>&nbsp;&nbsp;<a href="#" class="btn btn-icon btn-active-light-danger w-30px h-30px ms-auto delete" id="' . $data->id . '"><i class="bi bi-trash"></i></a>';
-         })->make(true);
+		 return Datatables::of($data)->addColumn('action', function ($data) {
+			return '<a href="' . route('userprofile.index') . '" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto edit" id="' . $data->id . '"><i class="bi bi-pencil"></i></a>
+			&nbsp;&nbsp;<a href="#" class="btn btn-icon btn-active-light-danger w-30px h-30px ms-auto delete" id="' . $data->id . '"><i class="bi bi-trash"></i></a>';
+		})->make(true);
+		
      }
  
 

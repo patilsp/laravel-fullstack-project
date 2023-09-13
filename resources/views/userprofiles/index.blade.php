@@ -19,57 +19,37 @@
                     </div>
 
                     <div class="card-body text-center pt-0">
-                        <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
-                            <div class="image-input-wrapper w-150px h-150px" style="background-image: url(assets/media/avatars/1.png);"></div>
 
-                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-                                <i class="bi bi-pencil fs-7"></i>
+                            <form method="POST" action="{{ route('updateProfile') }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT') 
+                                <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
+                                    <div class="image-input-wrapper w-150px h-150px mb-4">
+                                    @if (Auth::user()->profile_image)
+                                        <img src="{{ asset('storage/assets/profile_images/' . Auth::user()->profile_image) }}" class="image-input-wrapper w-150px h-150px" alt="Profile Image">
+                                    @else
+                                        <img src="{{ asset('storage/assets/profile_images/avatar.jpg') }}" class="image-input-wrapper w-150px h-150px" alt="Default Avatar">
+                                    @endif
 
-                                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                                <input type="hidden" name="avatar_remove" />
-                            </label>
+                                </div>
 
-                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
-                                <i class="ki-outline ki-cross fs-2"></i>
-                            </span>
+                                <div >
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                    <i class="bi bi-pencil fs-7" style="margin-left: 30px"></i>
+                                    <input type="file" class="form-control" id="profile_image" name="profile_image">
+                                    </label>
+                                    @error('profile_image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
-                                <i class="ki-outline ki-cross fs-2"></i>
-                            </span>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
                         </div>
 
-                        <div class="text-muted fs-7">Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                        <div class="text-muted fs-7">Set the user thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
                     </div>
                 </div>
-
-                <!-- <div class="card card-flush py-4">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <h2>Status</h2>
-                        </div>
-
-                        <div class="card-toolbar">
-                            <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
-                        </div>
-                    </div>
-
-                    <div class="card-body pt-0">
-                        <select class="form-select mb-2" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_product_status_select">
-                            <option></option>
-                            <option value="published" selected>Published</option>
-                            <option value="draft">Draft</option>
-                            <option value="scheduled">Scheduled</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
-
-                        <div class="text-muted fs-7">Set the product status.</div>
-
-                        <div class="d-none mt-10">
-                            <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing date and time</label>
-                            <input class="form-control" id="kt_ecommerce_add_product_status_datepicker" placeholder="Pick date & time" />
-                        </div>
-                    </div>
-                </div> -->
 
             </div>
 
@@ -91,21 +71,21 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="user_info" role="tab-panel">
                         <div class="d-flex flex-column gap-7 gap-lg-10">
-                            <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+                            <div class="card mb-5 mb-xl-10" >
                                 <div class="card-header cursor-pointer">
                                     <div class="card-title m-0">
                                         <h3 class="m-0">Profile Details</h3>
                                     </div>
-
-                                    <a href="#" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
                                 </div>
 
                                 <div class="card-body p-9">
+
+
                                     <div class="row mb-7">
                                         <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
 
                                         <div class="col-lg-8">
-                                            <span class="fs-6 text-gray-800">{{ Auth::user()->firstname }}  {{ Auth::user()->lastname }}</span>
+                                            <span class="fs-6 text-gray-800">First Name - Last name</span>
                                         </div>
                                     </div>
 
@@ -176,70 +156,24 @@
                             </div>
 
                             <div id="kt_account_settings_profile_details" class="collapse show">
-                                <form id="user_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+                                <form id="user_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework">
                                     {{csrf_field()}}
                                     <span id="form_output"></span>
                                     <div class="card-body border-top p-9">
 
                                   
                                         <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label fw-semibold fs-6">Avatar</label>
-
-                                            <div class="col-lg-8">
-                                                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('/metronic8/demo50/assets/media/svg/avatars/blank.svg');">
-                                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/1.jpg);"></div>
-
-                                                    <label
-                                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                        data-kt-image-input-action="change"
-                                                        data-bs-toggle="tooltip"
-                                                        aria-label="Change avatar"
-                                                        data-bs-original-title="Change avatar"
-                                                        data-kt-initialized="1"
-                                                    >
-                                                        <i class="bi bi-pencil fs-7"></i>
-                                                        <input type="file" name="user_avatar" id="user_avatar" accept=".png, .jpg, .jpeg" />
-                                                    </label>
-
-                                                    <span
-                                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                        data-kt-image-input-action="cancel"
-                                                        data-bs-toggle="tooltip"
-                                                        aria-label="Cancel avatar"
-                                                        data-bs-original-title="Cancel avatar"
-                                                        data-kt-initialized="1"
-                                                    >
-                                                        <i class="bi bi-x-lg fs-2"></i>
-                                                    </span>
-
-                                                    <span
-                                                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                        data-kt-image-input-action="remove"
-                                                        data-bs-toggle="tooltip"
-                                                        aria-label="Remove avatar"
-                                                        data-bs-original-title="Remove avatar"
-                                                        data-kt-initialized="1"
-                                                    >
-                                                        <i class="ki-outline ki-cross fs-2"></i>
-                                                    </span>
-                                                </div>
-
-                                                <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label required fw-semibold fs-6">Full Name</label>
 
                                             <div class="col-lg-8">
                                                 <div class="row">
                                                     <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                                                        <input type="text" name="firstname" id="firstname" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="Max" />
+                                                        <input type="text" name="firstname" id="firstname" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="" />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
 
                                                     <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                                                        <input type="text" name="lastname" id="lastname" class="form-control form-control-lg form-control-solid" placeholder="Last name" value="Smith" />
+                                                        <input type="text" name="lastname" id="lastname" class="form-control form-control-lg form-control-solid" placeholder="Last name" value="" />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                 </div>
@@ -247,11 +181,30 @@
                                         </div>
 
                                         <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Role</label>
+                                            <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                                                <span class="required">Email Address</span>
+                                            </label>
 
                                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                <input type="text" name="role_id" class="form-control form-control-lg form-control-solid" placeholder="Role name" value="1" />
+                                                <input type="tel" name="email" class="form-control form-control-lg form-control-solid" placeholder="Email" value="" />
                                                 <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Role Name</label>
+
+                                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                            <div class="user_User w-px-200 pb-3 pb-sm-0 me-2">
+                                                <select id="role_id" class="form-select text-capitalize">
+                                                    <option value=""> Select Role </option>
+                                                    @foreach ($roles as $role)
+                                                    <option class="text-capitalize" value="{{ $role->id }}">{{ $role->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+    
                                             </div>
                                         </div>
 
@@ -265,7 +218,7 @@
                                             </label>
 
                                             <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                                <input type="tel" name="phone" class="form-control form-control-lg form-control-solid" placeholder="Phone number" value="9876543210" />
+                                                <input type="tel" name="phone" class="form-control form-control-lg form-control-solid" placeholder="Phone number" value="" />
                                                 <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                             </div>
                                         </div>
@@ -352,14 +305,14 @@
 
   <script type="text/javascript">
 
-    // $(document).on("click", "#add_data", function () {
+    $(document).on("click", "#add_data", function () {
         
-    //     $("#user_profile_details_form")[0].reset();
-    //     $("#form_output").html("");
-    //     $("#button_action").val("insert");
-    //     $("#action").val("Add");
-    //     $(".modal-title").text("Add a Customer");
-    // });
+        $("#user_profile_details_form")[0].reset();
+        $("#form_output").html("");
+        $("#button_action").val("insert");
+        $("#action").val("Add");
+        $(".modal-title").text("Add a User");
+    });
 
 
     $(document).ready(function () {
@@ -367,13 +320,13 @@
         function setupFormValidation(form) {
             formValidator = FormValidation.formValidation(form, {
                 fields: {
-                        // name: {
-                        //     validators: {
-                        //         notEmpty: {
-                        //             message: "Customer name is required",
-                        //         },
-                        //     },
-                        // },
+                    // name: {
+                    //     validators: {
+                    //         notEmpty: {
+                    //             message: "Customer name is required",
+                    //         },
+                    //     },
+                    // },
                    
                 },
                 plugins: {
@@ -395,12 +348,6 @@
                 if (status === "Valid") {
                     const form_data = new FormData(form);
 
-                    const profilePicInput = document.getElementById("user_avatar");
-                    if (profilePicInput.files.length > 0) {
-                        form_data.append("profile_pic", profilePicInput.files[0]);
-                    }
-
-                    
                     $.ajax({
                         url: "{{ route('userprofile.store') }}",
                         type: "POST",

@@ -24,6 +24,8 @@ class TicketController extends Controller {
      */
     public function index(Request $request) {
         $user = Auth::user();
+        $users = User::orderBy('id', 'desc')->get();
+        
         $roles = Role::orderBy('hierarchy', 'desc')->get();
         $this->userid = $user->id;
         
@@ -285,7 +287,7 @@ class TicketController extends Controller {
         $status = $request->status;
         $sname = explode("-", $status);
         $statusname = $sname[0];
-        $clients = DB::table("tk_projects")
+        $clients = DB::table("projects")
                    ->get();
 
         $techteam = $this->gettechteammembers();
@@ -295,7 +297,7 @@ class TicketController extends Controller {
         $impacted_user = DB::table('ticket_impacted_user')->get();
         $impacted_orders = DB::table('ticket_impacted_orders')->get();
 
-        return view('tickets.index', compact('roles', 'prorites', 'categories', 'project_list', 'status', 'usertickets_open','usertickets_closed','othertickets','othertickets_open','approve','assgin','restrict','statusname','customers','completed_ticket','claification_ticket','claification_res','clients','techteam','developers','reviewticket','widgets','user_role','impacted_task_type','impacted_customer','impacted_user','impacted_orders'));
+        return view('tickets.index', compact('roles', 'prorites', 'categories', 'project_list', 'status', 'usertickets_open','usertickets_closed','othertickets','othertickets_open','approve','assgin','restrict','statusname','customers','completed_ticket','claification_ticket','claification_res','clients','techteam','developers','reviewticket','widgets','user_role','impacted_task_type','impacted_customer','impacted_user','impacted_orders','users'));
     }
 
     /**
@@ -324,12 +326,8 @@ class TicketController extends Controller {
         } else {
             $validation = Validator::make($request->all(), [
                 'title' => 'required',
-                'category_id' => 'required',
-
-                // 'assigned_to' => 'required',
-                // 'priority_id' => 'required',
-                // 'description' => 'required',
-                // 'due_date' => 'required',
+                'assigned_to' => 'required',
+                'due_date' => 'required',
                 'filename.*' => 'mimes:jpeg,png,xls,xlsx,pdf,doc,docx,jpg,txt,ppt,pptx',
             ]);
         }
@@ -349,13 +347,6 @@ class TicketController extends Controller {
                 $project = NULL;
             }
 
-            // if (isset($request->classification)) {
-            //  $classification = $request->classification;
-            //  $priority = '4';
-            // } else {
-            //  $classification = NULL;
-            //  $priority = $request->priority_id;
-            // }
             $duedate = Carbon::parse($request->due_date." 23:59:59")->format('Y-m-d H:i:s');
             if (isset($request->ticket_type) && $user->hasPermissionTo('Tickets Approval')) {
                 $ticket_type = $request->ticket_type;
@@ -512,6 +503,9 @@ class TicketController extends Controller {
             
 
         } else if ($request->get('ticketresponse_button_action') == 'insert') {
+
+           
+
             if ($request->priority_change != '' && $request->response_status == '') {
                 $validation = Validator::make($request->all(), [
                     'taskcomments' => 'required',
@@ -664,26 +658,25 @@ class TicketController extends Controller {
                 } else {
                     $update["assigned_to"] = $ticket_info->assigned_to;
                 }
-                if ($request->ref_client_id != '') {
-                    $update["reg_client_id"] = $request->ref_client_id;
-                } else {
-                    $update["reg_client_id"] = $ticket_info->reg_client_id;
-                }
-                // if ($request->priority_id != '') {
-                //  $update["priority_id"] = $request->priority_id;
+                // if ($request->ref_client_id != '') {
+                //     $update["reg_client_id"] = $request->ref_client_id;
                 // } else {
-                //  $update["priority_id"] = $ticket_info->priority_id;
+                //     $update["reg_client_id"] = $ticket_info->reg_client_id;
                 // }
-                if ($request->project_list != '') {
-                    $update["project_id"] = $request->project_list;
-                    $resource = DB::table("tk_projects")
-                                ->where("id",$request->project_list)
-                                ->select("resource")
-                                ->first();
-                    $update["resource"] = $resource->resource;
+                if ($request->priority_id != '') {
+                 $update["priority_id"] = $request->priority_id;
+                } else {
+                 $update["priority_id"] = $ticket_info->priority_id;
+                }
+
+                if ($request->project_id != '') {
+                    $update["project_id"] = $request->project_id;
                 } else {
                     $update["project_id"] = $ticket_info->project_id;
                 }
+               
+              
+               
                 if ($request->start_date != '') {
                     $update["started_date"] = Carbon::parse($request->start_date)->format('Y-m-d');
                 } else {
@@ -923,7 +916,7 @@ class TicketController extends Controller {
                             $input1['update_type'] =$request->update_type;
                     }
                     // Updating table when the status is slected as approved
-                    if($status_code == 'AP'){
+              
                         $input1['priority_id'] = $request->priority_id;
                         if (isset($request->update_due_date)) {
                             $input1['due_date'] = Carbon::parse($request->update_due_date)->format('Y-m-d');
@@ -931,7 +924,7 @@ class TicketController extends Controller {
                         $input1['reg_client_id'] = $request->ref_client_id;
                         
 
-                    }
+                  
 
                     if($status_code=='ST'){
                             $input1['started_date'] = Carbon::now();
@@ -966,15 +959,15 @@ class TicketController extends Controller {
 
                         $dbfilenames[] = $dbfilename;
 
-                        //  $filename = $file->store('tickets', $name);
-                        $filename = $file->storeAs('tickets', $dbfilename);
-                        // Document::create([
-                        //     'document_type_id' => '10',
-                        //     'refrowid' => $request->get('customer_id'),
-                        //     'actual_filename' => $name,
-                        //     'ref_filename' => $filename,
-                        //     'description' => '',
-                        // ]);
+                        $filename = $file->store('tickets', $name);
+                        // $filename = $file->storeAs('tickets', $dbfilename);
+                        Document::create([
+                            'document_type_id' => '10',
+                            'refrowid' => $request->get('customer_id'),
+                            'actual_filename' => $name,
+                            'ref_filename' => $filename,
+                            'description' => '',
+                        ]);
                     }
                 }
 
@@ -993,35 +986,25 @@ class TicketController extends Controller {
                 'notification_to' => $notification_to,
                 'status_id' => $request->response_status,
             ]);
-
-            // if ($request->get('response_status') == 2) {
-            //   $task = Ticket::where('id', $input['task_assign_id'])
-            //     ->update(['task_status' => 2]);
-            //   //$task = TaskAssign::create($input);
-            //   $tasktype = $input['tasktype'];
-            //   if ($tasktype == "overduetasks") {
-            //     $logic = "<";
-            //   } else if ($tasktype == "todaytasks") {
-            //     $logic = "=";
-            //   } else {
-            //     $logic = ">";
-            //   }
-            //   $response_array = Ticket::join('users', 'task_assign.opened_by', '=', 'users.id')
-            //     ->select('task_assign.id', 'task_assign.task_name', 'task_assign.due_date', DB::raw('CONCAT(users.firstname, " ", users.lastname) AS fullname'))
-            //     ->where('assigned_to', $user->id)
-            //     ->where('due_date', $logic, $today)
-            //     ->whereIn('task_status', [0, 1])->get();
-            // }
+            
 
             $success_output = '<div class="alert alert-success">Data Inserted</div>';
 
         }
+
+        
+
         }
         $output = array(
             'error' => $error_array,
             'success' => $success_output,
             'responsedata' => $response_array,
         );
+
+
+
+        
+
         echo json_encode($output);
     
     }
@@ -1078,136 +1061,15 @@ class TicketController extends Controller {
             ->join('ticket_priorities', 'tickets.priority_id', '=', 'ticket_priorities.id')
             ->leftjoin('ticket_type', 'tickets.update_type', '=', 'ticket_type.id')
             ->leftjoin('tk_projects', 'tickets.project_id', '=', 'tk_projects.id')
+            ->leftjoin('projects', 'tickets.project_id', '=', 'projects.id')
             ->leftjoin('ticket_priorities as p', 'tickets.priority_id', '=', 'p.id')
             ->leftjoin('ticket_priorities as e', 'tickets.effort', '=', 'e.id')
             ->select(DB::raw('CONCAT("#TK", tickets.id) AS ticketid'),
-                'tickets.id', 'tickets.title', 'tickets.open_date', DB::raw('CONCAT(createduser.firstname, " ", createduser.lastname) AS opened_by_name'), 'due_date', 'description', DB::raw('CONCAT(assignuser.firstname, " ", assignuser.lastname) AS assigned_to_name'), 'ticket_statuses.name as task_status_name', 'ticket_priorities.name as priority', 'ticket_priorities.color as taskprioritycolor','ticket_type.type as tickettype','tickets.update_est_tat','p.name as priority_name','e.name as effort_name','tk_projects.project_name as projectname');
+                'tickets.id', 'tickets.title', 'tickets.open_date', DB::raw('CONCAT(createduser.firstname, " ", createduser.lastname) AS opened_by_name'), 'tickets.due_date', 'tickets.description', DB::raw('CONCAT(assignuser.firstname, " ", assignuser.lastname) AS assigned_to_name'), 'ticket_statuses.name as task_status_name', 'ticket_priorities.name as priority', 'ticket_priorities.color as taskprioritycolor','ticket_type.type as tickettype','tickets.update_est_tat','p.name as priority_name','e.name as effort_name','projects.project_name as projectname');
                 // ->where('ticket_statuses.alt_status', '=', $status[0]);
                 
 
-        if ($status == 'O') {
-            if($user->hasRole('Tester')) { 
-                $user_id = $user->id;
-                $data = $data->orWhere(function ($q) use ($user_id)  {
-                    $q->where('tickets.status_code', '=','TE')
-                      ->orwhere('tickets.status_code', '=','TES');
-                });
-                $data = $data->orWhere(function ($q) use ($user_id)  {
-                    $q->where('tickets.status_code', "!=",'CL')
-                      ->where('tickets.assigned_to', "=", $user_id);
-                });
-            } else {
-                $data->where('tickets.assigned_to', "=",$user->id);
-                $data->where('tickets.status_code', "!=",'CL');
-            }
-        }else if($status == 'CL') {
-            if($user->hasRole('IT Project Manager') || $user->hasRole('Master')) {
-                $data->where('tickets.status_code', "=",'CL');
-                $data->where('tickets.category_id', "=","1");
-            } else {
-                $data->where('tickets.status_code', "=",'CL');
-                $data->where('tickets.assigned_to', "=",$user->id);
-            }
-        } else if($status == 'REV') {
-            if($user->hasRole('IT Project Manager') || $user->hasRole('Master')) {
-                $data->where('tickets.status_code', "=",'REV');
-                $data->where('tickets.category_id', "=","1");
-                // $data->where('tickets.assigned_by', "=",$user->id);
-            } else {
-               $data->where('tickets.status_code', "=",'REV');
-                $data->where('tickets.assigned_by', "=",$user->id); 
-            }
-            
-        } else if($status == 'CLA') {
-            if($user->hasRole('IT Project Manager') || $user->hasRole('Master')) {
-                $data->where('tickets.status_code', "=",'CLA');
-                // $data->where('tickets.clarification_raised_to', "=",$user->id);
-            } else {
-                $data->where('tickets.status_code', "=",'CLA');
-                $data->where('tickets.clarification_raised_to', "=",$user->id);
-            }
-        } else if($status == 'CR') {
-            $data->where('tickets.status_code', "=",'CR');
-            $data->where('tickets.clarification_raised_by', "=",$user->id);
-        } else if($status == 'IN') {
-            $data->where('tickets.status_code', "=",'IN');
-        } else if($status == 'OO') {
-            $data->where('tickets.status_code', "!=",'CL');
-            $data->where('tickets.status_code', "!=",'H');
-            if ($user->hasPermissionTo('Tickets Approval')) {
-                    $data->where(function($q) use($user) {
-                        $q->whereNotNull("approver")
-                        ->orWhere('tickets.assigned_by','=',$user->id);
-                    });
-            } else if($user->hasRole('IT Project Manager') || $user->hasRole('Master')) {
-                // $data = $data->where('assigned_to', '!=', $user->id);
-                // $data = $data->where(function($q) use($user) {
-                //         $q->where("tickets.assigned_to","!=",'0')
-                //           ->orWhere('tickets.assigned_by', '=',  $user->id);
-                // });
-                $data = $data->where('tickets.status_code', "AT");
-                $data = $data->where("tickets.category_id","1");
-            } 
-            else {
-                $data->where('tickets.assigned_by', "=",$user->id);
-            }
-        } else if($status == 'OC') {
-            if ($user->hasRole('IT Project Manager') || $user->hasRole('Master')) {
-                $data->where('tickets.status_code', "=",'CL');
-                $data->where('tickets.category_id','1');
-                $data->where('assigned_to', '!=', $user->id);
-            } else {
-                $data->where('tickets.status_code', "=",'CL');
-                $data->where('tickets.assigned_by', "=",$user->id);
-            }
-        } else if($status == 'AP') {
-            $data->where('tickets.status_code', "=",'WA');
-        } else if($status == 'RE') {
-            $data->where('tickets.status_code', "=",'RE');
-            $data->where('tickets.assigned_to', "=",$user->id);
-        } else if($status == 'A') {
-            if ($user->hasRole('IT Project Manager') || $user->hasRole('Master')) {
-                $data->where(function($q) use($user) {
-                        $q->where('tickets.status_code', "=",'TA')
-                        ->orWhere('tickets.status_code', "=",'AP');
-                    });
-            } else {
-                $data->where('tickets.status_code', "=",'AP');
-            }
-            
-        } else if($status == 'DR') {
-            $data->where('tickets.status_code', "=",'DC');
-            $data->where('tickets.approver', "=",$user->id);
-        }  else if($status == 'DRE') {
-            $data->where('tickets.status_code', "=",'DR');
-        } else if($status == 'DAP') {
-            $data->where('tickets.status_code', "=",'DA');
-        } else if($status == 'HO') {
-            $data->where('tickets.status_code', "=",'H');
-            $data->where('tickets.category_id', "=",'1');
-        } else if($status == 'TS') {
-            $data->where(function($q) use($user) {
-                        $q->where('tickets.status_code', "=",'TES')
-                        ->orWhere('tickets.status_code', "=",'TE');
-                    });
-            $data->where('tickets.category_id', "=",'1');
-        } else if($status == 'YTS') {
-            $data->where('tickets.status_code', "=",'YS');
-            $data->where('tickets.category_id', "=",'1');
-        }
-        else {
-            if($user->hasRole('Tester')) { 
-                $user_id = $user->id;
-                $data->where('tickets.status_code', '=','TE');
-                $data = $data->orWhere(function ($q) use ($user_id)  {
-                    $q->where('tickets.status_code', "!=",'CL')
-                      ->where('tickets.assigned_to', "=", $user_id);
-                });
-            } else {
-                $data->where('tickets.assigned_to', "=",$user->id);
-                $data->where('tickets.status_code', "!=",'CL');
-            }
-        }
+      
 
         $data = $data->get();
         // dd(DB::getQueryLog());

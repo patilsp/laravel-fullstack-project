@@ -240,7 +240,7 @@
                                 <th class="min-w-50px sorting">ID</th>
                                 <th class="min-w-150px sorting">Role Name</th>
                                 <th class="min-w-150px sorting">DESCRIPTION</th>
-                                <th class="min-w-125px sorting">Joined Date</th>
+                                <th class="min-w-125px sorting">Created Date</th>
                                 <th class="text-end min-w-100px sorting_disabled"> Action</th>
                             </tr>
                         </thead>

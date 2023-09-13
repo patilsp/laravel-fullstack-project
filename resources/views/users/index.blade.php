@@ -28,25 +28,24 @@
             </div>
         </div>
 
-        <div class="card-body pt-0">
+        <div class="card-body pt-0 mt-2">
             <div class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <div class="table-responsive">
                     <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0 no-footer" id="users_table">
                         <thead>
                             <tr class="text-start text-muted fs-7 text-uppercase gs-0">
-                                <th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1">
+                                <th class="w-10px pe-2 sorting_disabled">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                         <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                                     </div>
                                 </th>
                                 <th class="min-w-150px sorting">User Name</th>
-                                <th class="min-w-150px sorting">Email Id</th>
                                 <th class="min-w-150px sorting">Employee Id</th>
                                 <th class="min-w-150px sorting">Role</th>
                                 <th class="min-w-150px sorting">Last Login</th>
 
                                 <th class="min-w-125px sorting">Joined Date</th>
-                                <th class="text-end min-w-100px sorting_disabled">Action</th>
+                                <th class="min-w-100px sorting_disabled">Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600"></tbody>
@@ -87,12 +86,12 @@
                     
                         <div class="row mb-2">
                             <div class="col-sm-6 col-12">
-                                <label class="required fs-6 mb-1">Full Name</label>
+                                <label class="required fs-6 mb-1">First Name</label>
                                 <input type="text" name="first_name" id="first_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" />
                                 <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                             </div>
                             <div class="col-sm-6 col-12">
-                                <label class="required fs-6 mb-1">Full Name</label>
+                                <label class="required fs-6 mb-1">Last Name</label>
                                 <input type="text" name="last_name" id="last_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" />
                                 <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                             </div>
@@ -101,6 +100,11 @@
                         <div class="row mb-2">
                             <div class="col-sm-6 col-12">
                                 <label class="required fs-6 mb-1">Email</label>
+                                <input type="email" name="email" id="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" />
+                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <label class="required fs-6 mb-1">Role</label>
                                 <input type="email" name="email" id="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" />
                                 <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                             </div>
@@ -158,8 +162,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#users_table").DataTable({
-            processing: true,
             searching: true,
+            search: {
+                caseInsensitive: true
+            },
+            processing: true,
             paging: true,
             pageLength: 10,
 
@@ -167,22 +174,55 @@
                 url: "{{ route('users.getall') }}",
             },
             columns: [
-                { data: "id" },
-                { data: "name" },
-                { data: "email" },
+                {
+                    data: null,
+                    render: function(data, type, full, meta) {
+                        // 'data' contains the user object, including profileImage and name
+                        return `
+                        <div class="w-10px pe-2 sorting_disabled">
+                                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                                <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
+                                            </div>
+                                        </div>
+                        `;
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, full, meta) {
+                        // 'data' contains the user object, including profileImage and name
+                        return `
+                            <div class="d-flex align-items-center">
+                                <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                    <a href="#">
+                                        <div class="symbol-label">
+                                            <img src="{{ asset('storage/assets/profile_images/') }}${data.profile_image}" alt="avatar" class="w-100">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <a href="#" class="text-gray-800 text-hover-primary mb-1">${data.name}</a>
+                                    <span>${data.email}</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                },
                 { data: "employee_id" },
                 { data: "rolename" },
                 { data: "formatted_updated_at" },
                 { data: "formatted_created_at" },
-                { data: "action", orderable: true, searchable: true },
+                { data: "action", orderable: true, searchable: true }
             ],
             columnDefs: [
                 {
-                    targets: "_all",
+                    targets: [0], // Apply the text-center class only to the first column
                     className: "text-center",
                 },
             ],
         });
+
+
     });
 
     $(document).on("click", "#add_data", function () {
